@@ -49,7 +49,6 @@ export default function HomePage() {
 
   return (
     <main className="flex flex-col items-center justify-start w-full overflow-hidden text-white relative">
-
       {/* ================= HERO SECTION ================= */}
       <section
         className="relative w-full min-h-[680px] lg:h-[1002px] overflow-hidden bg-cover bg-center bg-no-repeat"
@@ -59,8 +58,7 @@ export default function HomePage() {
         <div
           className="absolute inset-0 w-full h-full mix-blend-multiply"
           style={{
-            background:
-              "linear-gradient(180deg, #1F54A9 -2.56%, #000000 115.31%)",
+            background: "linear-gradient(180deg, #1F54A9 -2.56%, #000000 115.31%)",
           }}
         />
 
@@ -127,217 +125,204 @@ export default function HomePage() {
             className="-mt-49 max-w-4xl lg:max-w-[1023px]
             w-full h-auto aspect-[1023/944] relative min-h-[680px]"
           >
-            <img 
-
+            <img
               src="/players.png"
               alt="Player"
               className="absolute inset-0 w-full h-full object-contain  "
             />
-          
           </div>
         </div>
 
         {/* Fade effect into next section */}
-     {/* Seamless Fog Fade into White Section */}
-<div
-  className="
+        {/* Seamless Fog Fade into White Section */}
+        <div
+          className="
     absolute bottom-0 w-full 
     h-[280px] sm:h-[100px] 
     bg-gradient-to-t from-white via-white/90 to-transparent 
     pointer-events-none
   "
-  style={{
-    
-    paddingBottom:"200px",
-    transform: "translateY(0)",
-    zIndex:"1",
-  }}
-/>
-{/* <div>
+          style={{
+            paddingBottom: "200px",
+            transform: "translateY(0)",
+            zIndex: "1",
+          }}
+        />
+        {/* <div>
   color
 </div> */}
-
       </section>
 
       {/* ================= OVERLAPPING MIDDLE IMAGE ================= */}
-{/* ================= OVERLAPPING MIDDLE IMAGE ================= */}
-<div className="relative w-full flex justify-center" 
-style={{
-  height:"99px", 
-  backgroundColor:"#fff", 
-  // position:"absolute",
-  // marginTop:"1000px",
-  zIndex:"3",
-  }}>
-  <Image
-    src="football.png" // 👈 your image file
-    alt="Mid Overlap Image"
-    width={316.4822129201497}
-    height={186.00000274354937}
-    className="absolute z-20 -translate-y-1/2 object-contain"
-    style={{
-      width: "316.4822129201497px",
-      height: "186.00000274354937px",
-    }}
-  />
-  <div
-  style={{
-    backgroundColor: "grey",
-    opacity:"0.3",
-    marginTop:"70px",
-    width: "220px",
-    height: "28px",
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-    color: "white",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "50%",
-  }}
->
-</div>
-</div>
- 
-
-
-
-
+      {/* ================= OVERLAPPING MIDDLE IMAGE ================= */}
+      <div
+        className="relative w-full flex justify-center"
+        style={{
+          height: "99px",
+          backgroundColor: "#fff",
+          // position:"absolute",
+          // marginTop:"1000px",
+          zIndex: "3",
+        }}
+      >
+        <Image
+          src="football.png" // 👈 your image file
+          alt="Mid Overlap Image"
+          width={316.4822129201497}
+          height={186.00000274354937}
+          className="absolute z-20 -translate-y-1/2 object-contain"
+          style={{
+            width: "316.4822129201497px",
+            height: "186.00000274354937px",
+          }}
+        />
+        <div
+          style={{
+            backgroundColor: "grey",
+            opacity: "0.3",
+            marginTop: "70px",
+            width: "220px",
+            height: "28px",
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "50%",
+          }}
+        ></div>
+      </div>
 
       {/* ================= TRENDING SECTION ================= */}
-   {/* ================= TRENDING SECTION ================= */}
-<section className="relative bg-white text-black w-full py-6 px-4 sm:px-8 md:px-16 lg:px-[134px] overflow-hidden">
-  {/* Background "TRENDING" Text */}
-<h1
-  className="absolute top-0 left-0 -translate-y-[40%]
+      {/* ================= TRENDING SECTION ================= */}
+      <section className="relative bg-white text-black w-full py-6 px-4 sm:px-8 md:px-16 lg:px-[134px] overflow-hidden">
+        {/* Background "TRENDING" Text */}
+        <h1
+          className="absolute top-0 left-0 -translate-y-[40%]
              text-left whitespace-nowrap 
              text-[80px] sm:text-[140px] md:text-[200px] lg:text-[250px] 
              leading-none font-medium uppercase 
              text-[#BAB8B8] opacity-20 pointer-events-none select-none z-0 pl-[20px] sm:pl-[60px] lg:pl-[134px]"
-  style={{ fontFamily: 'ITC Machine Std, sans-serif', paddingTop:"150px"}}
->
-  Trending
-</h1>
-
-
-  {/* Header */}
-  <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between mb-10 md:mb-16 gap-6 w-full">
-    <h2
-      className="text-[24px] sm:text-[32px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight"
-      style={{ fontFamily: "DM Sans, sans-serif" }}
-    >
-      Trending News
-    </h2>
-    <a
-      href="#"
-      className="text-[#262626] text-[16px] sm:text-[18px] font-[700] hover:underline transition"
-      style={{ fontFamily: "DM Sans, sans-serif" }}
-    >
-      See all &gt;
-    </a>
-  </div>
-
-  {/* News Cards */}
-  <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 justify-items-center">
-    {newsItems.map((item, index) => {
-      const isActive = activeIndex === index;
-      const activeWidth = 330;
-      const activeHeight = 280;
-      const inactiveWidth = 250;
-      const inactiveHeight = 210;
-
-      return (
-        <motion.div
-          key={item.id}
-          animate={{
-            scale: isActive ? 1.07 : 1,
-            y: isActive ? -10 : 0,
-            opacity: isActive ? 1 : 0.9,
-          }}
-          transition={{ type: "spring", stiffness: 220, damping: 18 }}
-          className="flex flex-col items-start text-left w-full max-w-[350px]"
+          style={{ fontFamily: "ITC Machine Std, sans-serif", paddingTop: "150px" }}
         >
-          <motion.div
-            animate={{
-              width: isActive ? activeWidth : inactiveWidth,
-              height: isActive ? activeHeight : inactiveHeight,
-            }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="overflow-hidden rounded-2xl mx-auto"
+          Trending
+        </h1>
+
+        {/* Header */}
+        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between mb-10 md:mb-16 gap-6 w-full">
+          <h2
+            className="text-[24px] sm:text-[32px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight"
+            style={{ fontFamily: "DM Sans, sans-serif" }}
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={isActive ? activeWidth : inactiveWidth}
-              height={isActive ? activeHeight : inactiveHeight}
-              className="object-cover w-full h-full transition-all duration-300"
-            />
-          </motion.div>
+            Trending News
+          </h2>
+          <a
+            href="#"
+            className="text-[#262626] text-[16px] sm:text-[18px] font-[700] hover:underline transition"
+            style={{ fontFamily: "DM Sans, sans-serif" }}
+          >
+            See all &gt;
+          </a>
+        </div>
 
-          <div className="mt-6 sm:mt-8 flex flex-col items-start text-left w-full">
-            <p className="text-gray-500 text-[10px] sm:text-[12px] font-medium mb-1">
-              {item.date}
-            </p>
-            <h3
-              className={`font-bold transition-all duration-300 ${
-                isActive
-                  ? "text-[18px] sm:text-[20px] md:text-[22px] text-[#002060]"
-                  : "text-[14px] sm:text-[16px] text-gray-700"
-              }`}
-              style={{ fontFamily: "DM Sans, sans-serif" }}
-            >
-              {item.title}
-            </h3>
-            <p
-              className="text-[#262626] text-[12px] sm:text-[14px] font-normal mt-2 leading-relaxed max-w-[300px]"
-              style={{ fontFamily: "DM Sans, sans-serif" }}
-            >
-              {item.desc}
-            </p>
+        {/* News Cards */}
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 justify-items-center">
+          {newsItems.map((item, index) => {
+            const isActive = activeIndex === index;
+            const activeWidth = 330;
+            const activeHeight = 280;
+            const inactiveWidth = 250;
+            const inactiveHeight = 210;
+
+            return (
+              <motion.div
+                key={item.id}
+                animate={{
+                  scale: isActive ? 1.07 : 1,
+                  y: isActive ? -10 : 0,
+                  opacity: isActive ? 1 : 0.9,
+                }}
+                transition={{ type: "spring", stiffness: 220, damping: 18 }}
+                className="flex flex-col items-start text-left w-full max-w-[350px]"
+              >
+                <motion.div
+                  animate={{
+                    width: isActive ? activeWidth : inactiveWidth,
+                    height: isActive ? activeHeight : inactiveHeight,
+                  }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  className="overflow-hidden rounded-2xl mx-auto"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={isActive ? activeWidth : inactiveWidth}
+                    height={isActive ? activeHeight : inactiveHeight}
+                    className="object-cover w-full h-full transition-all duration-300"
+                  />
+                </motion.div>
+
+                <div className="mt-6 sm:mt-8 flex flex-col items-start text-left w-full">
+                  <p className="text-gray-500 text-[10px] sm:text-[12px] font-medium mb-1">
+                    {item.date}
+                  </p>
+                  <h3
+                    className={`font-bold transition-all duration-300 ${
+                      isActive
+                        ? "text-[18px] sm:text-[20px] md:text-[22px] text-[#002060]"
+                        : "text-[14px] sm:text-[16px] text-gray-700"
+                    }`}
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p
+                    className="text-[#262626] text-[12px] sm:text-[14px] font-normal mt-2 leading-relaxed max-w-[300px]"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Controls */}
+        <div className="relative z-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-10">
+          <button
+            onClick={handlePrev}
+            className="w-[50px] sm:w-[60px] h-[40px] sm:h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
+               hover:bg-[#012752] active:bg-[#012752] transition cursor-pointer group"
+          >
+            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
+          </button>
+
+          <div className="flex items-center gap-4 sm:gap-8">
+            {newsItems.map((_, index) => (
+              <span
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`text-[18px] sm:text-[22px] font-semibold cursor-pointer transition-colors ${
+                  activeIndex === index ? "text-[#012752]" : "text-gray-400 hover:text-[#012752]"
+                }`}
+              >
+                {index + 1}
+              </span>
+            ))}
           </div>
-        </motion.div>
-      );
-    })}
-  </div>
 
-  {/* Controls */}
-  <div className="relative z-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10 mt-10">
-    <button
-      onClick={handlePrev}
-      className="w-[50px] sm:w-[60px] h-[40px] sm:h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
+          <button
+            onClick={handleNext}
+            className="w-[50px] sm:w-[60px] h-[40px] sm:h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
                hover:bg-[#012752] active:bg-[#012752] transition cursor-pointer group"
-    >
-      <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
-    </button>
-
-    <div className="flex items-center gap-4 sm:gap-8">
-      {newsItems.map((_, index) => (
-        <span
-          key={index}
-          onClick={() => setActiveIndex(index)}
-          className={`text-[18px] sm:text-[22px] font-semibold cursor-pointer transition-colors ${
-            activeIndex === index
-              ? "text-[#012752]"
-              : "text-gray-400 hover:text-[#012752]"
-          }`}
-        >
-          {index + 1}
-        </span>
-      ))}
-    </div>
-
-    <button
-      onClick={handleNext}
-      className="w-[50px] sm:w-[60px] h-[40px] sm:h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
-               hover:bg-[#012752] active:bg-[#012752] transition cursor-pointer group"
-    >
-      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
-    </button>
-  </div>
-</section>
-
+          >
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
+          </button>
+        </div>
+      </section>
     </main>
   );
 }
-

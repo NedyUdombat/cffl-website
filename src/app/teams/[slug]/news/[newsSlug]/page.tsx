@@ -53,9 +53,7 @@ export const dynamic = "force-static"; // ensures build consistency
 
 export default function TeamNewsArticle({ params }: ArticlePageProps) {
   const article = articles.find(
-    (a) =>
-      a.slug === params.newsSlug &&
-      a.team.toLowerCase() === params.slug.toLowerCase()
+    (a) => a.slug === params.newsSlug && a.team.toLowerCase() === params.slug.toLowerCase()
   );
 
   if (!article) {

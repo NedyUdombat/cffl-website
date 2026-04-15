@@ -21,9 +21,8 @@ export default function SamplePage() {
         <div className="mt-6 max-w-2xl text-center px-4">
           <h1 className="text-3xl font-bold mb-2">Welcome to Our Page</h1>
           <p className="text-gray-300 leading-relaxed">
-            This is a simple page layout with a navbar, an image, and some
-            descriptive text below it. You can easily customize it with your own
-            content and styling.
+            This is a simple page layout with a navbar, an image, and some descriptive text below
+            it. You can easily customize it with your own content and styling.
           </p>
         </div>
       </section>

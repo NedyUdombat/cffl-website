@@ -78,19 +78,17 @@ export default function TeamDetail({ params }: TeamPageProps) {
           </button>
 
           <div className="flex space-x-4 overflow-hidden">
-            {["/titanfan1.png", "/titanfan2.png", "/titanfan3.png"].map(
-              (src, index) => (
-                <div key={index} className="flex-shrink-0">
-                  <Image
-                    src={src}
-                    alt={`Fan image ${index + 1}`}
-                    width={172}
-                    height={172}
-                    className="w-full object-cover rounded-lg shadow-lg"
-                  />
-                </div>
-              )
-            )}
+            {["/titanfan1.png", "/titanfan2.png", "/titanfan3.png"].map((src, index) => (
+              <div key={index} className="flex-shrink-0">
+                <Image
+                  src={src}
+                  alt={`Fan image ${index + 1}`}
+                  width={172}
+                  height={172}
+                  className="w-full object-cover rounded-lg shadow-lg"
+                />
+              </div>
+            ))}
           </div>
 
           <button
@@ -128,9 +126,7 @@ export default function TeamDetail({ params }: TeamPageProps) {
                   <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#C90F0F] transition duration-300 mb-2 leading-snug">
                     {article.writeup}
                   </h3>
-                  <p className="text-sm text-gray-500 font-medium">
-                    {article.date}
-                  </p>
+                  <p className="text-sm text-gray-500 font-medium">{article.date}</p>
                 </div>
               </Link>
             ))}

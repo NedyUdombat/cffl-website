@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 /* === Custom Font: ITC Machine Std === */
 @font-face {
@@ -14,15 +14,12 @@ body {
   font-family: "ITC Machine Std", sans-serif;
 }
 
-
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
-
-
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -43,7 +40,6 @@ body {
   }
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -58,7 +54,6 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-out forwards;
 }
-
 
 .team-logo {
   width: 99px;

@@ -49,37 +49,31 @@ export default function Trending() {
 
   return (
     <section className="relative bg-white text-black w-full py-[120px] px-6 md:px-[80px] lg:px-[134px]">
-
       {/* Background "TRENDING" word */}
-<h1
-  className="absolute top-1/2 left-0 -translate-y-[301%]
+      <h1
+        className="absolute top-1/2 left-0 -translate-y-[301%]
              text-left w-auto 
              text-[164px] leading-[110px] font-medium uppercase 
              text-[#BAB8B8] opacity-30 pointer-events-none select-none z-0 pl-[134px]"
-  style={{ fontFamily: "ITC Machine Std, sans-serif" }}
->
-  Trending
-</h1>
+        style={{ fontFamily: "ITC Machine Std, sans-serif" }}
+      >
+        Trending
+      </h1>
 
+      {/* Content (kept above background) */}
+      <div className="relative z-10"></div>
 
-   {/* Content (kept above background) */}
-  <div className="relative z-10"></div>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6 w-full">
+        <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight">
+          Trending News
+        </h2>
 
-   {/* Header */}
-<div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6 w-full">
-  <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight">
-    Trending News
-  </h2>
-
-  {/* "See all >" link */}
-  <a
-    href="#"
-    className="text-[#262626] text-[18px] font-[700] hover:underline transition"
-  >
-    See all &gt;
-  </a>
-</div>
-
+        {/* "See all >" link */}
+        <a href="#" className="text-[#262626] text-[18px] font-[700] hover:underline transition">
+          See all &gt;
+        </a>
+      </div>
 
       {/* Cards Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center mb-10">
@@ -123,9 +117,7 @@ export default function Trending() {
               {/* Text Content */}
               <div className="mt-12 flex flex-col items-start text-left w-full">
                 {/* Date */}
-                <p className="text-gray-500 text-[10px] font-medium mb-1">
-                  {item.date}
-                </p>
+                <p className="text-gray-500 text-[10px] font-medium mb-1">{item.date}</p>
 
                 {/* Title */}
                 <h3
@@ -133,19 +125,23 @@ export default function Trending() {
                     isActive
                       ? "text-[20px] md:text-[22px] text-[#002060]"
                       : "text-[12px] md:text-[16px] text-gray-700"
-                  }`}  style={{
-    fontFamily: "DM Sans, sans-serif",
-    fontWeight: 700,
-  }}
+                  }`}
+                  style={{
+                    fontFamily: "DM Sans, sans-serif",
+                    fontWeight: 700,
+                  }}
                 >
                   {item.title}
                 </h3>
 
                 {/* Description — same style for active/inactive */}
-                <p className="text-[#262626] text-[12px] font-normal mt-2 leading-relaxed max-w-[300px] "   style={{
-    fontFamily: "DM Sans, sans-serif",
-    fontWeight: 400,
-  }}>
+                <p
+                  className="text-[#262626] text-[12px] font-normal mt-2 leading-relaxed max-w-[300px] "
+                  style={{
+                    fontFamily: "DM Sans, sans-serif",
+                    fontWeight: 400,
+                  }}
+                >
                   {item.desc}
                 </p>
               </div>
@@ -154,44 +150,41 @@ export default function Trending() {
         })}
       </div>
 
- {/* Controls */}
-<div className="flex items-center justify-center gap-10 mt-10">
-  {/* Left Arrow */}
-  <button
-    onClick={handlePrev}
-    className="w-[70px] h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
+      {/* Controls */}
+      <div className="flex items-center justify-center gap-10 mt-10">
+        {/* Left Arrow */}
+        <button
+          onClick={handlePrev}
+          className="w-[70px] h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
                hover:bg-[#012752] active:bg-[#012752] transition cursor-pointer group"
-  >
-    <ArrowLeft className="w-5 h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
-  </button>
+        >
+          <ArrowLeft className="w-5 h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
+        </button>
 
-  {/* Numbers (Not buttons) */}
-  <div className="flex items-center gap-8">
-    {newsItems.map((_, index) => (
-      <span
-        key={index}
-        onClick={() => setActiveIndex(index)}
-        className={`text-[24px] font-semibold cursor-pointer transition-colors ${
-          activeIndex === index
-            ? "text-[#012752]"
-            : "text-gray-400 hover:text-[#012752]"
-        }`}
-      >
-        {index + 1}
-      </span>
-    ))}
-  </div>
+        {/* Numbers (Not buttons) */}
+        <div className="flex items-center gap-8">
+          {newsItems.map((_, index) => (
+            <span
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`text-[24px] font-semibold cursor-pointer transition-colors ${
+                activeIndex === index ? "text-[#012752]" : "text-gray-400 hover:text-[#012752]"
+              }`}
+            >
+              {index + 1}
+            </span>
+          ))}
+        </div>
 
-  {/* Right Arrow */}
-  <button
-    onClick={handleNext}
-    className="w-[70px] h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
+        {/* Right Arrow */}
+        <button
+          onClick={handleNext}
+          className="w-[70px] h-[50px] flex items-center justify-center rounded-[3px] border border-gray-300 bg-transparent 
                hover:bg-[#012752] active:bg-[#012752] transition cursor-pointer group"
-  >
-    <ArrowRight className="w-5 h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
-  </button>
-</div>
-
+        >
+          <ArrowRight className="w-5 h-5 text-[#919192] group-hover:text-white group-active:text-white transition-colors duration-200" />
+        </button>
+      </div>
     </section>
   );
 }

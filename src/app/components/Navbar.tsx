@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 
 interface NavbarProps {
   linkTextColor?: string;
@@ -12,7 +12,7 @@ interface NavbarProps {
 export default function Navbar({ linkTextColor }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const textColorClass = linkTextColor || "text-white";
-  const linkBaseClass = `hover:text-[#C90F0F] transition text-sm ${textColorClass} font-machine`;
+  const linkBaseClass = `hover:text-[#C90F0F] transition text-sm ${textColorClass} font-machine cursor-pointer`;
 
   return (
     <nav
@@ -28,10 +28,9 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
     >
       <div className="w-full max-w-[1440px] px-6 sm:px-[80px] md:px-[125px] py-[24px] flex justify-center items-center relative">
         <div className="flex items-center justify-between font-bold tracking-wide text-sm w-full sm:w-[397px] h-auto sm:h-[94px] gap-4 sm:gap-[19px]">
-          
           {/* Left links (Desktop only) */}
           <div className="hidden sm:flex items-center justify-center gap-[24px]">
-            <Link href="#" className={linkBaseClass}>
+            <Link href="/watch" className={linkBaseClass}>
               WATCH
             </Link>
             <Link href="/games" className={linkBaseClass}>
@@ -75,6 +74,7 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
               onClick={() => setIsOpen(!isOpen)}
               className="text-[#012752] text-2xl focus:outline-none font-machine"
               aria-label="Menu"
+              type="button"
             >
               ☰
             </button>
@@ -98,6 +98,7 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
             onClick={() => setIsOpen(false)}
             className="absolute top-8 right-8 text-3xl font-bold text-white hover:text-[#C90F0F] transition"
             aria-label="Close menu"
+            type="button"
           >
             ✕
           </button>

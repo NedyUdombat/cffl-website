@@ -53,9 +53,7 @@ const GameResults: React.FC = () => {
       {games.map((game, index) => (
         <div key={game._id || index} className="mb-10 border-b border-gray-200 pb-8">
           {/* Game Date */}
-          <div className="text-center text-sm font-medium text-gray-700 mb-4">
-            {game.date}
-          </div>
+          <div className="text-center text-sm font-medium text-gray-700 mb-4">{game.date}</div>
 
           {/* Game Row */}
           <div className="bg-white rounded-lg shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 p-4">
@@ -98,9 +96,7 @@ const GameResults: React.FC = () => {
                         {q}
                       </span>
                     ))}
-                    <span className="w-8 text-center font-bold text-lg">
-                      {team.total}
-                    </span>
+                    <span className="w-8 text-center font-bold text-lg">{team.total}</span>
                     {team.isWinner && <span className="text-red-600 text-xl">▲</span>}
                   </div>
                 </div>
@@ -167,17 +163,14 @@ export default function GamesPage() {
   const [matches, setMatches] = useState<any[]>([]);
 
   const handleWeekClick = (index: number) => setCurrentWeekIndex(index);
-  const handleDivisionClick = (division: "Men" | "Women") =>
-    setActiveDivision(division);
+  const handleDivisionClick = (division: "Men" | "Women") => setActiveDivision(division);
 
   const activeColor = "#1a1a1a";
   const inactiveColor = "#777777";
 
-  const segmentBaseStyle =
-    "py-2 px-6 text-sm font-semibold transition-colors duration-200";
+  const segmentBaseStyle = "py-2 px-6 text-sm font-semibold transition-colors duration-200";
   const segmentActiveStyle = "bg-[#012752] text-white shadow-inner";
-  const segmentInactiveStyle =
-    "bg-transparent text-white hover:bg-[#a80f0f]";
+  const segmentInactiveStyle = "bg-transparent text-white hover:bg-[#a80f0f]";
 
   /* ---------------- FETCH FIXTURES ---------------- */
   useEffect(() => {
@@ -222,9 +215,7 @@ export default function GamesPage() {
                 onClick={() => handleWeekClick(currentWeekIndex - 1)}
                 disabled={currentWeekIndex === 0}
                 className={`p-2 rounded-full transition-all ${
-                  currentWeekIndex === 0
-                    ? "opacity-30 cursor-not-allowed"
-                    : "hover:bg-gray-100"
+                  currentWeekIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-gray-100"
                 }`}
               >
                 <ChevronLeft size={24} />
@@ -294,9 +285,7 @@ export default function GamesPage() {
                 <button
                   onClick={() => handleDivisionClick("Men")}
                   className={`${segmentBaseStyle} ${
-                    activeDivision === "Men"
-                      ? segmentActiveStyle
-                      : segmentInactiveStyle
+                    activeDivision === "Men" ? segmentActiveStyle : segmentInactiveStyle
                   }`}
                 >
                   Men
@@ -304,9 +293,7 @@ export default function GamesPage() {
                 <button
                   onClick={() => handleDivisionClick("Women")}
                   className={`${segmentBaseStyle} ${
-                    activeDivision === "Women"
-                      ? segmentActiveStyle
-                      : segmentInactiveStyle
+                    activeDivision === "Women" ? segmentActiveStyle : segmentInactiveStyle
                   }`}
                 >
                   Women
@@ -319,10 +306,7 @@ export default function GamesPage() {
               <section className="w-full bg-[#F7F7F7] py-6 sm:py-12">
                 <div className="space-y-8 max-w-7xl mx-auto px-2 sm:px-4">
                   {matches.map((match) => (
-                    <div
-                      key={match._id}
-                      className="bg-white rounded-lg shadow-lg overflow-hidden"
-                    >
+                    <div key={match._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                       <div className="relative w-full mb-[5px]">
                         <img
                           src="/m2.png"
@@ -360,8 +344,7 @@ export default function GamesPage() {
                                 letterSpacing: "0%",
                               }}
                             >
-                              {match.team1.name}{" "}
-                              <span className="text-white">vs</span>{" "}
+                              {match.team1.name} <span className="text-white">vs</span>{" "}
                               {match.team2.name}
                             </h2>
                             <img
@@ -388,9 +371,7 @@ export default function GamesPage() {
                         }}
                       >
                         <div className="text-left text-xs text-gray-700 font-semibold">
-                          <p className="text-sm text-gray-900">
-                            MATCH DAY {match.matchDay}
-                          </p>
+                          <p className="text-sm text-gray-900">MATCH DAY {match.matchDay}</p>
                           <p
                             style={{
                               fontFamily: "DM Sans, sans-serif",
@@ -449,8 +430,7 @@ export default function GamesPage() {
             {/* WOMEN’S FIXTURES PLACEHOLDER */}
             {activeDivision === "Women" && (
               <div className="text-xl text-gray-600 font-medium">
-                Displaying <b>Women's</b> fixtures for{" "}
-                <b>{weekData[currentWeekIndex].week}</b>...
+                Displaying <b>Women's</b> fixtures for <b>{weekData[currentWeekIndex].week}</b>...
               </div>
             )}
           </div>
