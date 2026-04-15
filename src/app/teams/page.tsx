@@ -8,7 +8,12 @@ import Link from "next/link";
 // --- Team Data ---
 const teams = [
   { name: "Titans", logoSrc: "/team4.png", link: "/teams/titans", altText: "Titans Logo" },
-  { name: "Wolverines", logoSrc: "/team3.png", link: "/teams/wolverines", altText: "Wolverines Logo" },
+  {
+    name: "Wolverines",
+    logoSrc: "/team3.png",
+    link: "/teams/wolverines",
+    altText: "Wolverines Logo",
+  },
   { name: "Lions", logoSrc: "/team2.png", link: "/teams/lions", altText: "Lions Logo" },
   { name: "Eagles", logoSrc: "/team6.png", link: "/teams/eagles", altText: "Eagles Logo" },
   { name: "Sharks", logoSrc: "/team7.png", link: "/teams/sharks", altText: "Sharks Logo" },
@@ -46,19 +51,19 @@ export default function TeamsPage() {
                   transform hover:-translate-y-1 bg-white
                 "
               >
-            {/* 🖼️ Logo Area */}
-<div className="w-full bg-gray-50 flex justify-center items-center p-6 sm:p-8 h-40 transition-transform duration-300 group-hover:scale-105">
-  <img
-    src={team.logoSrc}
-    alt={team.altText}
-    className="w-full h-auto max-w-[140px] object-contain rounded-lg"
-    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-      const target = e.currentTarget;
-      target.onerror = null; // Prevents infinite loop
-      target.src = "https://placehold.co/150x150/888888/ffffff?text=LOGO";
-    }}
-  />
-</div>
+                {/* 🖼️ Logo Area */}
+                <div className="w-full bg-gray-50 flex justify-center items-center p-6 sm:p-8 h-40 transition-transform duration-300 group-hover:scale-105">
+                  <img
+                    src={team.logoSrc}
+                    alt={team.altText}
+                    className="w-full h-auto max-w-[140px] object-contain rounded-lg"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                      const target = e.currentTarget;
+                      target.onerror = null; // Prevents infinite loop
+                      target.src = "https://placehold.co/150x150/888888/ffffff?text=LOGO";
+                    }}
+                  />
+                </div>
 
                 {/* 🟦 Text Area */}
                 <div

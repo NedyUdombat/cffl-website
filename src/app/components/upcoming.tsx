@@ -73,7 +73,10 @@ export default function UpcomingAndReplays() {
   };
 
   return (
-    <section className="relative w-full bg-[#F7F7F7]" aria-label="Upcoming Schedule and Game Replays">
+    <section
+      className="relative w-full bg-[#F7F7F7]"
+      aria-label="Upcoming Schedule and Game Replays"
+    >
       {/* UPCOMING SCHEDULE */}
       <div className="relative w-full flex justify-center items-center rounded-lg overflow-hidden px-6 md:px-[80px] lg:px-[134px] pt-[120px] pb-[80px]">
         <div className="relative w-full max-w-[1200px] h-auto overflow-hidden rounded-lg">
@@ -90,7 +93,11 @@ export default function UpcomingAndReplays() {
           <div className="absolute inset-0 bg-black opacity-30 z-10"></div>
           <h2
             className="absolute top-8 left-8 md:top-10 md:left-12 text-white text-[18px] md:text-[48px] font-extrabold uppercase tracking-tight z-20"
-            style={{ fontFamily: "ITC Machine Std, sans-serif", fontWeight: 500, paddingLeft: "10px" }}
+            style={{
+              fontFamily: "ITC Machine Std, sans-serif",
+              fontWeight: 500,
+              paddingLeft: "10px",
+            }}
           >
             Upcoming Schedule
           </h2>
@@ -100,7 +107,10 @@ export default function UpcomingAndReplays() {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <motion.div className="flex gap-6 py-6 px-8 w-full max-w-[1200px] mx-auto" animate={controls}>
+            <motion.div
+              className="flex gap-6 py-6 px-8 w-full max-w-[1200px] mx-auto"
+              animate={controls}
+            >
               {[...games, ...games].map((game, index) => (
                 <div
                   key={index}
@@ -156,8 +166,17 @@ export default function UpcomingAndReplays() {
 
               {/* TEAM 1 */}
               <div className="absolute left-0 top-0 w-1/2 h-full flex flex-col items-center justify-center p-4 z-20">
-                <Image src={game.team1.logo || "/placeholder.png"} alt={game.team1.name} width={60} height={60} className="object-contain" />
-                <p className="mt-1 text-white text-[28px] font-bold uppercase" style={{ fontFamily: "ITC Machine Std, sans-serif", fontWeight: 700 }}>
+                <Image
+                  src={game.team1.logo || "/placeholder.png"}
+                  alt={game.team1.name}
+                  width={60}
+                  height={60}
+                  className="object-contain"
+                />
+                <p
+                  className="mt-1 text-white text-[28px] font-bold uppercase"
+                  style={{ fontFamily: "ITC Machine Std, sans-serif", fontWeight: 700 }}
+                >
                   {game.team1.name}
                 </p>
               </div>
@@ -176,7 +195,10 @@ export default function UpcomingAndReplays() {
                   }}
                   className="object-contain"
                 />
-                <p className="mt-1 text-white text-[28px] font-bold uppercase" style={{ fontFamily: "ITC Machine Std, sans-serif", fontWeight: 700 }}>
+                <p
+                  className="mt-1 text-white text-[28px] font-bold uppercase"
+                  style={{ fontFamily: "ITC Machine Std, sans-serif", fontWeight: 700 }}
+                >
                   {game.team2.name}
                 </p>
               </div>
@@ -184,7 +206,13 @@ export default function UpcomingAndReplays() {
               {/* PLAY BUTTON */}
               <div className="absolute inset-0 flex items-center justify-center z-30">
                 <div className="w-[120px] h-[120px] flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-                  <Image src="/play.png" alt="Play button icon" width={60} height={60} className="object-contain" />
+                  <Image
+                    src="/play.png"
+                    alt="Play button icon"
+                    width={60}
+                    height={60}
+                    className="object-contain"
+                  />
                 </div>
               </div>
             </div>

@@ -5,11 +5,13 @@
   "engines": {
     "node": ">=20.x"
   },
- "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start"
-},
+  "scripts": {
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3006",
+    "build": "next build",
+    "start": "next start",
+    "format": "biome format --write .",
+    "check": "biome check --write ."
+  },
   "dependencies": {
     "@portabletext/react": "^4.0.3",
     "@sanity/client": "^7.12.0",
@@ -28,6 +30,7 @@
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/babel__core": "^7.20.5",
     "@types/babel__generator": "^7.27.0",
