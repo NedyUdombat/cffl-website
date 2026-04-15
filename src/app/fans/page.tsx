@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import Footer from "../components/footer";
-import Navbar from "@/app/components/Navbar";
+import Navbar from "@/components/Navbar";
+import Footer from "../../containers/Home/Footer";
 
 const fanImages = Array.from({ length: 30 }, (_, i) => `/fans/fan${i + 1}.jpg`);
 

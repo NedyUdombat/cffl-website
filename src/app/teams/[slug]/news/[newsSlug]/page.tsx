@@ -1,6 +1,6 @@
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/footer";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import Footer from "@/containers/Home/Footer";
 
 interface ArticlePageProps {
   params: {

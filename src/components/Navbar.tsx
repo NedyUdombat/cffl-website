@@ -26,10 +26,10 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
           "linear-gradient(180deg, rgba(255,255,255,0.16) 14.29%, rgba(255,255,255,0) 100%)",
       }}
     >
-      <div className="w-full max-w-[1440px] px-6 sm:px-[80px] md:px-[125px] py-[24px] flex justify-center items-center relative">
-        <div className="flex items-center justify-between font-bold tracking-wide text-sm w-full sm:w-[397px] h-auto sm:h-[94px] gap-4 sm:gap-[19px]">
+      <div className="w-full max-w-[1440px] px-6 sm:px-20 md:px-[125px] py-6 flex justify-center items-center relative">
+        <div className="flex items-center justify-between font-bold tracking-wide text-sm w-full sm:w-[397px] h-auto sm:h-[94px] gap-4 sm:gap-5">
           {/* Left links (Desktop only) */}
-          <div className="hidden sm:flex items-center justify-center gap-[24px]">
+          <div className="hidden sm:flex items-center justify-center gap-6">
             <Link href="/watch" className={linkBaseClass}>
               WATCH
             </Link>
@@ -59,7 +59,7 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
           </div>
 
           {/* Right links (Desktop only) */}
-          <div className="hidden sm:flex items-center justify-center gap-[24px]">
+          <div className="hidden sm:flex items-center justify-center gap-6">
             <Link href="/teams" className={linkBaseClass}>
               TEAMS
             </Link>

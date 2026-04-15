@@ -1,11 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { client } from "../../sanity/lib/client";
-
-import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import Navbar from "../../components/Navbar";
+import Footer from "../../containers/Home/Footer";
+import { client } from "../../sanity/lib/client";
 
 /* ---------------- WEEK DATA ---------------- */
 const weekData = [

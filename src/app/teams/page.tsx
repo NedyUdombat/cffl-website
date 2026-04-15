@@ -1,9 +1,9 @@
 "use client";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/footer";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "../../components/Navbar";
+import Footer from "../../containers/Home/Footer";
 
 // --- Team Data ---
 const teams = [

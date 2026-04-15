@@ -1,8 +1,8 @@
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/footer";
-import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
+import Footer from "@/containers/Home/Footer";
 
 interface TeamPageProps {
   params: {

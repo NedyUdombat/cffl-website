@@ -1,7 +1,7 @@
 "use client";
 
-import Navbar from "@/app/components/Navbar";
-import Footer from "../components/footer";
+import Navbar from "@/components/Navbar";
+import Footer from "../../containers/Home/Footer";
 
 export default function RegisterPage() {
   return (

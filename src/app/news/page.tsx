@@ -1,9 +1,9 @@
-import Navbar from "@/app/components/Navbar";
-import Footer from "@/app/components/footer";
-import Image from "next/image";
-import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
-import LoadMoreButton from "@/app/components/LoadMoreButton";
+import Image from "next/image";
+import LoadMoreButton from "@/components/LoadMoreButton";
+import Navbar from "@/components/Navbar";
+import Footer from "@/containers/Home/Footer";
+import { client } from "@/sanity/lib/client";
 
 // 🧱 Configure Sanity Image Builder
 const builder = imageUrlBuilder(client);
