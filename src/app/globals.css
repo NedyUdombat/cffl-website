@@ -38,6 +38,15 @@ body {
   .font-machine {
     font-family: "ITC Machine Std", sans-serif;
   }
+  .font-barlow-condensed {
+    font-family: var(--font-barlow-condensed), sans-serif;
+  }
+  .font-barlow {
+    font-family: var(--font-barlow), sans-serif;
+  }
+  .font-inter {
+    font-family: var(--font-inter), sans-serif;
+  }
 }
 
 @keyframes fadeIn {
