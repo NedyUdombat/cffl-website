@@ -1,21 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import useFetchMatches from "@/queries/matches/useFetchMatches";
+import { useCompetition } from "@/contexts/CompetitionContext";
 import { ErrorState } from "./components/ErrorState";
 import { HeroSection } from "./components/HeroSection";
 import { HighlightsCarousel } from "./components/HighlightsCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { NewsTab } from "./components/NewsTab";
-import { OverviewTab } from "./components/OverviewTab";
 import { ResultsTab } from "./components/ResultsTab";
 import { RosterTab } from "./components/RosterTab";
 import { StaffTab } from "./components/StaffTab";
 import { StandingsTab } from "./components/StandingsTab";
 import { type Tab, TabBar } from "./components/TabBar";
-import type { SingleTeamProps } from "./components/types";
 import useSingleTeamLogic from "./logic";
-import useFetchMatches from "@/queries/matches/useFetchMatches";
 import {
+  mockFixtures,
   mockForm,
   mockNews,
   mockPlayerGenders,
@@ -23,6 +23,8 @@ import {
   mockStandings,
   mockStats,
 } from "./mockTeamData";
+import { OverviewTab } from "./Tabs/OverviewTab";
+import type { SingleTeamProps } from "./types";
 
 export type { SingleTeamProps };
 
@@ -35,15 +37,19 @@ const isColorDark = (hex: string) => {
 };
 
 const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
-  const { singleTeam, isPending, isError, error, refetch } = useSingleTeamLogic(slug);
+  const {
+    singleTeam,
+    isPending,
+    isError,
+    error,
+    refetch,
+    nextMatchup,
+    overviewStats,
+    nextMatchData,
+    matchResults,
+  } = useSingleTeamLogic(slug);
+  const { setSelectedCompetition } = useCompetition();
   const [activeTab, setActiveTab] = useState<Tab>("overview");
-
-  const { data: nextMatchData } = useFetchMatches({
-    status: "scheduled",
-    team: singleTeam?._id,
-    pageSize: 1,
-    enabled: !!singleTeam?._id,
-  });
 
   if (isPending) return <LoadingState />;
   if (isError) return <ErrorState message={error?.message} onRetry={refetch} />;
@@ -75,18 +81,6 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
   const record = teamStanding ? `${teamStanding.wins}-${teamStanding.losses}-0` : undefined;
 
   // Next scheduled match involving this team
-  const nextMatch = nextMatchData?.[0];
-  const isHome = nextMatch?.homeTeam?._id === singleTeam?._id;
-  const opponent = isHome ? nextMatch?.awayTeam : nextMatch?.homeTeam;
-  const nextMatchup = nextMatch
-    ? {
-        opponentAbbr: opponent?.abbreviation ?? "",
-        opponentName: opponent?.name ?? "",
-        opponentLogo: opponent?.logo ?? undefined,
-        dateStr: `${nextMatch.date ?? "TBD"} · ${nextMatch.time ?? ""}`,
-        location: nextMatch.location ?? undefined,
-      }
-    : undefined;
 
   const carouselItems: { src: string; caption: string }[] = [];
 
@@ -108,28 +102,28 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         bannerImage={(singleTeam.bannerImage as unknown as string) ?? ""}
         logoImage={(singleTeam.logo as unknown as string) ?? undefined}
         socialLinks={socialLinks}
-        leagueRank={leagueRank}
-        record={record}
         nextMatchup={nextMatchup}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onCompetitionChange={setSelectedCompetition}
       />
-      {/* <TabBar activeTab={activeTab} onTabChange={setActiveTab} primaryColor={primaryColor} /> */}
+      <TabBar activeTab={activeTab} onTabChange={setActiveTab} primaryColor={primaryColor} />
 
-      {/* {activeTab === "overview" && (
+      {activeTab === "overview" && (
         <OverviewTab
-          stats={mockStats}
           standings={mockStandings}
           teamSlug={slug}
+          teamAbbreviation={singleTeam.abbreviation ?? ""}
           results={mockResults}
-          headCoach={headCoach}
-          assistantCoach={assistantCoach}
+          fixtures={mockFixtures}
           primaryColor={primaryColor}
           onTabChange={setActiveTab}
+          overviewStats={overviewStats}
+          nextMatchData={nextMatchData}
+          matchResults={matchResults}
+          teamId={singleTeam._id}
         />
       )}
 
-      {activeTab === "roster" && (
+      {/*  {activeTab === "roster" && (
         <RosterTab
           roster={roster}
           primaryColor={primaryColor}
