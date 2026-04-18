@@ -23,6 +23,7 @@ export interface MatchFilters {
 
   page?: number;             // default: 1
   pageSize?: number;         // default: 10
+  enabled?: boolean;         // default: true
 }
 
 const MATCHES_QUERY = defineQuery(`*[_type == "match"
@@ -50,11 +51,13 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
   "homeTeam": homeTeam-> {
     _id,
     name,
+    abbreviation,
     "logo": logo.asset->url,
   },
   "awayTeam": awayTeam-> {
     _id,
     name,
+    abbreviation,
     "logo": logo.asset->url,
   },
   competition,
@@ -89,6 +92,7 @@ const useFetchMatches = (filters: MatchFilters = {}) => {
     matchDay,
     page = 1,
     pageSize = 20,
+    enabled = true,
   } = filters;
 
   const offset = (page - 1) * pageSize;
@@ -116,11 +120,13 @@ const useFetchMatches = (filters: MatchFilters = {}) => {
         queryKey: ["matches", filters],
         queryFn: () => client.fetch<MATCHES_QUERYResult>(MATCHES_QUERY, params),
         refetchOnWindowFocus: false,
+        enabled,
       },
       {
         queryKey: ["matches-count", filters],
         queryFn: () => client.fetch<number>(MATCHES_COUNT_QUERY, params),
         refetchOnWindowFocus: false,
+        enabled,
       },
     ],
   });

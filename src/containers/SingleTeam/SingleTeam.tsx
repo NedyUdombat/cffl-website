@@ -14,8 +14,8 @@ import { StandingsTab } from "./components/StandingsTab";
 import { type Tab, TabBar } from "./components/TabBar";
 import type { SingleTeamProps } from "./components/types";
 import useSingleTeamLogic from "./logic";
+import useFetchMatches from "@/queries/matches/useFetchMatches";
 import {
-  mockFixtures,
   mockForm,
   mockNews,
   mockPlayerGenders,
@@ -37,6 +37,13 @@ const isColorDark = (hex: string) => {
 const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
   const { singleTeam, isPending, isError, error, refetch } = useSingleTeamLogic(slug);
   const [activeTab, setActiveTab] = useState<Tab>("overview");
+
+  const { data: nextMatchData } = useFetchMatches({
+    status: "scheduled",
+    team: singleTeam?._id,
+    pageSize: 1,
+    enabled: !!singleTeam?._id,
+  });
 
   if (isPending) return <LoadingState />;
   if (isError) return <ErrorState message={error?.message} onRetry={refetch} />;
@@ -67,17 +74,19 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
   const teamStanding = mockStandings.find((s) => s.teamSlug === slug);
   const record = teamStanding ? `${teamStanding.wins}-${teamStanding.losses}-0` : undefined;
 
-  // Build next matchup from fixtures
-  const nextFixture = mockFixtures[0];
-  const nextMatchup = nextFixture
+  // Next scheduled match involving this team
+  const nextMatch = nextMatchData?.[0];
+  const nextMatchup = nextMatch
     ? {
-        opponentAbbr: nextFixture.opponent
-          .split(" ")
-          .map((w: string) => w[0])
-          .join("")
-          .toUpperCase(),
-        opponentName: nextFixture.opponent,
-        dateStr: `${nextFixture.date} · ${nextFixture.kickoffTime}`,
+        opponentAbbr:
+          nextMatch.homeTeam?._id === singleTeam?._id
+            ? nextMatch.awayTeam?.abbreviation ?? ""
+            : nextMatch.homeTeam?.abbreviation ?? "",
+        opponentName:
+          nextMatch.homeTeam?._id === singleTeam?._id
+            ? nextMatch.awayTeam?.name ?? ""
+            : nextMatch.homeTeam?.name ?? "",
+        dateStr: `${nextMatch.date ?? "TBD"} · ${nextMatch.time ?? ""}`,
       }
     : undefined;
 
