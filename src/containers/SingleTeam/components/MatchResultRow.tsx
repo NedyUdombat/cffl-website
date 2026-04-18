@@ -1,12 +1,14 @@
 "use client";
 
-import type { MatchResult, Fixture } from "./types";
+import type { Fixture, MatchResult } from "../types";
 
 // ─── Result row ─────────────────────────────────────────────────────────────
 export function MatchResultRow({ result }: { result: MatchResult }) {
   const isWin = result.result === "W";
   const [year, month, day] = result.date.split("-");
-  const monthAbbr = new Date(`${year}-${month}-${day}`).toLocaleString("en", { month: "short" }).toUpperCase();
+  const monthAbbr = new Date(`${year}-${month}-${day}`)
+    .toLocaleString("en", { month: "short" })
+    .toUpperCase();
 
   return (
     <div className="bg-white border border-gray-100 rounded-xl overflow-hidden flex items-stretch hover:bg-gray-50 transition-colors duration-150">
@@ -35,22 +37,16 @@ export function MatchResultRow({ result }: { result: MatchResult }) {
 
         {/* Score */}
         <div className="flex items-baseline gap-1.5 flex-shrink-0 font-barlow-condensed font-bold text-lg tabular-nums">
-          <span style={{ color: isWin ? "#111827" : "#9ca3af" }}>
-            {result.teamScore}
-          </span>
+          <span style={{ color: isWin ? "#111827" : "#9ca3af" }}>{result.teamScore}</span>
           <span className="text-gray-300 text-base">–</span>
-          <span style={{ color: isWin ? "#9ca3af" : "#111827" }}>
-            {result.opponentScore}
-          </span>
+          <span style={{ color: isWin ? "#9ca3af" : "#111827" }}>{result.opponentScore}</span>
         </div>
 
         {/* Result pill */}
         <span
           className={[
             "flex-shrink-0 px-2.5 py-1 rounded text-[10px] font-inter font-bold uppercase",
-            isWin
-              ? "bg-green-50 text-green-700"
-              : "bg-red-50 text-red-600",
+            isWin ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600",
           ].join(" ")}
         >
           {result.result}
@@ -63,7 +59,9 @@ export function MatchResultRow({ result }: { result: MatchResult }) {
 // ─── Fixture row ─────────────────────────────────────────────────────────────
 export function FixtureRow({ fixture }: { fixture: Fixture }) {
   const [year, month, day] = fixture.date.split("-");
-  const monthAbbr = new Date(`${year}-${month}-${day}`).toLocaleString("en", { month: "short" }).toUpperCase();
+  const monthAbbr = new Date(`${year}-${month}-${day}`)
+    .toLocaleString("en", { month: "short" })
+    .toUpperCase();
 
   return (
     <div className="bg-white border border-gray-100 rounded-xl overflow-hidden flex items-stretch hover:bg-gray-50 transition-colors duration-150">

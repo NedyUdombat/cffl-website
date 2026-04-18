@@ -1,7 +1,8 @@
 "use client";
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/containers/Footer/Footer";
 import Teams from "@/containers/Team/Teams";
-import Navbar from "../../components/Navbar";
 
 export default function TeamsPage() {
   return (
@@ -10,6 +11,7 @@ export default function TeamsPage() {
       <Navbar linkTextColor="text-black" />
       {/* --- Main Content --- */}
       <Teams />
+      <Footer />
     </>
   );
 }

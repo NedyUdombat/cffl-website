@@ -6,24 +6,24 @@ import type { MATCHES_QUERYResult } from "../../../sanity.types";
 export interface MatchFilters {
   status?: "scheduled" | "completed" | "cancelled";
 
-  competition?: string;      // filter by competition _id (default)
-  competitionSlug?: string;  // alternative: filter by competition slug
+  competition?: string; // filter by competition _id (default)
+  competitionSlug?: string; // alternative: filter by competition slug
 
-  team?: string;             // _id — matches where team is homeTeam OR awayTeam
-  teamSlug?: string;         // slug — same, home OR away
+  team?: string; // _id — matches where team is homeTeam OR awayTeam
+  teamSlug?: string; // slug — same, home OR away
 
-  homeTeam?: string;         // _id — specifically home team only
-  homeTeamSlug?: string;     // slug — specifically home team only
+  homeTeam?: string; // _id — specifically home team only
+  homeTeamSlug?: string; // slug — specifically home team only
 
-  awayTeam?: string;         // _id — specifically away team only
-  awayTeamSlug?: string;     // slug — specifically away team only
+  awayTeam?: string; // _id — specifically away team only
+  awayTeamSlug?: string; // slug — specifically away team only
 
   date?: string;
   matchDay?: number;
 
-  page?: number;             // default: 1
-  pageSize?: number;         // default: 10
-  enabled?: boolean;         // default: true
+  page?: number; // default: 1
+  pageSize?: number; // default: 10
+  enabled?: boolean; // default: true
 }
 
 const MATCHES_QUERY = defineQuery(`*[_type == "match"
@@ -38,7 +38,7 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
   && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)
   && ($date == null || date == $date)
   && ($matchDay == null || matchDay == $matchDay)
-] | order(matchNumber asc) [$offset...$limit] {
+] | order(date asc) [$offset...$limit] {
   _id,
   matchDay,
   matchNumber,
@@ -53,12 +53,14 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
     name,
     abbreviation,
     "logo": logo.asset->url,
+    "slug": slug.current,
   },
   "awayTeam": awayTeam-> {
     _id,
     name,
     abbreviation,
     "logo": logo.asset->url,
+    "slug": slug.current,
   },
   competition,
 }`);

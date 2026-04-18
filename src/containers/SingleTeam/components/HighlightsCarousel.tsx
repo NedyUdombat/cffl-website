@@ -4,9 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import type { CarouselItem } from "../types";
+import { EASE } from "../types";
 import { SectionHeading } from "./SectionHeading";
-import { EASE } from "./types";
-import type { CarouselItem } from "./types";
 
 export function HighlightsCarousel({
   items,

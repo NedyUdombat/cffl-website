@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { EASE } from "./types";
-import type { NewsArticle } from "./types";
+import type { NewsArticle } from "../types";
+import { EASE } from "../types";
 
 export function NewsCard({
   article,

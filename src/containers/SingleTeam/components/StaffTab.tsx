@@ -1,7 +1,7 @@
 "use client";
 
-import { UserCircle, Mail, Phone, Globe, MapPin } from "lucide-react";
-import type { CoachData } from "./types";
+import { Globe, Mail, MapPin, Phone, UserCircle } from "lucide-react";
+import type { CoachData } from "../types";
 import { SectionHeading } from "./SectionHeading";
 
 export function StaffTab({
@@ -26,10 +26,14 @@ export function StaffTab({
   const coaches = [headCoach, assistantCoach];
 
   const infoItems = [
-    { icon: Mail,   label: "Email",    value: email   },
-    { icon: Phone,  label: "Phone",    value: phone   },
-    { icon: Globe,  label: "Website",  value: url     },
-    { icon: MapPin, label: "Location", value: [state, country].filter(Boolean).join(", ") || undefined },
+    { icon: Mail, label: "Email", value: email },
+    { icon: Phone, label: "Phone", value: phone },
+    { icon: Globe, label: "Website", value: url },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: [state, country].filter(Boolean).join(", ") || undefined,
+    },
   ].filter((item) => Boolean(item.value));
 
   return (
@@ -79,9 +83,7 @@ export function StaffTab({
                     <p className="text-[9px] text-gray-400 uppercase tracking-wider font-inter leading-none">
                       {label}
                     </p>
-                    <p className="font-inter font-semibold text-sm text-gray-900 mt-0.5">
-                      {value}
-                    </p>
+                    <p className="font-inter font-semibold text-sm text-gray-900 mt-0.5">{value}</p>
                   </div>
                 </div>
               ))}

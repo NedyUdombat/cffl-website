@@ -1,7 +1,7 @@
 "use client";
 
 import { Users } from "lucide-react";
-import type { CoachData } from "./types";
+import type { CoachData } from "../types";
 
 export function CoachCard({ coach, primaryColor }: { coach: CoachData; primaryColor: string }) {
   return (

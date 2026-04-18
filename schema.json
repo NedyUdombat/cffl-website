@@ -562,6 +562,13 @@
           "type": "string"
         }
       },
+      "isDefault": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "name": {
         "type": "objectAttribute",
         "value": {

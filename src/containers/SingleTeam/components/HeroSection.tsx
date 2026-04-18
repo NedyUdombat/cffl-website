@@ -35,7 +35,7 @@ export function HeroSection({
     dateStr: string;
     location?: string;
   };
-  onCompetitionChange?: (competition: CompetitionItem) => void;
+  onCompetitionChange?: (competition: CompetitionItem | undefined) => void;
 }) {
   const hasBanner = Boolean(bannerImage);
 

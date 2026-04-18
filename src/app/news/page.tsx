@@ -1,8 +1,9 @@
+"use client";
 import imageUrlBuilder from "@sanity/image-url";
 import Image from "next/image";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import Navbar from "@/components/Navbar";
-import Footer from "@/containers/Home/Footer";
+import Footer from "@/containers/Footer/Footer";
 import { client } from "@/sanity/lib/client";
 
 // 🧱 Configure Sanity Image Builder

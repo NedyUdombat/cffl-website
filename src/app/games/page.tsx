@@ -2,8 +2,8 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Footer from "@/containers/Footer/Footer";
 import Navbar from "../../components/Navbar";
-import Footer from "../../containers/Home/Footer";
 import { client } from "../../sanity/lib/client";
 
 /* ---------------- WEEK DATA ---------------- */

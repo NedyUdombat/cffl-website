@@ -3,7 +3,7 @@
 // import { Instagram, Youtube } from "lucide-react";
 import { SiInstagram, SiTiktok, SiX, SiYoutube } from "react-icons/si";
 // import { } from "simple-icons";
-import type { TeamSocialLinks } from "./types";
+import type { TeamSocialLinks } from "../types";
 
 export function SocialIconsRow({
   socialLinks,
@@ -12,8 +12,8 @@ export function SocialIconsRow({
   socialLinks: TeamSocialLinks;
   compact?: boolean;
 }) {
-  const ring = compact ? "w-9 h-9" : "w-11 h-11";
-  const size = compact ? 24 : 24;
+  const ring = compact ? "w-7 h-7" : "w-11 h-11";
+  const size = compact ? 16 : 16;
   const base = `${ring} bg-white rounded-full border border-white flex items-center justify-center text-dark hover:text-white hover:border-white/35 transition-all duration-200`;
 
   const entries = [
@@ -40,7 +40,7 @@ export function SocialIconsRow({
   ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode }[];
 
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex items-center gap-2">
       {entries.map(({ href, label, icon }) => (
         <a
           key={label}

@@ -17,7 +17,6 @@ const TeamsContext = createContext<TeamsContextType | undefined>(undefined);
 export function TeamsProvider({ children }: { children: React.ReactNode }) {
   const { data, isPending, isError, error, refetch } = useFetchTeams();
 
-  console.log({ data });
   return (
     <TeamsContext.Provider
       value={{

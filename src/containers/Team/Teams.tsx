@@ -15,7 +15,6 @@ const SkeletonCard = () => (
 const Teams = () => {
   const { teams, isPending, isError, error, refetch } = useTeams();
 
-  console.log({ teams });
   return (
     <main className="min-h-screen bg-white text-white pt-[140px] md:pt-[160px] pb-20 px-6 md:px-10 w-full">
       <div className="max-w-5xl mx-auto">

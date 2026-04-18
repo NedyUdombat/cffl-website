@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 import { useCompetition } from "@/contexts/CompetitionContext";
 import { ErrorState } from "./components/ErrorState";
 import { HeroSection } from "./components/HeroSection";
@@ -10,7 +11,6 @@ import { NewsTab } from "./components/NewsTab";
 import { ResultsTab } from "./components/ResultsTab";
 import { RosterTab } from "./components/RosterTab";
 import { StaffTab } from "./components/StaffTab";
-import { StandingsTab } from "./components/StandingsTab";
 import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
 import {
@@ -23,6 +23,7 @@ import {
   mockStats,
 } from "./mockTeamData";
 import { OverviewTab } from "./Tabs/OverviewTab";
+import StandingsTab from "./Tabs/StandingsTab";
 import type { SingleTeamProps } from "./types";
 
 export type { SingleTeamProps };
@@ -48,7 +49,18 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
     matchResults,
   } = useSingleTeamLogic(slug);
   const { setSelectedCompetition } = useCompetition();
-  const [activeTab, setActiveTab] = useState<Tab>("overview");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeTab = (searchParams.get("tab") as Tab) ?? "overview";
+
+  const setActiveTab = useCallback(
+    (tab: Tab) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("tab", tab);
+      router.replace(`?${params.toString()}`, { scroll: false });
+    },
+    [router, searchParams]
+  );
 
   if (isPending) return <LoadingState />;
   if (isError) return <ErrorState message={error?.message} onRetry={refetch} />;
@@ -108,18 +120,15 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
       {activeTab === "overview" && (
         <OverviewTab
-          standings={mockStandings}
-          teamSlug={slug}
-          teamAbbreviation={singleTeam.abbreviation ?? ""}
-          results={mockResults}
-          fixtures={mockFixtures}
-          primaryColor={primaryColor}
-          onTabChange={setActiveTab}
           overviewStats={overviewStats}
           nextMatchData={nextMatchData}
           matchResults={matchResults}
           teamId={singleTeam._id}
         />
+      )}
+
+      {activeTab === "standings" && (
+        <StandingsTab teamId={singleTeam._id} matchResults={matchResults} />
       )}
 
       {/*  {activeTab === "roster" && (
@@ -137,14 +146,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         />
       )}
 
-      {activeTab === "standings" && (
-        <StandingsTab
-          standings={mockStandings}
-          form={mockForm}
-          teamSlug={slug}
-          primaryColor={primaryColor}
-        />
-      )}
+      
 
       {activeTab === "staff" && (
         <StaffTab

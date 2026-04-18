@@ -6,6 +6,12 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "isDefault",
+      title: "Default",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "name",
       title: "Name",
       type: "string",
@@ -110,7 +116,17 @@ export default defineType({
       season: "season",
       logo: "logo",
     },
-    prepare({ name, type, season, logo }: { name: string; type: string; season: number; logo: string }) {
+    prepare({
+      name,
+      type,
+      season,
+      logo,
+    }: {
+      name: string;
+      type: string;
+      season: number;
+      logo: string;
+    }) {
       return {
         title: name,
         subtitle: [season ? `Season ${season}` : null, type].filter(Boolean).join(" · "),

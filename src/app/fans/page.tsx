@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "../../containers/Home/Footer";
+import Footer from "@/containers/Footer/Footer";
 
 const fanImages = Array.from({ length: 30 }, (_, i) => `/fans/fan${i + 1}.jpg`);
 

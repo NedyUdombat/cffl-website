@@ -1,29 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useMemo } from "react";
-import { staggerGrid } from "./types";
-import type { Player, PlayerGender } from "./types";
+import { useMemo, useState } from "react";
+import type { Player, PlayerGender } from "../types";
+import { staggerGrid } from "../types";
 import { PlayerCard } from "./PlayerCard";
 import { SectionHeading } from "./SectionHeading";
 
 type PositionFilter = "All" | string;
 type GenderFilter = "All" | PlayerGender;
 
-export function RosterTab({
-  roster,
-  primaryColor,
-}: {
-  roster: Player[];
-  primaryColor: string;
-}) {
+export function RosterTab({ roster, primaryColor }: { roster: Player[]; primaryColor: string }) {
   const [posFilter, setPosFilter] = useState<PositionFilter>("All");
   const [genderFilter, setGenderFilter] = useState<GenderFilter>("All");
 
   // Derive unique positions from the actual roster
   const positions = useMemo<string[]>(() => {
     const seen = new Set<string>();
-    roster.forEach((p) => { if (p.position) seen.add(p.position); });
+    roster.forEach((p) => {
+      if (p.position) seen.add(p.position);
+    });
     return Array.from(seen).sort();
   }, [roster]);
 
@@ -34,7 +30,7 @@ export function RosterTab({
         const genMatch = genderFilter === "All" || p.gender === genderFilter;
         return posMatch && genMatch;
       }),
-    [roster, posFilter, genderFilter],
+    [roster, posFilter, genderFilter]
   );
 
   const pillBase =
@@ -113,11 +109,7 @@ export function RosterTab({
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {filtered.map((player) => (
-              <PlayerCard
-                key={player.id}
-                player={player}
-                primaryColor={primaryColor}
-              />
+              <PlayerCard key={player.id} player={player} primaryColor={primaryColor} />
             ))}
           </motion.div>
         )}

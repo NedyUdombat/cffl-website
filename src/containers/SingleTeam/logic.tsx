@@ -5,6 +5,7 @@ import type { OverviewStats } from "./types";
 const useSingleTeamLogic = (slug: string) => {
   const { singleTeam, isPending, isError, error, refetch } = useFetchSingleTeam(slug);
 
+  console.log({ singleTeam });
   const { data: nextMatchData } = useFetchMatches({
     status: "scheduled",
     team: singleTeam?._id,
@@ -19,7 +20,6 @@ const useSingleTeamLogic = (slug: string) => {
     enabled: !!singleTeam?._id,
   });
 
- 
   const nextMatch = nextMatchData?.[0];
   const isHome = nextMatch?.homeTeam?._id === singleTeam?._id;
   const opponent = isHome ? nextMatch?.awayTeam : nextMatch?.homeTeam;

@@ -30,7 +30,6 @@ export default function Upcoming() {
         }
       `);
 
-      console.log({ data });
       setGames(data?.games || []);
 
       const replayData = await client.fetch(`

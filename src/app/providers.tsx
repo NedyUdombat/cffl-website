@@ -1,8 +1,9 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";
-import { TeamsProvider } from "@/contexts/TeamContext";
 import { CompetitionProvider } from "@/contexts/CompetitionContext";
+import { TeamsProvider } from "@/contexts/TeamContext";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -17,11 +18,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   );
   return (
     <QueryClientProvider client={queryClient}>
-      <TeamsProvider>
-        <CompetitionProvider>
-          {children}
-        </CompetitionProvider>
-      </TeamsProvider>
+      <CompetitionProvider>
+        <TeamsProvider>{children}</TeamsProvider>
+      </CompetitionProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

@@ -15,13 +15,17 @@ const COMPETITION_QUERY = defineQuery(`*[_type == "competition" && slug.current 
   endDate,
   status,
   "logo": logo.asset->url,
+  isDefault
 }`);
 
 const useFetchSingleCompetition = ({ slug, id }: { slug: string; id: string }) => {
-  const { data, isPending, isError, error, refetch }: UseQueryResult<COMPETITION_QUERYResult, Error> = useQuery<
-    COMPETITION_QUERYResult,
-    Error
-  >({
+  const {
+    data,
+    isPending,
+    isError,
+    error,
+    refetch,
+  }: UseQueryResult<COMPETITION_QUERYResult, Error> = useQuery<COMPETITION_QUERYResult, Error>({
     queryKey: ["single-competition", slug],
     queryFn: () => client.fetch(COMPETITION_QUERY, { slug, id }),
     refetchOnWindowFocus: false,

@@ -3,16 +3,10 @@
 import { motion } from "framer-motion";
 import { Star, UserCircle } from "lucide-react";
 import Image from "next/image";
-import { fadeUp, POSITION_COLORS } from "./types";
-import type { Player } from "./types";
+import type { Player } from "../types";
+import { fadeUp, POSITION_COLORS } from "../types";
 
-export function PlayerCard({
-  player,
-  primaryColor,
-}: {
-  player: Player;
-  primaryColor: string;
-}) {
+export function PlayerCard({ player, primaryColor }: { player: Player; primaryColor: string }) {
   return (
     <motion.div
       variants={fadeUp}
@@ -46,12 +40,7 @@ export function PlayerCard({
         {/* Avatar circle — overlaps bottom edge */}
         <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-20 h-20 rounded-full border-4 border-white bg-gray-100 flex items-center justify-center z-10 overflow-hidden shadow-sm">
           {player.photo ? (
-            <Image
-              src={player.photo}
-              alt={player.name}
-              fill
-              className="object-cover"
-            />
+            <Image src={player.photo} alt={player.name} fill className="object-cover" />
           ) : (
             <UserCircle size={40} className="text-gray-300" />
           )}

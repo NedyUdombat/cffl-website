@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
-import { fadeUp, staggerGrid } from "./types";
-import type { MockNewsArticle } from "./types";
+import type { MockNewsArticle } from "../types";
+import { fadeUp, staggerGrid } from "../types";
 import { SectionHeading } from "./SectionHeading";
 
 function FeatureCard({
@@ -89,11 +89,7 @@ export function NewsTab({
 
         {/* Feature article */}
         {feature && (
-          <FeatureCard
-            article={feature}
-            teamSlug={teamSlug}
-            primaryColor={primaryColor}
-          />
+          <FeatureCard article={feature} teamSlug={teamSlug} primaryColor={primaryColor} />
         )}
 
         {/* Remaining articles */}

@@ -1,7 +1,7 @@
 "use client";
 
-import type { MatchResult, Fixture } from "./types";
-import { MatchResultRow, FixtureRow } from "./MatchResultRow";
+import type { Fixture, MatchResult } from "../types";
+import { FixtureRow, MatchResultRow } from "./MatchResultRow";
 import { SectionHeading } from "./SectionHeading";
 
 export function ResultsTab({

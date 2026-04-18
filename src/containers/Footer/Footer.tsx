@@ -1,8 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { siInstagram, siTiktok, siYoutube } from "simple-icons";
+import { SiInstagram, SiTiktok, SiYoutube } from "react-icons/si";
 import { useTeams } from "@/contexts/TeamContext";
-import { teamsData } from "@/data/teams";
 
 // --- Data for the Footer Link Columns (Unchanged) ---
 const footerLinks = [
@@ -56,13 +57,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         {/* 1. Team Logos Section */}
         <div className="flex justify-center items-center flex-wrap gap-x-8 gap-y-4 py-8 border-b border-gray-700/50">
-          {teams &&
-            teams.length &&
+          {teams?.length &&
             teams.map((team) => (
               <Link
                 href={`/teams/${team.slug.current}`}
                 key={team._id}
-                className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0"
+                className="w-10 h-10 md:w-12 md:h-12 shrink-0"
               >
                 <Image
                   src={team.logo}
@@ -125,9 +125,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d={siInstagram.path} />
-              </svg>
+              <SiInstagram size={24} className="text-pink-500" />
             </Link>
             <Link
               href="https://www.youtube.com/@CFFLNigeria"
@@ -136,9 +134,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d={siYoutube.path} />
-              </svg>
+              <SiYoutube size={24} className="text-red-500" />
             </Link>
             <Link
               href="https://www.tiktok.com/@community_ffl?is_from_webapp=1&sender_device=pc"
@@ -147,9 +143,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d={siTiktok.path} />
-              </svg>
+              <SiTiktok size={24} className="text-black" />
             </Link>
           </div>
         </div>

@@ -1,8 +1,11 @@
+"use client";
 // import GameReplays from "@/containers/GameReplays";
 import Upcoming from "@/containers/Home/Upcoming";
 import Navbar from "../components/Navbar";
 // import Academy from "../containers/Academy";
-import Footer from "../containers/Home/Footer";
+// import Footer from "../containers/Home/Footer";
+
+import Footer from "@/containers/Footer/Footer";
 import Hero from "../containers/Home/Hero";
 import Trending from "../containers/Home/Trending";
 // import Upcoming from "./components/upcoming";
