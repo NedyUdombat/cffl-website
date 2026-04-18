@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import useFetchMatches from "@/queries/matches/useFetchMatches";
 import { useCompetition } from "@/contexts/CompetitionContext";
 import { ErrorState } from "./components/ErrorState";
 import { HeroSection } from "./components/HeroSection";
