@@ -76,17 +76,15 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
   // Next scheduled match involving this team
   const nextMatch = nextMatchData?.[0];
+  const isHome = nextMatch?.homeTeam?._id === singleTeam?._id;
+  const opponent = isHome ? nextMatch?.awayTeam : nextMatch?.homeTeam;
   const nextMatchup = nextMatch
     ? {
-        opponentAbbr:
-          nextMatch.homeTeam?._id === singleTeam?._id
-            ? nextMatch.awayTeam?.abbreviation ?? ""
-            : nextMatch.homeTeam?.abbreviation ?? "",
-        opponentName:
-          nextMatch.homeTeam?._id === singleTeam?._id
-            ? nextMatch.awayTeam?.name ?? ""
-            : nextMatch.homeTeam?.name ?? "",
+        opponentAbbr: opponent?.abbreviation ?? "",
+        opponentName: opponent?.name ?? "",
+        opponentLogo: opponent?.logo ?? undefined,
         dateStr: `${nextMatch.date ?? "TBD"} · ${nextMatch.time ?? ""}`,
+        location: nextMatch.location ?? undefined,
       }
     : undefined;
 

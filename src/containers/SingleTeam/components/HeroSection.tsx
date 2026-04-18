@@ -31,7 +31,9 @@ export function HeroSection({
   nextMatchup?: {
     opponentAbbr: string;
     opponentName: string;
+    opponentLogo?: string;
     dateStr: string;
+    location?: string;
   };
 }) {
   const hasBanner = Boolean(bannerImage);
@@ -208,13 +210,17 @@ export function HeroSection({
               {/* Home team */}
               <div className="text-center">
                 <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5"
+                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5 overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.15)",
                     border: "1px solid rgba(255,255,255,0.3)",
                   }}
                 >
-                  {abbreviation.slice(0, 3)}
+                  {logoImage ? (
+                    <Image src={logoImage} alt={abbreviation} width={48} height={48} className="object-contain p-1" />
+                  ) : (
+                    abbreviation.slice(0, 3)
+                  )}
                 </div>
                 <p className="text-[10px] font-bold font-machine tracking-wider">
                   {abbreviation.slice(0, 3)}
@@ -227,18 +233,27 @@ export function HeroSection({
                 <p className="text-[9px] uppercase font-bold tracking-tight mt-1 text-white/70 font-machine">
                   {nextMatchup.dateStr}
                 </p>
+                {nextMatchup.location && (
+                  <p className="text-[9px] uppercase tracking-tight mt-0.5 text-white/50 font-machine">
+                    {nextMatchup.location}
+                  </p>
+                )}
               </div>
 
               {/* Away team */}
               <div className="text-center">
                 <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5"
+                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5 overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.1)",
                     border: "1px solid rgba(255,255,255,0.2)",
                   }}
                 >
-                  {nextMatchup.opponentAbbr.slice(0, 3)}
+                  {nextMatchup.opponentLogo ? (
+                    <Image src={nextMatchup.opponentLogo} alt={nextMatchup.opponentAbbr} width={48} height={48} className="object-contain p-1" />
+                  ) : (
+                    nextMatchup.opponentAbbr.slice(0, 3)
+                  )}
                 </div>
                 <p className="text-[10px] font-bold font-machine tracking-wider">
                   {nextMatchup.opponentAbbr.slice(0, 3)}
