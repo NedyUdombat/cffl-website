@@ -1,4 +1,4 @@
-import { Barlow_Condensed, Barlow, Inter } from "next/font/google";
+import { Barlow, Barlow_Condensed, Inter } from "next/font/google";
 import Providers from "@/app/providers";
 
 const barlowCondensed = Barlow_Condensed({

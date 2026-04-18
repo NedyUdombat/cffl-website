@@ -5,23 +5,23 @@ import { ErrorState } from "./components/ErrorState";
 import { HeroSection } from "./components/HeroSection";
 import { HighlightsCarousel } from "./components/HighlightsCarousel";
 import { LoadingState } from "./components/LoadingState";
-import { OverviewTab } from "./components/OverviewTab";
-import { RosterTab } from "./components/RosterTab";
-import { ResultsTab } from "./components/ResultsTab";
-import { StandingsTab } from "./components/StandingsTab";
-import { StaffTab } from "./components/StaffTab";
 import { NewsTab } from "./components/NewsTab";
-import type { Tab } from "./components/TabBar";
+import { OverviewTab } from "./components/OverviewTab";
+import { ResultsTab } from "./components/ResultsTab";
+import { RosterTab } from "./components/RosterTab";
+import { StaffTab } from "./components/StaffTab";
+import { StandingsTab } from "./components/StandingsTab";
+import { type Tab, TabBar } from "./components/TabBar";
 import type { SingleTeamProps } from "./components/types";
 import useSingleTeamLogic from "./logic";
 import {
-  mockStandings,
-  mockStats,
-  mockResults,
   mockFixtures,
   mockForm,
   mockNews,
   mockPlayerGenders,
+  mockResults,
+  mockStandings,
+  mockStats,
 } from "./mockTeamData";
 
 export type { SingleTeamProps };
@@ -65,9 +65,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
   // Build record string from standings
   const teamStanding = mockStandings.find((s) => s.teamSlug === slug);
-  const record = teamStanding
-    ? `${teamStanding.wins}-${teamStanding.losses}-0`
-    : undefined;
+  const record = teamStanding ? `${teamStanding.wins}-${teamStanding.losses}-0` : undefined;
 
   // Build next matchup from fixtures
   const nextFixture = mockFixtures[0];
@@ -87,9 +85,9 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
   const socialLinks = {
     instagram: singleTeam.socialLinks?.instagram ?? undefined,
-    youtube:   singleTeam.socialLinks?.youtube   ?? undefined,
-    tiktok:    singleTeam.socialLinks?.tiktok    ?? undefined,
-    twitter:   singleTeam.socialLinks?.twitter   ?? undefined,
+    youtube: singleTeam.socialLinks?.youtube ?? undefined,
+    tiktok: singleTeam.socialLinks?.tiktok ?? undefined,
+    twitter: singleTeam.socialLinks?.twitter ?? undefined,
   };
 
   return (
@@ -109,8 +107,9 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
+      {/* <TabBar activeTab={activeTab} onTabChange={setActiveTab} primaryColor={primaryColor} /> */}
 
-      {activeTab === "overview" && (
+      {/* {activeTab === "overview" && (
         <OverviewTab
           stats={mockStats}
           standings={mockStandings}
@@ -170,7 +169,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
       {carouselItems.length > 0 && (
         <HighlightsCarousel items={carouselItems} primaryColor={primaryColor} />
-      )}
+      )} */}
     </main>
   );
 };

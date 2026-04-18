@@ -1,14 +1,14 @@
-import { type SchemaTypeDefinition } from "sanity";
-
+import type { SchemaTypeDefinition } from "sanity";
+import { authorType } from "./authorType";
 import { blockContentType } from "./blockContentType";
 import { categoryType } from "./categoryType";
-import { postType } from "./postType";
-import { authorType } from "./authorType";
-import newsType from "./newsType"; // 👈 Add this line
-import upcoming from "./upcoming";
-import replay from "./replay"; // ✅ Import the new schema
-import match from "./match";
 import gameResult from "./gameResult";
+import match from "./match";
+import newsType from "./newsType"; // 👈 Add this line
+import { postType } from "./postType";
+import replay from "./replay"; // ✅ Import the new schema
+import team from "./team";
+import upcoming from "./upcoming";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,5 +21,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     replay,
     match,
     gameResult,
+    team,
   ], // 👈 And this one
 };
