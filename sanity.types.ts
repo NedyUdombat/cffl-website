@@ -578,39 +578,33 @@ export type COMPETITION_QUERYResult = {
 
 // Source: ./src/queries/matches/useFetchMatches.ts
 // Variable: MATCHES_QUERY
-// Query: *[_type == "match"  && ($status == null || status == $status)  && ($competitionId == null || competition._ref == $competitionId)  && ($competitionSlug == null || competition->slug.current == $competitionSlug)  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)  && ($homeTeam == null || homeTeam._ref == $homeTeam)  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)  && ($awayTeam == null || awayTeam._ref == $awayTeam)  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)  && ($date == null || date == $date)  && ($matchDay == null || matchDay == $matchDay)] | order(matchNumber asc) [$offset...$limit]
+// Query: *[_type == "match"  && ($status == null || status == $status)  && ($competitionId == null || competition._ref == $competitionId)  && ($competitionSlug == null || competition->slug.current == $competitionSlug)  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)  && ($homeTeam == null || homeTeam._ref == $homeTeam)  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)  && ($awayTeam == null || awayTeam._ref == $awayTeam)  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)  && ($date == null || date == $date)  && ($matchDay == null || matchDay == $matchDay)] | order(matchNumber asc) [$offset...$limit] {  _id,  matchDay,  matchNumber,  date,  time,  location,  homeScore,  awayScore,  status,  "homeTeam": homeTeam-> {    _id,    name,    "logo": logo.asset->url,  },  "awayTeam": awayTeam-> {    _id,    name,    "logo": logo.asset->url,  },  competition,}
 export type MATCHES_QUERYResult = Array<{
   _id: string;
-  _type: "match";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  matchDay?: number;
-  matchNumber?: number;
-  date?: string;
-  time?: string;
-  location?: string;
-  homeTeam?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "team";
-  };
-  awayTeam?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "team";
-  };
-  homeScore?: number;
-  awayScore?: number;
-  status?: "cancelled" | "completed" | "scheduled";
-  competition?: {
+  matchDay: number | null;
+  matchNumber: number | null;
+  date: string | null;
+  time: string | null;
+  location: string | null;
+  homeScore: number | null;
+  awayScore: number | null;
+  status: "cancelled" | "completed" | "scheduled" | null;
+  homeTeam: {
+    _id: string;
+    name: string | null;
+    logo: string | null;
+  } | null;
+  awayTeam: {
+    _id: string;
+    name: string | null;
+    logo: string | null;
+  } | null;
+  competition: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "competition";
-  };
+  } | null;
 }>;
 // Variable: MATCHES_COUNT_QUERY
 // Query: count(*[_type == "match"  && ($status == null || status == $status)  && ($competitionId == null || competition._ref == $competitionId)  && ($competitionSlug == null || competition->slug.current == $competitionSlug)  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)  && ($homeTeam == null || homeTeam._ref == $homeTeam)  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)  && ($awayTeam == null || awayTeam._ref == $awayTeam)  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)  && ($date == null || date == $date)  && ($matchDay == null || matchDay == $matchDay)])
@@ -699,7 +693,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"competition\"] | order(name asc) {\n  _id,\n  name,\n  slug,\n  season,\n  type,\n  format,\n  gender,\n  startDate,\n  endDate,\n  status,\n  \"logo\": logo.asset->url,\n}": COMPETITIONS_QUERYResult;
     "*[_type == \"competition\" && slug.current == $slug][0] {\n  _id,\n  name,\n  slug,\n  season,\n  type,\n  format,\n  gender,\n  startDate,\n  endDate,\n  status,\n  \"logo\": logo.asset->url,\n}": COMPETITION_QUERYResult;
-    "*[_type == \"match\"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n] | order(matchNumber asc) [$offset...$limit]": MATCHES_QUERYResult;
+    "*[_type == \"match\"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n] | order(matchNumber asc) [$offset...$limit] {\n  _id,\n  matchDay,\n  matchNumber,\n  date,\n  time,\n  location,\n  homeScore,\n  awayScore,\n  status,\n  \"homeTeam\": homeTeam-> {\n    _id,\n    name,\n    \"logo\": logo.asset->url,\n  },\n  \"awayTeam\": awayTeam-> {\n    _id,\n    name,\n    \"logo\": logo.asset->url,\n  },\n  competition,\n}": MATCHES_QUERYResult;
     "count(*[_type == \"match\"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n])": MATCHES_COUNT_QUERYResult;
     "*[_type == \"match\" && id == $id][0] {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  yearFounded,\n  foundedYear,\n  primaryColor,\n  secondaryColor,\n  country,\n  state,\n  headCoach,\n  asstHeadCoach,\n  email,\n  phone,\n  url,\n  isActive,\n  \"logo\": logo.asset->url,\n  \"bannerImage\": bannerImage.asset->url,\n  players[] {\n    name,\n    number,\n    positions,\n    isCaptain,\n    \"photo\": photo.asset->url,\n  },\n  socialLinks {\n    instagram,\n    youtube,\n    tiktok,\n    twitter,\n  },\n}": MATCH_QUERYResult;
     "*[_type == \"team\" && isActive == true && slug.current == $slug][0] {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  yearFounded,\n  foundedYear,\n  primaryColor,\n  secondaryColor,\n  country,\n  state,\n  headCoach,\n  asstHeadCoach,\n  email,\n  phone,\n  url,\n  isActive,\n  \"logo\": logo.asset->url,\n  \"bannerImage\": bannerImage.asset->url,\n  players[] {\n    name,\n    number,\n    positions,\n    isCaptain,\n    \"photo\": photo.asset->url,\n  },\n  socialLinks {\n    instagram,\n    youtube,\n    tiktok,\n    twitter,\n  },\n}": TEAM_QUERYResult;

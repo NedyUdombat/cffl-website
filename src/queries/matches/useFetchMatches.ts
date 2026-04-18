@@ -37,7 +37,28 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
   && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)
   && ($date == null || date == $date)
   && ($matchDay == null || matchDay == $matchDay)
-] | order(matchNumber asc) [$offset...$limit]`);
+] | order(matchNumber asc) [$offset...$limit] {
+  _id,
+  matchDay,
+  matchNumber,
+  date,
+  time,
+  location,
+  homeScore,
+  awayScore,
+  status,
+  "homeTeam": homeTeam-> {
+    _id,
+    name,
+    "logo": logo.asset->url,
+  },
+  "awayTeam": awayTeam-> {
+    _id,
+    name,
+    "logo": logo.asset->url,
+  },
+  competition,
+}`);
 
 const MATCHES_COUNT_QUERY = defineQuery(`count(*[_type == "match"
   && ($status == null || status == $status)
@@ -67,7 +88,7 @@ const useFetchMatches = (filters: MatchFilters = {}) => {
     date,
     matchDay,
     page = 1,
-    pageSize = 10,
+    pageSize = 20,
   } = filters;
 
   const offset = (page - 1) * pageSize;
