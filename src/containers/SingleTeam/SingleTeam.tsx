@@ -9,7 +9,7 @@ import { HighlightsCarousel } from "./components/HighlightsCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { NewsTab } from "./components/NewsTab";
 import { ResultsTab } from "./components/ResultsTab";
-import { RosterTab } from "./components/RosterTab";
+import { RosterTab } from "./Tabs/RosterTab";
 import { StaffTab } from "./components/StaffTab";
 import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
@@ -48,7 +48,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
     nextMatchData,
     matchResults,
   } = useSingleTeamLogic(slug);
-  const { setSelectedCompetition } = useCompetition();
+  const { setSelectedCompetition, selectedCompetition } = useCompetition();
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeTab = (searchParams.get("tab") as Tab) ?? "overview";
@@ -131,13 +131,14 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         <StandingsTab teamId={singleTeam._id} matchResults={matchResults} />
       )}
 
-      {/*  {activeTab === "roster" && (
+      {activeTab === "roster" && (
         <RosterTab
-          roster={roster}
-          primaryColor={primaryColor}
+          teamId={singleTeam._id}
+          competitionId={selectedCompetition?._id}
         />
       )}
 
+      {/*
       {activeTab === "matches" && (
         <ResultsTab
           results={mockResults}
@@ -145,8 +146,6 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
           primaryColor={primaryColor}
         />
       )}
-
-      
 
       {activeTab === "staff" && (
         <StaffTab
@@ -171,7 +170,8 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
 
       {carouselItems.length > 0 && (
         <HighlightsCarousel items={carouselItems} primaryColor={primaryColor} />
-      )} */}
+      )}
+      */}
     </main>
   );
 };
