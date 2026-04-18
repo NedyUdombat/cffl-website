@@ -2,12 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import TopAppBar from "@/components/TopAppBar";
+import type { TeamSocialLinks } from "../types";
+import { EASE } from "../types";
 import { SocialIconsRow } from "./SocialIconsRow";
-import type { Tab } from "./TabBar";
-import { TabBar } from "./TabBar";
-import type { TeamSocialLinks } from "./types";
-import { EASE } from "./types";
 
 export function HeroSection({
   teamName,
@@ -19,6 +18,7 @@ export function HeroSection({
   logoImage,
   socialLinks,
   nextMatchup,
+  onCompetitionChange,
 }: {
   teamName: string;
   abbreviation: string;
@@ -35,6 +35,7 @@ export function HeroSection({
     dateStr: string;
     location?: string;
   };
+  onCompetitionChange?: (competition: CompetitionItem) => void;
 }) {
   const hasBanner = Boolean(bannerImage);
 
@@ -79,7 +80,6 @@ export function HeroSection({
         </>
       ) : (
         <>
-          {/* ── No banner: large centred abbreviation ──────────── */}
           <div
             className="absolute top-16 inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
             aria-hidden="true"
@@ -108,7 +108,7 @@ export function HeroSection({
         </>
       )}
 
-      <TopAppBar teamName={teamName} />
+      <TopAppBar teamName={teamName} onCompetitionChange={onCompetitionChange} />
 
       <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-14 lg:px-20 pb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="flex items-center gap-5 md:gap-6">
@@ -192,7 +192,7 @@ export function HeroSection({
             initial={{ opacity: 0, x: 16, y: 8 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
-            className="flex-shrink-0 text-white rounded-xl border p-6"
+            className="flex-shrink-0 text-white rounded-xl border p-6 font-inter"
             style={{
               minWidth: "300px",
               maxWidth: "340px",
@@ -202,7 +202,7 @@ export function HeroSection({
               borderColor: "rgba(255,255,255,0.2)",
             }}
           >
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/60 mb-4 font-machine">
+            <p className="text-[10px] font-black uppercase tracking-widest text-white/80 mb-4 font-inter">
               Next Matchup
             </p>
 
@@ -210,31 +210,37 @@ export function HeroSection({
               {/* Home team */}
               <div className="text-center">
                 <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5 overflow-hidden"
+                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.15)",
                     border: "1px solid rgba(255,255,255,0.3)",
                   }}
                 >
                   {logoImage ? (
-                    <Image src={logoImage} alt={abbreviation} width={48} height={48} className="object-contain p-1" />
+                    <Image
+                      src={logoImage}
+                      alt={abbreviation}
+                      width={48}
+                      height={48}
+                      className="object-contain p-1"
+                    />
                   ) : (
                     abbreviation.slice(0, 3)
                   )}
                 </div>
-                <p className="text-[10px] font-bold font-machine tracking-wider">
+                <p className="text-[10px] font-bold font-inter tracking-wider">
                   {abbreviation.slice(0, 3)}
                 </p>
               </div>
 
               {/* VS */}
               <div className="text-center px-3">
-                <p className="text-2xl font-black italic font-machine tracking-tighter">VS</p>
-                <p className="text-[9px] uppercase font-bold tracking-tight mt-1 text-white/70 font-machine">
+                <p className="text-2xl font-black italic font-inter tracking-tighter">VS</p>
+                <p className="text-[9px] uppercase font-bold tracking-tight mt-1 text-white/90 font-inter">
                   {nextMatchup.dateStr}
                 </p>
                 {nextMatchup.location && (
-                  <p className="text-[9px] uppercase tracking-tight mt-0.5 text-white/50 font-machine">
+                  <p className="text-[9px] uppercase tracking-tight mt-0.5 text-white/90 font-inter">
                     {nextMatchup.location}
                   </p>
                 )}
@@ -243,26 +249,32 @@ export function HeroSection({
               {/* Away team */}
               <div className="text-center">
                 <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-machine font-black text-sm mb-1.5 overflow-hidden"
+                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.1)",
                     border: "1px solid rgba(255,255,255,0.2)",
                   }}
                 >
                   {nextMatchup.opponentLogo ? (
-                    <Image src={nextMatchup.opponentLogo} alt={nextMatchup.opponentAbbr} width={48} height={48} className="object-contain p-1" />
+                    <Image
+                      src={nextMatchup.opponentLogo}
+                      alt={nextMatchup.opponentAbbr}
+                      width={48}
+                      height={48}
+                      className="object-contain p-1"
+                    />
                   ) : (
                     nextMatchup.opponentAbbr.slice(0, 3)
                   )}
                 </div>
-                <p className="text-[10px] font-bold font-machine tracking-wider">
+                <p className="text-[10px] font-bold font-inter tracking-wider">
                   {nextMatchup.opponentAbbr.slice(0, 3)}
                 </p>
               </div>
             </div>
 
             <button
-              className="w-full mt-4 bg-white font-black py-2.5 rounded-full hover:bg-white/90 transition-all text-xs uppercase tracking-widest font-machine"
+              className="w-full mt-4 bg-white font-black py-2.5 rounded-full hover:bg-white/90 transition-all text-xs uppercase tracking-widest font-inter"
               style={{ color: primaryColor }}
               type="button"
             >

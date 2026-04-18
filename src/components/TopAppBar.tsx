@@ -29,7 +29,7 @@ const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
       setSelectedId(defaultComp._id);
       onCompetitionChange?.(defaultComp);
     }
-  }, [competitions, selectedCompetition]);
+  }, [competitions, selectedCompetition, onCompetitionChange]);
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const comp = competitions?.find((c) => c._id === e.target.value);
