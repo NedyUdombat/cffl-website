@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { COMPETITIONS_QUERYResult } from "../../sanity.types";
 import useFetchCompetitions from "@/queries/competitions/useFetchCompetitions";
 
@@ -28,17 +28,22 @@ export function CompetitionProvider({ children }: { children: React.ReactNode })
     if (match) setSelectedCompetitionState(match);
   }, [competitions]);
 
-  function setSelectedCompetition(competition: CompetitionItem | undefined) {
+  const setSelectedCompetition = useCallback((competition: CompetitionItem | undefined) => {
     setSelectedCompetitionState(competition);
     if (competition) {
       localStorage.setItem(STORAGE_KEY, competition._id);
     } else {
       localStorage.removeItem(STORAGE_KEY);
     }
-  }
+  }, []);
+
+  const value = useMemo(
+    () => ({ selectedCompetition, setSelectedCompetition }),
+    [selectedCompetition, setSelectedCompetition]
+  );
 
   return (
-    <CompetitionContext.Provider value={{ selectedCompetition, setSelectedCompetition }}>
+    <CompetitionContext.Provider value={value}>
       {children}
     </CompetitionContext.Provider>
   );
