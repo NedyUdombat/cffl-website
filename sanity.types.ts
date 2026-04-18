@@ -13,6 +13,132 @@
  */
 
 // Source: schema.json
+export type GameResult = {
+  _id: string;
+  _type: "gameResult";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  date?: string;
+  gameImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  teams?: Array<{
+    name?: string;
+    record?: string;
+    quarters?: Array<number>;
+    total?: number;
+    isWinner?: boolean;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type Match = {
+  _id: string;
+  _type: "match";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  matchDay?: number;
+  matchNumber?: number;
+  date?: string;
+  time?: string;
+  location?: string;
+  homeTeam?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "team";
+  };
+  awayTeam?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "team";
+  };
+  homeScore?: number;
+  awayScore?: number;
+  status?: "scheduled" | "completed" | "cancelled";
+  competition?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "competition";
+  };
+};
+
+export type Competition = {
+  _id: string;
+  _type: "competition";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  season?: number;
+  type?: "league" | "tournament" | "preseason";
+  format?: "7" | "5";
+  gender?: "coed" | "men" | "women";
+  startDate?: string;
+  endDate?: string;
+  status?: "upcoming" | "active" | "completed";
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
 export type Team = {
   _id: string;
   _type: "team";
@@ -55,9 +181,12 @@ export type Team = {
   headCoach?: string;
   asstHeadCoach?: string;
   players?: Array<{
-    name?: string;
-    number?: number;
-    positions?: Array<string>;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    jerseyName?: string;
+    jerseyNumber?: number;
+    gender?: "male" | "female" | "non-binary" | "prefer-not-to-say";
     photo?: {
       asset?: {
         _ref: string;
@@ -71,6 +200,8 @@ export type Team = {
       _type: "image";
     };
     isCaptain?: boolean;
+    positions?: Array<string>;
+    instagram?: string;
     _key: string;
   }>;
   socialLinks?: {
@@ -83,111 +214,6 @@ export type Team = {
   phone?: string;
   url?: string;
   isActive?: boolean;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
-export type GameResult = {
-  _id: string;
-  _type: "gameResult";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  date?: string;
-  gameImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  teams?: Array<{
-    name?: string;
-    record?: string;
-    quarters?: Array<number>;
-    total?: number;
-    isWinner?: boolean;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _key: string;
-  }>;
-};
-
-export type Match = {
-  _id: string;
-  _type: "match";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  division?: "Men" | "Women";
-  matchDay?: number;
-  date?: string;
-  time?: string;
-  team1?: {
-    name?: string;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-  };
-  team2?: {
-    name?: string;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-  };
 };
 
 export type Replay = {
@@ -514,8 +540,45 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = Team | SanityImageCrop | SanityImageHotspot | Slug | GameResult | Match | Replay | Upcoming | News | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = GameResult | SanityImageCrop | SanityImageHotspot | Match | Competition | Slug | Team | Replay | Upcoming | News | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/queries/teams/useFetchSingleTeam.ts
+// Variable: TEAM_QUERY
+// Query: *[_type == "team" && isActive == true && slug.current == $slug][0] {  _id,  name,  slug,  abbreviation,  yearFounded,  foundedYear,  primaryColor,  secondaryColor,  country,  state,  headCoach,  asstHeadCoach,  email,  phone,  url,  isActive,  "logo": logo.asset->url,  "bannerImage": bannerImage.asset->url,  players[] {    name,    number,    positions,    isCaptain,    "photo": photo.asset->url,  },  socialLinks {    instagram,    youtube,    tiktok,    twitter,  },}
+export type TEAM_QUERYResult = {
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+  abbreviation: string | null;
+  yearFounded: string | null;
+  foundedYear: number | null;
+  primaryColor: string | null;
+  secondaryColor: string | null;
+  country: string | null;
+  state: string | null;
+  headCoach: string | null;
+  asstHeadCoach: string | null;
+  email: string | null;
+  phone: string | null;
+  url: string | null;
+  isActive: boolean | null;
+  logo: string | null;
+  bannerImage: string | null;
+  players: Array<{
+    name: null;
+    number: null;
+    positions: Array<string> | null;
+    isCaptain: boolean | null;
+    photo: string | null;
+  }> | null;
+  socialLinks: {
+    instagram: string | null;
+    youtube: string | null;
+    tiktok: string | null;
+    twitter: string | null;
+  } | null;
+} | null;
+
 // Source: ./src/queries/teams/useFetchTeams.ts
 // Variable: TEAMS_QUERY
 // Query: *[_type == "team" && isActive == true] | order(name asc) {  _id,  name,  slug,  abbreviation,  primaryColor,  secondaryColor,  country,  "logo": logo.asset->url,}
@@ -534,6 +597,7 @@ export type TEAMS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_type == \"team\" && isActive == true && slug.current == $slug][0] {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  yearFounded,\n  foundedYear,\n  primaryColor,\n  secondaryColor,\n  country,\n  state,\n  headCoach,\n  asstHeadCoach,\n  email,\n  phone,\n  url,\n  isActive,\n  \"logo\": logo.asset->url,\n  \"bannerImage\": bannerImage.asset->url,\n  players[] {\n    name,\n    number,\n    positions,\n    isCaptain,\n    \"photo\": photo.asset->url,\n  },\n  socialLinks {\n    instagram,\n    youtube,\n    tiktok,\n    twitter,\n  },\n}": TEAM_QUERYResult;
     "*[_type == \"team\" && isActive == true] | order(name asc) {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  primaryColor,\n  secondaryColor,\n  country,\n  \"logo\": logo.asset->url,\n}": TEAMS_QUERYResult;
   }
 }

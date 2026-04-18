@@ -1,22 +1,19 @@
-import { defineType, defineField } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export default defineType({
   name: "match",
-  title: "Match",
+  title: "Matches",
   type: "document",
   fields: [
     defineField({
-      name: "division",
-      title: "Division",
-      type: "string",
-      options: {
-        list: ["Men", "Women"],
-        layout: "dropdown",
-      },
-    }),
-    defineField({
       name: "matchDay",
       title: "Match Day",
+      type: "number",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "matchNumber",
+      title: "Match Number",
       type: "number",
     }),
     defineField({
@@ -30,22 +27,67 @@ export default defineType({
       type: "string",
     }),
     defineField({
-      name: "team1",
-      title: "Team 1",
-      type: "object",
-      fields: [
-        { name: "name", title: "Name", type: "string" },
-        { name: "logo", title: "Logo", type: "image" },
-      ],
+      name: "location",
+      title: "Location",
+      type: "string",
     }),
     defineField({
-      name: "team2",
-      title: "Team 2",
-      type: "object",
-      fields: [
-        { name: "name", title: "Name", type: "string" },
-        { name: "logo", title: "Logo", type: "image" },
-      ],
+      name: "homeTeam",
+      title: "Home Team",
+      type: "reference",
+      to: [{ type: "team" }],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "awayTeam",
+      title: "Away Team",
+      type: "reference",
+      to: [{ type: "team" }],
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "homeScore",
+      title: "Home Score",
+      type: "number",
+    }),
+    defineField({
+      name: "awayScore",
+      title: "Away Score",
+      type: "number",
+    }),
+    defineField({
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: {
+        list: ["scheduled", "completed", "cancelled"],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "competition",
+      title: "Competitions",
+      type: "reference",
+      to: [{ type: "competition" }],
     }),
   ],
+  preview: {
+    select: {
+      homeTeam: "homeTeam.abbreviation",
+      awayTeam: "awayTeam.abbreviation",
+      homeScore: "homeScore",
+      awayScore: "awayScore",
+      date: "date",
+      media: "competition.logo",
+      matchNumber: "matchNumber",
+    },
+    prepare({ homeTeam, awayTeam, date, media, homeScore, awayScore, matchNumber }) {
+      return {
+        title: `${matchNumber}: ${homeTeam} vs ${awayTeam} (${date ? date : "TBD"})`,
+        subtitle: `${homeScore ?? 0} - ${awayScore ?? 0}`,
+        media,
+      };
+    },
+  },
 });

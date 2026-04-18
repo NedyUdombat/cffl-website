@@ -2,6 +2,7 @@ import type { SchemaTypeDefinition } from "sanity";
 import { authorType } from "./authorType";
 import { blockContentType } from "./blockContentType";
 import { categoryType } from "./categoryType";
+import competition from "./competition";
 import gameResult from "./gameResult";
 import match from "./match";
 import newsType from "./newsType"; // 👈 Add this line
@@ -22,5 +23,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     match,
     gameResult,
     team,
+    competition,
   ], // 👈 And this one
 };
