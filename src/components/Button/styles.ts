@@ -1,5 +1,5 @@
+import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import clsx from "clsx";
 
 export type ButtonVariant =
   | "primary"
@@ -18,13 +18,13 @@ export const BASE =
   "disabled:pointer-events-none disabled:opacity-60 cursor-pointer select-none";
 
 export const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary:     "bg-accent text-white hover:opacity-90",
-  secondary:   "bg-surface text-ink border border-line hover:bg-bg",
-  danger:      "bg-danger text-white hover:opacity-90",
-  info:        "bg-info text-white hover:opacity-90",
-  warning:     "bg-warning text-white hover:opacity-90",
+  primary: "bg-accent text-white hover:opacity-90",
+  secondary: "bg-surface text-ink border border-line hover:bg-bg",
+  danger: "bg-danger text-white hover:opacity-90",
+  info: "bg-info text-white hover:opacity-90",
+  warning: "bg-warning text-white hover:opacity-90",
   transparent: "bg-transparent text-muted hover:text-ink hover:bg-line-2",
-  icon:        "bg-transparent text-ink hover:bg-line-2",
+  icon: "bg-transparent text-ink hover:bg-line-2",
 };
 
 export const SIZE_STYLES: Record<ButtonSize, string> = {
