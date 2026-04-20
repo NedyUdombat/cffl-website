@@ -80,21 +80,20 @@ export function Input({
           type={resolvedType}
           disabled={disabled}
           className={inputClass(size, !!validationError, hasStart, hasEnd, className)}
-          aria-invalid={!!validationError || undefined}
+          {...props}
+          aria-invalid={!!validationError ? "true" : undefined}
           aria-describedby={
             validationError ? errorId : helperText ? helperId : undefined
           }
-          {...props}
         />
 
         {isPassword ? (
           <button
             type="button"
-            tabIndex={-1}
             disabled={disabled}
             onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? "Hide password" : "Show password"}
-            className={`absolute inset-y-0 right-0 flex items-center justify-center text-muted hover:text-ink transition-colors disabled:pointer-events-none ${ICON_WRAPPER_SIZE[size]}`}
+            className={`absolute inset-y-0 right-0 flex items-center justify-center text-muted hover:text-ink transition-colors disabled:pointer-events-none disabled:opacity-60 ${ICON_WRAPPER_SIZE[size]}`}
           >
             {showPassword ? (
               <EyeOff className="w-4 h-4" aria-hidden />
