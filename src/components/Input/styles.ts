@@ -18,7 +18,7 @@ export const INPUT_SIZE: Record<InputSize, string> = {
 };
 
 /** Border + focus ring colours for default vs error states */
-export const INPUT_STATE = {
+export const INPUT_STATE: Record<"default" | "error", string> = {
   default: "border-line focus:border-accent focus:ring-accent/20",
   error:   "border-danger focus:border-danger focus:ring-danger/20",
 };
@@ -43,8 +43,8 @@ export const ICON_END_PAD: Record<InputSize, string> = {
 };
 
 /**
- * Width of the absolutely-positioned icon containers (matches input height
- * so icons appear perfectly centred).
+ * Width of the absolutely-positioned icon containers.
+ * Equals the input height at each size so the icon zone is square (touch-friendly).
  */
 export const ICON_WRAPPER_SIZE: Record<InputSize, string> = {
   sm: "w-8",
