@@ -1,4 +1,4 @@
-import { T, MONO } from "./tokens";
+import { T, MONO } from "@/styles/tokens";
 
 export function Pagination({
   total,

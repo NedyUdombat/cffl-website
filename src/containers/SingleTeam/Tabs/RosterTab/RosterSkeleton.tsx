@@ -1,4 +1,4 @@
-import { T } from "./tokens";
+import { T } from "@/styles/tokens";
 
 export function RosterSkeleton() {
   return (

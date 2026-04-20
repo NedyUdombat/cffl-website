@@ -1,4 +1,4 @@
-import { T, DISPLAY } from "./tokens";
+import { T, DISPLAY } from "@/styles/tokens";
 
 export function EmptyState() {
   return (

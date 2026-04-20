@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { RosterEntry } from "@/queries/teams/useFetchRosterEntries";
-import { T, DISPLAY, MONO, BODY, getSide } from "./tokens";
+import { T, DISPLAY, MONO, BODY, getSide } from "@/styles/tokens";
 import { EmptyState } from "./EmptyState";
 
 export function CardGrid({ entries }: { entries: RosterEntry[] }) {

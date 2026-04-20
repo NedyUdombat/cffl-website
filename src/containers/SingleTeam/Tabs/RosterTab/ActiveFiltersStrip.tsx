@@ -1,41 +1,19 @@
-import { T, BODY } from "./tokens";
+import { MdClear } from "react-icons/md";
+import { BODY } from "@/styles/tokens";
 
 function Tag({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
     <span
-      style={{
-        height: 26,
-        padding: "0 6px 0 10px",
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 6,
-        background: T.accentTint,
-        color: T.accent,
-        borderRadius: 999,
-        fontFamily: BODY,
-        fontSize: 11,
-        fontWeight: 700,
-        letterSpacing: "0.1em",
-        textTransform: "uppercase",
-      }}
+      className="h-[26px] pr-[6px] pl-[10px] inline-flex items-center gap-1.5 bg-[#fce8ea] text-[#ED3237] rounded-full text-[11px] font-bold tracking-[0.1em] uppercase"
+      style={{ fontFamily: BODY }}
     >
       {label}
       <button
         onClick={onRemove}
-        style={{
-          width: 16,
-          height: 16,
-          borderRadius: 999,
-          display: "grid",
-          placeItems: "center",
-          background: "rgba(237,50,55,0.14)",
-          color: T.accent,
-          border: 0,
-          cursor: "pointer",
-          fontSize: 10,
-        }}
+        className="w-4 h-4 rounded-full grid place-items-center bg-[rgba(237,50,55,0.14)] text-[#ED3237] border-0 cursor-pointer text-[10px]"
+        type="button"
       >
-        ×
+        <MdClear />
       </button>
     </span>
   );
@@ -61,49 +39,23 @@ export function ActiveFiltersStrip({
 
   return (
     <div
-      style={{
-        display: "flex",
-        gap: 8,
-        flexWrap: "wrap",
-        marginBottom: 16,
-        alignItems: "center",
-        fontFamily: BODY,
-        fontSize: 12,
-        color: T.muted,
-      }}
+      className="flex gap-2 items-center text-[12px] text-[#6b7280]"
+      style={{ fontFamily: BODY }}
     >
-      <span
-        style={{ textTransform: "uppercase", letterSpacing: "0.12em", fontSize: 11 }}
-      >
-        Active:
-      </span>
-      {sideFilter !== "All" && (
-        <Tag label={sideFilter} onRemove={() => setSideFilter("All")} />
-      )}
+      {sideFilter !== "All" && <Tag label={sideFilter} onRemove={() => setSideFilter("All")} />}
       {positionFilter.map((p) => (
         <Tag key={p} label={p} onRemove={() => togglePosition(p)} />
       ))}
-      {query && (
-        <Tag label={`"${query.slice(0, 16)}"`} onRemove={() => setQuery("")} />
-      )}
+      {query && <Tag label={`"${query.slice(0, 16)}"`} onRemove={() => setQuery("")} />}
       <button
         onClick={() => {
           setSideFilter("All");
           positionFilter.slice().forEach(togglePosition);
           setQuery("");
         }}
-        style={{
-          fontFamily: BODY,
-          fontSize: 11,
-          textTransform: "uppercase",
-          letterSpacing: "0.14em",
-          color: T.muted,
-          textDecoration: "underline",
-          textUnderlineOffset: 3,
-          background: "none",
-          border: 0,
-          cursor: "pointer",
-        }}
+        className="text-[11px] uppercase tracking-[0.14em] text-[#6b7280] underline underline-offset-[3px] bg-transparent border-0 cursor-pointer"
+        style={{ fontFamily: BODY }}
+        type="button"
       >
         Clear all
       </button>
