@@ -20,21 +20,17 @@ function Tag({ label, onRemove }: { label: string; onRemove: () => void }) {
 }
 
 export function ActiveFiltersStrip({
-  sideFilter,
-  setSideFilter,
   positionFilter,
   togglePosition,
   query,
   setQuery,
 }: {
-  sideFilter: string;
-  setSideFilter: (s: string) => void;
   positionFilter: string[];
   togglePosition: (p: string) => void;
   query: string;
   setQuery: (q: string) => void;
 }) {
-  const any = sideFilter !== "All" || positionFilter.length > 0 || query;
+  const any = positionFilter.length > 0 || query;
   if (!any) return null;
 
   return (
@@ -42,14 +38,12 @@ export function ActiveFiltersStrip({
       className="flex gap-2 items-center text-[12px] text-[#6b7280]"
       style={{ fontFamily: BODY }}
     >
-      {sideFilter !== "All" && <Tag label={sideFilter} onRemove={() => setSideFilter("All")} />}
       {positionFilter.map((p) => (
         <Tag key={p} label={p} onRemove={() => togglePosition(p)} />
       ))}
       {query && <Tag label={`"${query.slice(0, 16)}"`} onRemove={() => setQuery("")} />}
       <button
         onClick={() => {
-          setSideFilter("All");
           positionFilter.slice().forEach(togglePosition);
           setQuery("");
         }}

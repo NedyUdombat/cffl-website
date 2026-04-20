@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { BsFillGridFill, BsList } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { HiViewList } from "react-icons/hi";
 import { MdClear } from "react-icons/md";
-import { PiListBold } from "react-icons/pi";
 import { RiSearchLine } from "react-icons/ri";
 import useFetchRosterEntries from "@/queries/teams/useFetchRosterEntries";
 import { ActiveFiltersStrip } from "./ActiveFiltersStrip";
@@ -39,6 +35,10 @@ export function RosterTab({ teamId, competitionId }: { teamId: string; competiti
     setPositionFilter((prev) => (prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]));
     setPage(1);
   };
+
+  useEffect(() => {
+    setPage(1);
+  }, [query, sideFilter, positionFilter, view]);
 
   const sideCounts = useMemo(
     () => ({
@@ -239,8 +239,6 @@ export function RosterTab({ teamId, competitionId }: { teamId: string; competiti
         >
           {/* Active filters strip */}
           <ActiveFiltersStrip
-            sideFilter={sideFilter}
-            setSideFilter={setSideFilter}
             positionFilter={positionFilter}
             togglePosition={togglePosition}
             query={query}
