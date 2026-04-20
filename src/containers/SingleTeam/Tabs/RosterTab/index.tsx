@@ -40,21 +40,6 @@ export function RosterTab({ teamId, competitionId }: { teamId: string; competiti
     setPage(1);
   }, [query, sideFilter, positionFilter, view]);
 
-  const sideCounts = useMemo(
-    () => ({
-      Offense: roster.filter((e) => {
-        const s = getSide(e.positions ?? []);
-        return s === "Offense" || s === "Both";
-      }).length,
-      Defense: roster.filter((e) => {
-        const s = getSide(e.positions ?? []);
-        return s === "Defense" || s === "Both";
-      }).length,
-      Captains: roster.filter((e) => e.isCaptain).length,
-    }),
-    [roster]
-  );
-
   const filtered = useMemo(() => {
     let list = roster.slice();
 
