@@ -31,10 +31,12 @@
   --color-line-2: #eff0f2;
 
   /* ── Semantic extras ── */
-  --color-info:          #3b82f6;
-  --color-info-tint:     #eff6ff;
-  --color-warning-tint:  #fffbeb;
-  --color-danger-tint:   #fff1f2;
+  --color-info: #3b82f6;
+  --color-info-tint: #eff6ff;
+  --color-warning: #f59e0b;
+  --color-warning-tint: #fffbeb;
+  --color-danger: #e60023;
+  --color-danger-tint: #fff1f2;
 
   /* ── Semantic / status ── */
   --color-win: #34a853;
