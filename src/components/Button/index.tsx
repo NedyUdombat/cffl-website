@@ -1,20 +1,20 @@
 "use client";
 
-import React from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { buttonClass } from "./styles";
 import type { ButtonVariant, ButtonSize } from "./styles";
 
 export type { ButtonVariant, ButtonSize } from "./styles";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  /** Content for icon-only variant */
-  icon?: React.ReactNode;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  /** Content for icon-only variant. Must be paired with aria-label on the button. */
+  icon?: ReactNode;
   fullWidth?: boolean;
 }
 
@@ -46,7 +46,7 @@ export function Button({
     <button
       className={buttonClass(variant, size, fullWidth, className)}
       disabled={disabled || loading}
-      aria-busy={loading || undefined}
+      aria-busy={loading ? "true" : undefined}
       {...props}
     >
       {loading ? (
