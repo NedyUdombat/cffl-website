@@ -1,0 +1,70 @@
+/* src/styles/tokens.css
+   Design tokens for the CFFL app.
+   All values here become Tailwind utility classes automatically:
+     --color-accent  →  bg-accent, text-accent, border-accent, etc.
+     --font-display  →  font-display
+     --shadow-card   →  shadow-card
+     --tracking-ui   →  tracking-ui
+     --spacing-18    →  p-18, gap-18, m-18, etc.
+*/
+
+@theme {
+  /* ── Brand ── */
+  --color-accent: #ED3237;
+  --color-accent-tint: #fce8ea;
+  --color-accent-tint-2: #fdf2f3;
+  --color-gold: #d4af37;
+
+  /* ── Surfaces ── */
+  --color-bg: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-surface-2: #fafafa;
+
+  /* ── Ink (text) ── */
+  --color-ink: #0a0a0b;
+  --color-ink-2: #1a1b1e;
+  --color-muted: #6b7280;
+  --color-muted-2: #9aa0aa;
+
+  /* ── Borders ── */
+  --color-line: #e7e8eb;
+  --color-line-2: #eff0f2;
+
+  /* ── Semantic / status ── */
+  --color-win: #34a853;
+  --color-loss: #e60023;
+  --color-tie: #f59e0b;
+
+  /* ── Font families ── */
+  --font-display: 'Barlow Condensed', 'Oswald', Impact, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Mono', ui-monospace, Menlo, monospace;
+  --font-body: 'DM Sans', 'Inter', ui-sans-serif, sans-serif;
+  --font-machine: 'ITC Machine Std', sans-serif;
+  --font-inter: 'Inter', ui-sans-serif, sans-serif;
+  /* Aliases used in existing components */
+  --font-barlow-condensed: 'Barlow Condensed', 'Oswald', Impact, sans-serif;
+  --font-barlow: 'Barlow Condensed', sans-serif;
+
+  /* ── Custom font sizes (not in Tailwind defaults) ── */
+  --text-2xs: 10px;
+  --text-3xs: 9px;
+
+  /* ── Custom letter-spacing ── */
+  --tracking-ui: 0.04em;
+  --tracking-label: 0.1em;
+  --tracking-wide-ui: 0.14em;
+  --tracking-xwide: 0.18em;
+  --tracking-xxwide: 0.22em;
+
+  /* ── Custom spacing (values not covered by Tailwind default scale) ── */
+  --spacing-13: 52px;
+  --spacing-18: 72px;
+  --spacing-22: 88px;
+
+  /* ── Shadows ── */
+  --shadow-subtle: 0 1px 2px rgba(10, 10, 15, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(10, 10, 15, 0.06);
+  --shadow-card: 0 10px 30px rgba(10, 10, 15, 0.08);
+  --shadow-raised: 0 4px 12px rgba(10, 10, 15, 0.12), 0 1px 3px rgba(10, 10, 15, 0.08);
+  --shadow-deep: 0 2px 20px rgba(0, 0, 0, 0.4);
+}
