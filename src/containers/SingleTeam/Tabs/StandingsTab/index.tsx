@@ -2,8 +2,6 @@
 
 import type { MATCHES_QUERYResult } from "sanity.types";
 import { useCompetition } from "@/contexts/CompetitionContext";
-import { SectionHeading } from "../../components/SectionHeading";
-import type { Standing } from "../../types";
 import FullStandingsTable from "./FullStandingsTable";
 
 const StandingsTab = ({
@@ -37,7 +35,7 @@ const StandingsTab = ({
               {selectedCompetition?.name} Standings
             </h2>
             <span className="font-barlow font-normal text-sm text-gray-900">
-              {wins}W – {draws}D – {losses}L
+              {wins}W - {draws}D - {losses}L
             </span>
           </div>
           <FullStandingsTable competition={selectedCompetition} teamId={teamId} />

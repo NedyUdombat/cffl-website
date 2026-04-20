@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
 import { useMemo } from "react";
-import StandingsTable, { ALL_COLUMNS, COMPACT_COLUMNS } from "@/components/StandingsTable";
+import StandingsTable, { COMPACT_COLUMNS } from "@/components/StandingsTable";
 import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import { computeStandings } from "@/lib/compute-standings";
 import useFetchMatches from "@/queries/matches/useFetchMatches";
-import type { Tab } from "../../components/TabBar";
-import type { Standing } from "../../types";
 import { fadeUp } from "../../types";
 
 function useStandings(competitionId: string) {

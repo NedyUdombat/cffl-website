@@ -1,13 +1,12 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { fadeUp } from "../../types";
-import { SectionLabel } from "./SectionLabel";
 
 const CLIPS = [
   {
     duration: "02:48",
     cat: "Match Highlights",
-    title: "21–14 Win vs Lagos Lions — Full Highlights",
+    title: "21-14 Win vs Lagos Lions — Full Highlights",
     grad: "linear-gradient(145deg, #0a0e1a 0%, #1a1a2e 60%, #16213e 100%)",
   },
   {
@@ -26,7 +25,6 @@ export function TopHighlights() {
   return (
     <motion.div variants={fadeUp} className="bg-white rounded-xl px-5 pt-4 pb-5">
       <div className="flex items-center justify-between mb-3">
-        <SectionLabel>Top Highlights</SectionLabel>
         <button
           type="button"
           className="text-[10px] font-bold uppercase tracking-widest font-inter text-gray-400 hover:text-gray-800 transition-colors"

@@ -21,8 +21,11 @@ type Match = {
   status: string;
 };
 
+type H2HRecord = { w: number; t: number; l: number };
+
 export function computeStandings(matches: Match[]): StandingRow[] {
   const map = new Map<string, StandingRow>();
+  const h2h = new Map<string, Map<string, H2HRecord>>();
 
   const getOrCreate = (team: Match["homeTeam"]): StandingRow => {
     if (!map.has(team._id)) {
@@ -42,6 +45,13 @@ export function computeStandings(matches: Match[]): StandingRow[] {
     return map.get(team._id)!;
   };
 
+  const getH2H = (teamId: string, opponentId: string): H2HRecord => {
+    if (!h2h.has(teamId)) h2h.set(teamId, new Map());
+    const inner = h2h.get(teamId)!;
+    if (!inner.has(opponentId)) inner.set(opponentId, { w: 0, t: 0, l: 0 });
+    return inner.get(opponentId)!;
+  };
+
   for (const match of matches) {
     if (match.status !== "completed") continue;
 
@@ -55,15 +65,24 @@ export function computeStandings(matches: Match[]): StandingRow[] {
     away.pf += match.awayScore;
     away.pa += match.homeScore;
 
+    const homeH2H = getH2H(match.homeTeam._id, match.awayTeam._id);
+    const awayH2H = getH2H(match.awayTeam._id, match.homeTeam._id);
+
     if (match.homeScore > match.awayScore) {
       home.w++;
       away.l++;
+      homeH2H.w++;
+      awayH2H.l++;
     } else if (match.awayScore > match.homeScore) {
       away.w++;
       home.l++;
+      awayH2H.w++;
+      homeH2H.l++;
     } else {
       home.t++;
       away.t++;
+      homeH2H.t++;
+      awayH2H.t++;
     }
   }
 
@@ -71,14 +90,21 @@ export function computeStandings(matches: Match[]): StandingRow[] {
     .map((row) => ({
       ...row,
       pd: row.pf - row.pa,
-      pct: row.gp > 0 ? row.w / row.gp : 0,
+      pct: row.gp > 0 ? (row.w + 0.5 * row.t) / row.gp : 0,
     }))
     .sort((a, b) => {
-      // 1. Win percentage
-      if (b.pct !== a.pct) return b.pct - a.pct;
-      // 2. Point differential
+      // 1. W / T / L
+      if (b.w !== a.w) return b.w - a.w;
+      if (b.t !== a.t) return b.t - a.t;
+      if (a.l !== b.l) return a.l - b.l;
+      // 2. Head-to-head
+      const aVsB = h2h.get(a.team._id)?.get(b.team._id) ?? { w: 0, t: 0, l: 0 };
+      const bVsA = h2h.get(b.team._id)?.get(a.team._id) ?? { w: 0, t: 0, l: 0 };
+      if (aVsB.w !== bVsA.w) return bVsA.w - aVsB.w;
+      if (aVsB.t !== bVsA.t) return bVsA.t - aVsB.t;
+      // 3. Point differential
       if (b.pd !== a.pd) return b.pd - a.pd;
-      // 3. Points for
+      // 4. Points for
       return b.pf - a.pf;
     })
     .map((row, i) => ({ ...row, rank: i + 1 }));

@@ -13,14 +13,49 @@
  */
 
 // Source: schema.json
-export type GameResult = {
+export type RosterEntry = {
   _id: string;
-  _type: "gameResult";
+  _type: "rosterEntry";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  date?: string;
-  gameImage?: {
+  player?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "player";
+  };
+  team?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "team";
+  };
+  competition?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "competition";
+  };
+  isCaptain?: boolean;
+  jerseyName?: string;
+  jerseyNumber?: number;
+  positions?: Array<string>;
+};
+
+export type Player = {
+  _id: string;
+  _type: "player";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  jerseyName?: string;
+  jerseyNumber?: number;
+  gender?: "male" | "female" | "non-binary" | "prefer-not-to-say";
+  photo?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -32,26 +67,13 @@ export type GameResult = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  teams?: Array<{
-    name?: string;
-    record?: string;
-    quarters?: Array<number>;
-    total?: number;
-    isWinner?: boolean;
-    logo?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    _key: string;
-  }>;
+  positions?: Array<string>;
+  socialLinks?: {
+    instagram?: string;
+    youtube?: string;
+    tiktok?: string;
+    twitter?: string;
+  };
 };
 
 export type SanityImageCrop = {
@@ -102,42 +124,6 @@ export type Match = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "competition";
   };
-};
-
-export type Competition = {
-  _id: string;
-  _type: "competition";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  isDefault?: boolean;
-  name?: string;
-  slug?: Slug;
-  season?: number;
-  type?: "league" | "tournament" | "preseason";
-  format?: "7" | "5";
-  gender?: "coed" | "men" | "women";
-  startDate?: string;
-  endDate?: string;
-  status?: "upcoming" | "active" | "completed";
-  logo?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
 };
 
 export type Team = {
@@ -215,6 +201,83 @@ export type Team = {
   phone?: string;
   url?: string;
   isActive?: boolean;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type Competition = {
+  _id: string;
+  _type: "competition";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  isDefault?: boolean;
+  name?: string;
+  slug?: Slug;
+  season?: number;
+  type?: "league" | "tournament" | "preseason";
+  format?: "7" | "5";
+  gender?: "coed" | "men" | "women";
+  startDate?: string;
+  endDate?: string;
+  status?: "upcoming" | "active" | "completed";
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type GameResult = {
+  _id: string;
+  _type: "gameResult";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  date?: string;
+  gameImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  teams?: Array<{
+    name?: string;
+    record?: string;
+    quarters?: Array<number>;
+    total?: number;
+    isWinner?: boolean;
+    logo?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
 };
 
 export type Replay = {
@@ -541,7 +604,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = GameResult | SanityImageCrop | SanityImageHotspot | Match | Competition | Slug | Team | Replay | Upcoming | News | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = RosterEntry | Player | SanityImageCrop | SanityImageHotspot | Match | Team | Slug | Competition | GameResult | Replay | Upcoming | News | Post | BlockContent | Author | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/queries/competitions/useFetchCompetitions.ts
 // Variable: COMPETITIONS_QUERY
@@ -649,9 +712,28 @@ export type MATCH_QUERYResult = {
   } | null;
 } | null;
 
+// Source: ./src/queries/teams/useFetchRosterEntries.ts
+// Variable: ROSTER_ENTRIES_QUERY
+// Query: *[_type == "rosterEntry"  && team._ref == $team  && ($competition == null || competition._ref == $competition)] | order(jerseyNumber asc) {  _id,  isCaptain,  jerseyName,  jerseyNumber,  positions,  "player": player-> {    _id,    firstName,    lastName,    gender,    email,    "photo": photo.asset->url,  }}
+export type ROSTER_ENTRIES_QUERYResult = Array<{
+  _id: string;
+  isCaptain: boolean | null;
+  jerseyName: string | null;
+  jerseyNumber: number | null;
+  positions: Array<string> | null;
+  player: {
+    _id: string;
+    firstName: string | null;
+    lastName: string | null;
+    gender: "female" | "male" | "non-binary" | "prefer-not-to-say" | null;
+    email: string | null;
+    photo: string | null;
+  } | null;
+}>;
+
 // Source: ./src/queries/teams/useFetchSingleTeam.ts
 // Variable: TEAM_QUERY
-// Query: *[_type == "team" && isActive == true && slug.current == $slug][0] {  _id,  name,  slug,  abbreviation,  yearFounded,  foundedYear,  primaryColor,  secondaryColor,  country,  state,  headCoach,  asstHeadCoach,  email,  phone,  url,  isActive,  "logo": logo.asset->url,  "bannerImage": bannerImage.asset->url,  players[] {    name,    number,    positions,    isCaptain,    "photo": photo.asset->url,  },  socialLinks {    instagram,    youtube,    tiktok,    twitter,  },}
+// Query: *[_type == "team" && isActive == true && slug.current == $slug][0] {  _id,  name,  slug,  abbreviation,  yearFounded,  foundedYear,  primaryColor,  secondaryColor,  country,  state,  headCoach,  asstHeadCoach,  email,  phone,  url,  isActive,  "logo": logo.asset->url,  "bannerImage": bannerImage.asset->url,  players[] {    firstName,    lastName,    email,    jerseyName,    jerseyNumber,    gender,    instagram,    positions,    isCaptain,    "photo": photo.asset->url,  },  socialLinks {    instagram,    youtube,    tiktok,    twitter,  },}
 export type TEAM_QUERYResult = {
   _id: string;
   name: string | null;
@@ -672,8 +754,13 @@ export type TEAM_QUERYResult = {
   logo: string | null;
   bannerImage: string | null;
   players: Array<{
-    name: null;
-    number: null;
+    firstName: string | null;
+    lastName: string | null;
+    email: string | null;
+    jerseyName: string | null;
+    jerseyNumber: number | null;
+    gender: "female" | "male" | "non-binary" | "prefer-not-to-say" | null;
+    instagram: string | null;
     positions: Array<string> | null;
     isCaptain: boolean | null;
     photo: string | null;
@@ -709,7 +796,8 @@ declare module "@sanity/client" {
     "*[_type == \"match\"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n] | order(date asc) [$offset...$limit] {\n  _id,\n  matchDay,\n  matchNumber,\n  date,\n  time,\n  location,\n  homeScore,\n  awayScore,\n  status,\n  \"homeTeam\": homeTeam-> {\n    _id,\n    name,\n    abbreviation,\n    \"logo\": logo.asset->url,\n    \"slug\": slug.current,\n  },\n  \"awayTeam\": awayTeam-> {\n    _id,\n    name,\n    abbreviation,\n    \"logo\": logo.asset->url,\n    \"slug\": slug.current,\n  },\n  competition,\n}": MATCHES_QUERYResult;
     "count(*[_type == \"match\"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n])": MATCHES_COUNT_QUERYResult;
     "*[_type == \"match\" && _id == $id][0] {\n  _id,\n  matchDay,\n  matchNumber,\n  date,\n  time,\n  location,\n  homeScore,\n  awayScore,\n  status,\n  \"homeTeam\": homeTeam-> {\n    _id,\n    name,\n    abbreviation,\n    \"logo\": logo.asset->url,\n  },\n  \"awayTeam\": awayTeam-> {\n    _id,\n    name,\n    abbreviation,\n    \"logo\": logo.asset->url,\n  },\n  \"competition\": competition-> {\n    _id,\n    name,\n    \"logo\": logo.asset->url,\n  },\n}": MATCH_QUERYResult;
-    "*[_type == \"team\" && isActive == true && slug.current == $slug][0] {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  yearFounded,\n  foundedYear,\n  primaryColor,\n  secondaryColor,\n  country,\n  state,\n  headCoach,\n  asstHeadCoach,\n  email,\n  phone,\n  url,\n  isActive,\n  \"logo\": logo.asset->url,\n  \"bannerImage\": bannerImage.asset->url,\n  players[] {\n    name,\n    number,\n    positions,\n    isCaptain,\n    \"photo\": photo.asset->url,\n  },\n  socialLinks {\n    instagram,\n    youtube,\n    tiktok,\n    twitter,\n  },\n}": TEAM_QUERYResult;
+    "*[_type == \"rosterEntry\"\n  && team._ref == $team\n  && ($competition == null || competition._ref == $competition)\n] | order(jerseyNumber asc) {\n  _id,\n  isCaptain,\n  jerseyName,\n  jerseyNumber,\n  positions,\n  \"player\": player-> {\n    _id,\n    firstName,\n    lastName,\n    gender,\n    email,\n    \"photo\": photo.asset->url,\n  }\n}": ROSTER_ENTRIES_QUERYResult;
+    "*[_type == \"team\" && isActive == true && slug.current == $slug][0] {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  yearFounded,\n  foundedYear,\n  primaryColor,\n  secondaryColor,\n  country,\n  state,\n  headCoach,\n  asstHeadCoach,\n  email,\n  phone,\n  url,\n  isActive,\n  \"logo\": logo.asset->url,\n  \"bannerImage\": bannerImage.asset->url,\n  players[] {\n    firstName,\n    lastName,\n    email,\n    jerseyName,\n    jerseyNumber,\n    gender,\n    instagram,\n    positions,\n    isCaptain,\n    \"photo\": photo.asset->url,\n  },\n  socialLinks {\n    instagram,\n    youtube,\n    tiktok,\n    twitter,\n  },\n}": TEAM_QUERYResult;
     "*[_type == \"team\" && isActive == true] | order(name asc) {\n  _id,\n  name,\n  slug,\n  abbreviation,\n  primaryColor,\n  secondaryColor,\n  country,\n  \"logo\": logo.asset->url,\n}": TEAMS_QUERYResult;
   }
 }
