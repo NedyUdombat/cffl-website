@@ -30,6 +30,12 @@
   --color-line: #e7e8eb;
   --color-line-2: #eff0f2;
 
+  /* ── Semantic extras ── */
+  --color-info:          #3b82f6;
+  --color-info-tint:     #eff6ff;
+  --color-warning-tint:  #fffbeb;
+  --color-danger-tint:   #fff1f2;
+
   /* ── Semantic / status ── */
   --color-win: #34a853;
   --color-loss: #e60023;

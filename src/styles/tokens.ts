@@ -37,6 +37,16 @@ export const T = {
   win: "#34a853",
   loss: "#e60023",
   tie: "#f59e0b",
+
+  // Info
+  info: "#3b82f6",
+  infoTint: "#eff6ff",
+
+  // Semantic aliases (for Button usage)
+  warning: "#f59e0b",   // same as tie
+  warningTint: "#fffbeb",
+  danger: "#e60023",    // same as loss
+  dangerTint: "#fff1f2",
 } as const;
 
 /* ─── Position colors (dynamic — not in @theme, applied via inline styles) ─── */
