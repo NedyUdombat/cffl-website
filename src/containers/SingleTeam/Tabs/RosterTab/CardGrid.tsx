@@ -1,231 +1,130 @@
 import Image from "next/image";
-import type { RosterEntry } from "@/queries/teams/useFetchRosterEntries";
-import { T, DISPLAY, MONO, BODY, getSide } from "@/styles/tokens";
+import Link from "next/link";
+import type { ROSTER_ENTRIES_QUERYResult } from "sanity.types";
+import FemaleAvatar from "./avatar/female";
+import MaleAvatar from "./avatar/male";
 import { EmptyState } from "./EmptyState";
 
-export function CardGrid({ entries }: { entries: RosterEntry[] }) {
+export function CardGrid({ entries }: { entries: ROSTER_ENTRIES_QUERYResult }) {
   if (!entries.length) return <EmptyState />;
 
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-        gap: 14,
-      }}
+      className="grid gap-4"
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
     >
       {entries.map((entry) => {
         const firstName = entry.player?.firstName ?? "";
         const lastName = entry.player?.lastName ?? "";
-        const displayName =
-          entry.jerseyName || `${firstName} ${lastName}`.trim() || "—";
+        const displayName = `${firstName} ${lastName}`.trim() || "—";
+        const jerseyName = entry.jerseyName;
         const number = entry.jerseyNumber ?? 0;
         const positions = entry.positions ?? [];
         const photo = entry.player?.photo;
         const isCaptain = entry.isCaptain ?? false;
-        const side = getSide(positions);
-        const isOffense = side === "Offense" || side === "Both";
+        const gender = entry.player?.gender?.toLowerCase() ?? null;
+        const href = entry.player?._id ? `/players/${entry.player._id}` : undefined;
 
-        const portraitBg = isOffense
-          ? `radial-gradient(120% 80% at 50% 110%, rgba(237,50,55,0.35), transparent 60%), linear-gradient(180deg, #1c1d20 0%, #0f1012 100%)`
-          : `radial-gradient(120% 80% at 50% 110%, rgba(212,175,55,0.22), transparent 60%), linear-gradient(180deg, #1c1d20 0%, #0f1012 100%)`;
-
-        return (
+        const card = (
           <div
             key={entry._id}
-            tabIndex={0}
+            role={href ? "link" : "button"}
+            tabIndex={href ? undefined : 0}
+            className="group relative rounded-xl overflow-hidden cursor-pointer flex flex-col h-96 border"
             style={{
-              background: "#fff",
-              border: `1px solid ${T.line}`,
-              borderRadius: 14,
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              cursor: "pointer",
-              transition: "all 0.18s",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLDivElement).style.boxShadow =
-                "0 10px 30px rgba(10,10,15,0.08)";
-              (e.currentTarget as HTMLDivElement).style.borderColor = "#d4d6db";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLDivElement).style.transform = "none";
-              (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-              (e.currentTarget as HTMLDivElement).style.borderColor = T.line;
+              background:
+                "radial-gradient(120% 80% at 50% 110%, color-mix(in srgb, var(--color-gold) 25%, transparent), transparent 60%), linear-gradient(180deg, #2d2f36 0%, #1c1d22 100%)",
             }}
           >
-            {/* Portrait */}
+            {/* Diagonal stripe texture */}
             <div
+              className="absolute inset-0 pointer-events-none -z-10"
               style={{
-                aspectRatio: "1 / 1.05",
-                position: "relative",
-                background: portraitBg,
-                overflow: "hidden",
+                backgroundImage:
+                  "repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, rgba(255,255,255,0) 10px 22px)",
               }}
-            >
-              {/* Diagonal stripe texture */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage:
-                    "repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, rgba(255,255,255,0) 10px 22px)",
-                }}
-              />
+            />
 
+            <div className="px-4 pt-3">
               {/* Jersey number */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: 14,
-                  top: 14,
-                  fontFamily: DISPLAY,
-                  fontStyle: "italic",
-                  fontWeight: 900,
-                  fontSize: 72,
-                  lineHeight: 0.85,
-                  color: "#fff",
-                  textShadow: "0 2px 20px rgba(0,0,0,0.4)",
-                }}
-              >
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: 10,
-                    fontStyle: "normal",
-                    letterSpacing: "0.22em",
-                    color: "#a9adb5",
-                    fontFamily: BODY,
-                    fontWeight: 700,
-                    marginBottom: -2,
-                  }}
-                >
-                  NO.
+              <div className="flex gap-1">
+                <span className="font-display text-sm font-bold text-white/60">#</span>
+                <span className="font-display text-5xl font-black tracking-ui text-white/90">
+                  {String(number).padStart(2, "0")}
                 </span>
-                {String(number).padStart(2, "0")}
               </div>
 
-              {/* Captain pin */}
+              {/* Captain badge */}
               {isCaptain && (
-                <div
-                  style={{
-                    position: "absolute",
-                    right: 10,
-                    top: 10,
-                    background: T.accent,
-                    color: "#fff",
-                    fontSize: 9,
-                    fontWeight: 800,
-                    letterSpacing: "0.16em",
-                    padding: "3px 7px",
-                    borderRadius: 4,
-                    zIndex: 2,
-                    fontFamily: BODY,
-                  }}
-                >
-                  CAPT
+                <div className="absolute top-0 right-0 bg-[#f20511]/60 text-white/85 font-body text-xs font-bold tracking-wide-ui uppercase px-6 py-2 rounded-bl-xl">
+                  Capt
                 </div>
               )}
+            </div>
 
-              {/* Photo or silhouette */}
+            {/* Player photo or avatar */}
+            <div className="relative h-full">
               {photo ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "65%",
-                    height: "75%",
-                    overflow: "hidden",
-                  }}
-                >
+                <div>
                   <Image
                     src={photo}
                     alt={displayName}
                     fill
-                    sizes="200px"
-                    style={{ objectFit: "cover", objectPosition: "top" }}
+                    className="object-cover object-bottom w-full h-full"
                   />
                 </div>
+              ) : gender === "female" ? (
+                <FemaleAvatar className="w-full h-full opacity-70" />
               ) : (
-                <>
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: "50%",
-                      bottom: 0,
-                      transform: "translateX(-50%)",
-                      width: "75%",
-                      height: "85%",
-                      background: `radial-gradient(ellipse 35% 20% at 50% 20%, #0a0a0b 60%, transparent 62%), radial-gradient(ellipse 55% 45% at 50% 70%, #0a0a0b 60%, transparent 62%)`,
-                      opacity: 0.55,
-                    }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: 10,
-                      bottom: 10,
-                      fontFamily: MONO,
-                      fontSize: 9,
-                      color: "rgba(255,255,255,0.35)",
-                      letterSpacing: "0.08em",
-                    }}
-                  >
-                    // photo
-                  </div>
-                </>
+                <MaleAvatar className="w-full h-full opacity-70" />
               )}
             </div>
 
-            {/* Body */}
-            <div
-              style={{
-                padding: "14px",
-                borderTop: `1px solid ${T.line}`,
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: DISPLAY,
-                  fontWeight: 900,
-                  fontStyle: "italic",
-                  fontSize: 20,
-                  lineHeight: 1,
-                  textTransform: "uppercase",
-                  color: T.ink,
-                  marginBottom: 6,
-                }}
-              >
-                {displayName}
-              </div>
-              <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-                {positions.map((pos, i) => (
-                  <span
-                    key={pos}
-                    style={{
-                      height: 20,
-                      padding: "0 7px",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      background: i === 0 ? T.ink : T.line2,
-                      borderRadius: 4,
-                      fontFamily: MONO,
-                      fontSize: 10,
-                      fontWeight: 700,
-                      color: i === 0 ? "#fff" : T.ink,
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    {pos}
-                  </span>
-                ))}
+            {/* Static label — fades out on hover */}
+            <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 transition-opacity duration-[220ms] ease-out group-hover:opacity-0">
+              <div className="font-display font-bold text-xl text-white uppercase tracking-ui leading-[1.1] truncate">
+                {displayName || firstName}
               </div>
             </div>
+
+            {/* Reveal panel — slides up on hover */}
+            <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-[8px] p-4 border-t border-white/[0.08] translate-y-full transition-transform duration-[320ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
+              <div className="font-display font-bold text-xl text-white uppercase tracking-ui leading-[1.1] mb-1 truncate">
+                {displayName}
+              </div>
+              <div className="flex gap-1 items-center">
+                {jerseyName && (
+                  <div className="text-xs text-white/60 uppercase tracking-[0.06em] font-medium">
+                    {jerseyName}
+                  </div>
+                )}
+                <div className="text-xs font-medium tracking-label text-white/50 uppercase">
+                  {gender === "female" ? "(F)" : "(M)"}
+                </div>
+              </div>
+              <div className="h-px bg-white/10 my-2.5" />
+              {positions.length > 0 && (
+                <div className="flex gap-1 flex-wrap">
+                  {positions.map((pos) => (
+                    <span
+                      key={pos}
+                      className="font-mono text-2xs font-bold tracking-label uppercase px-2 py-1 rounded border border-white/20 text-white/75 bg-white/[0.06]"
+                    >
+                      {pos}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
+        );
+
+        return href ? (
+          <Link key={entry._id} href={href} className="block">
+            {card}
+          </Link>
+        ) : (
+          <div key={entry._id}>{card}</div>
         );
       })}
     </div>

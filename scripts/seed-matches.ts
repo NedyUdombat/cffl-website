@@ -14,8 +14,8 @@ const client = createClient({
 
 // Edit this array before each run. Replace with the current matchday's results.
 const scoreUpdates = [
-  { matchDay: 3, matchNumber: 9,  homeScore: 34, awayScore: 7  },
-  { matchDay: 3, matchNumber: 10, homeScore: 0,  awayScore: 38 },
+  { matchDay: 3, matchNumber: 9, homeScore: 34, awayScore: 7 },
+  { matchDay: 3, matchNumber: 10, homeScore: 0, awayScore: 38 },
   { matchDay: 3, matchNumber: 11, homeScore: 13, awayScore: 26 },
   { matchDay: 3, matchNumber: 12, homeScore: 42, awayScore: 24 },
 ];
@@ -34,10 +34,7 @@ async function updateScores() {
       continue;
     }
 
-    await client
-      .patch(match._id)
-      .set({ homeScore, awayScore, status: "completed" })
-      .commit();
+    await client.patch(match._id).set({ homeScore, awayScore, status: "completed" }).commit();
 
     console.log(`✅  Updated matchDay=${matchDay} #${matchNumber}: ${homeScore} - ${awayScore}`);
   }

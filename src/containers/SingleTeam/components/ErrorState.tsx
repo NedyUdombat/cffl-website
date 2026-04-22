@@ -3,13 +3,7 @@
 import { motion } from "framer-motion";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 
-export function ErrorState({
-  message,
-  onRetry,
-}: {
-  message?: string;
-  onRetry?: () => void;
-}) {
+export function ErrorState({ message, onRetry }: { message?: string; onRetry?: () => void }) {
   return (
     <main
       className="min-h-screen w-full flex items-center justify-center px-6"

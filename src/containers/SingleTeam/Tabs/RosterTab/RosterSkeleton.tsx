@@ -1,43 +1,15 @@
-import { T } from "@/styles/tokens";
-
 export function RosterSkeleton() {
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-        gap: 14,
-      }}
+      className="grid gap-[14px]"
+      style={{ gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))" }}
     >
       {Array.from({ length: 8 }).map((_, i) => (
-        <div
-          key={i}
-          style={{
-            background: "#fff",
-            border: `1px solid ${T.line}`,
-            borderRadius: 14,
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              aspectRatio: "1 / 1.05",
-              background: "linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%)",
-              backgroundSize: "200% 100%",
-              animation: "shimmer 1.4s infinite",
-            }}
-          />
-          <div style={{ padding: 14 }}>
-            <div
-              style={{
-                height: 20,
-                background: "#f0f0f0",
-                borderRadius: 4,
-                marginBottom: 8,
-                width: "70%",
-              }}
-            />
-            <div style={{ height: 20, background: "#f0f0f0", borderRadius: 4, width: "40%" }} />
+        <div key={i} className="bg-surface border border-line rounded-lg overflow-hidden">
+          <div className="h-80 bg-[linear-gradient(90deg,#f0f0f0_25%,#e8e8e8_50%,#f0f0f0_75%)] bg-[length:200%_100%] animate-[shimmer_1.4s_infinite]" />
+          <div className="p-4">
+            <div className="h-5 bg-[#f0f0f0] rounded mb-2 w-[70%]" />
+            <div className="h-5 bg-[#f0f0f0] rounded w-[40%]" />
           </div>
         </div>
       ))}

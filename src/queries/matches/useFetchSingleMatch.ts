@@ -33,15 +33,13 @@ const MATCH_QUERY = defineQuery(`*[_type == "match" && _id == $id][0] {
 }`);
 
 const useFetchSingleMatch = (id: string) => {
-  const { data, isPending, isError, error, refetch }: UseQueryResult<MATCH_QUERYResult, Error> = useQuery<
-    MATCH_QUERYResult,
-    Error
-  >({
-    queryKey: ["single-match", id],
-    queryFn: () => client.fetch(MATCH_QUERY, { id }),
-    refetchOnWindowFocus: false,
-    enabled: !!id,
-  });
+  const { data, isPending, isError, error, refetch }: UseQueryResult<MATCH_QUERYResult, Error> =
+    useQuery<MATCH_QUERYResult, Error>({
+      queryKey: ["single-match", id],
+      queryFn: () => client.fetch(MATCH_QUERY, { id }),
+      refetchOnWindowFocus: false,
+      enabled: !!id,
+    });
 
   return {
     singleMatch: data,

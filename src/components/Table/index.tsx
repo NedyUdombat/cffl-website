@@ -138,7 +138,7 @@ export function Table<T>({
                     isSorted && "text-gray-900",
                     col.hideOnMobile && "hidden sm:table-cell",
                     col.className,
-                    thClassName,
+                    thClassName
                   )}
                 >
                   <span className="inline-flex items-center gap-1">
@@ -182,7 +182,7 @@ export function Table<T>({
                       isHighlighted && "font-semibold",
                       col.hideOnMobile && "hidden sm:table-cell",
                       col.className,
-                      tdClassName,
+                      tdClassName
                     )}
                   >
                     {col.cell(row, rowIndexOffset + index)}

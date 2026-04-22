@@ -43,6 +43,8 @@ export type StandingsTableProps = {
   maxRows?: number;
   /** Which columns to render. Defaults to all. */
   columns?: StandingsColumnKey[];
+  /** Additional column defs appended after the standard columns */
+  extraColumns?: ColumnDef<StandingRow>[];
   /** Enables header click sorting */
   sortable?: boolean;
   /** Tighter rows for sidebar contexts */
@@ -82,9 +84,7 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
       className: "w-10 text-center",
       sortValue: (row) => row.rank,
       cell: (row) => (
-        <span className="text-gray-400 font-mono text-xs">
-          {String(row.rank).padStart(2, "0")}
-        </span>
+        <span className="text-ink font-mono text-xs">{String(row.rank).padStart(2, "0")}</span>
       ),
     },
 
@@ -93,6 +93,7 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
       header: "Team",
       className: "min-w-[140px]",
       sortValue: (row) => row.team.name,
+
       cell: (row) => (
         <div className="flex items-center gap-2">
           {/* Logo with fallback monogram */}
@@ -102,8 +103,8 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
               name={row.team.name}
               abbreviation={row.team.abbreviation}
             />
-            <span className="font-mono text-black text-xs">{row.team.name}</span>
-          </Link>{" "}
+            <span className="font-mono text-ink text-xs">{row.team.name}</span>
+          </Link>
         </div>
       ),
     },
@@ -135,7 +136,7 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
     t: {
       key: "t",
       header: "T",
-      className: "text-center hidden sm:table-cell",
+      className: "text-center  sm:table-cell",
       sortValue: (row) => row.t,
       cell: (row) => <Num>{row.t}</Num>,
     },
@@ -143,9 +144,9 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
     pct: {
       key: "pct",
       header: "PCT",
-      className: "text-center text-gray-400",
+      className: "text-center text-muted-2",
       sortValue: (row) => row.pct,
-      cell: (row) => <span className="font-mono text-black/80 text-xs">{row.pct.toFixed(3)}</span>,
+      cell: (row) => <span className="font-mono text-ink/80 text-xs">{row.pct.toFixed(3)}</span>,
     },
 
     pf: {
@@ -172,7 +173,7 @@ function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDe
       cell: (row) => (
         <span
           className={`font-mono text-xs font-semibold ${
-            row.pd > 0 ? "text-green-400" : row.pd < 0 ? "text-red-400" : "text-gray-400"
+            row.pd > 0 ? "text-win" : row.pd < 0 ? "text-loss" : "text-muted-2"
           }`}
         >
           {row.pd > 0 ? `+${row.pd}` : row.pd}
@@ -190,13 +191,14 @@ function StandingsTable({
   highlightTeamId,
   maxRows,
   columns = ALL_COLUMNS,
+  extraColumns,
   sortable = false,
   compact = false,
   startIndex = 0,
   className,
   getRowClassName,
 }: StandingsTableProps) {
-  const colDefs = buildColumns(rows, columns);
+  const colDefs = [...buildColumns(rows, columns), ...(extraColumns ?? [])];
 
   return (
     <Table
@@ -212,7 +214,7 @@ function StandingsTable({
       compact={compact}
       striped
       className={className}
-      emptyState={<p className="py-6 text-center text-sm text-gray-500">No standings data yet.</p>}
+      emptyState={<p className="py-6 text-center text-sm text-muted">No standings data yet.</p>}
       tdClassName="text-black"
       getRowClassName={getRowClassName}
     />
@@ -226,10 +228,10 @@ function Num({ children, highlight }: { children: React.ReactNode; highlight?: "
     <span
       className={`font-mono text-xs ${
         highlight === "green"
-          ? "text-green-400"
+          ? "text-win"
           : highlight === "red"
-            ? "text-red-400"
-            : "text-black/70"
+            ? "text-loss"
+            : "text-ink/70"
       }`}
     >
       {children}
@@ -265,8 +267,8 @@ function TeamBadge({
 
 function Monogram({ abbreviation }: { abbreviation: string }) {
   return (
-    <div className="w-7 h-7 rounded-full bg-red-600/20 border border-red-500/30 flex items-center justify-center flex-shrink-0">
-      <span className="text-[10px] font-bold text-red-400 tracking-tight">
+    <div className="w-7 h-7 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
+      <span className="text-[10px] font-bold text-accent tracking-tight">
         {abbreviation.slice(0, 2)}
       </span>
     </div>

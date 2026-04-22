@@ -9,7 +9,6 @@ import { HighlightsCarousel } from "./components/HighlightsCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { NewsTab } from "./components/NewsTab";
 import { ResultsTab } from "./components/ResultsTab";
-import { RosterTab } from "./Tabs/RosterTab";
 import { StaffTab } from "./components/StaffTab";
 import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
@@ -23,6 +22,7 @@ import {
   mockStats,
 } from "./mockTeamData";
 import { OverviewTab } from "./Tabs/OverviewTab";
+import { RosterTab } from "./Tabs/RosterTab";
 import StandingsTab from "./Tabs/StandingsTab";
 import type { SingleTeamProps } from "./types";
 
@@ -132,10 +132,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
       )}
 
       {activeTab === "roster" && (
-        <RosterTab
-          teamId={singleTeam._id}
-          competitionId={selectedCompetition?._id}
-        />
+        <RosterTab teamId={singleTeam._id} competitionId={selectedCompetition?._id} />
       )}
 
       {/*

@@ -1,5 +1,5 @@
-import { defineField, defineType } from "sanity";
 import { PortableText } from "@portabletext/react";
+import { defineField, defineType } from "sanity";
 
 export default {
   name: "news",

@@ -126,10 +126,10 @@ export default function HomePage() {
           width={316.4822129201497}
           height={186.00000274354937}
           className="absolute z-20 -translate-y-1/2 object-contain"
-          style={{ 
+          style={{
             width: "316.48px",
             height: "186px",
-           }}
+          }}
         />
         <div
           style={{

@@ -43,9 +43,9 @@ export const T = {
   infoTint: "#eff6ff",
 
   // Semantic aliases (for Button usage)
-  warning: "#f59e0b",   // same as tie
+  warning: "#f59e0b", // same as tie
   warningTint: "#fffbeb",
-  danger: "#e60023",    // same as loss
+  danger: "#e60023", // same as loss
   dangerTint: "#fff1f2",
 } as const;
 
@@ -57,12 +57,12 @@ export const POSITION_COLORS: Record<string, string> = {
   TE: "#0f766e",
   CB: "#b91c1c",
   LB: "#b45309",
-  S:  "#7c3aed",
+  S: "#7c3aed",
   DE: "#c2410c",
-  C:  "#be185d",
+  C: "#be185d",
   OL: "#374151",
   DL: "#1e3a5f",
-  K:  "#6b21a8",
+  K: "#6b21a8",
 };
 
 /* ─── Position sets ─── */
@@ -70,12 +70,15 @@ export const OFFENSIVE_POSITIONS = new Set(["QB", "WR", "RB", "C"]);
 export const DEFENSIVE_POSITIONS = new Set(["CB", "S", "LB", "RSH"]);
 export const ALL_POSITIONS = ["QB", "WR", "RB", "C", "CB", "S", "LB", "RSH"];
 
-/* ─── Position side utility ─── */
-export function getSide(positions: string[]): "Offense" | "Defense" | "Both" {
-  const hasOff = positions.some((p) => OFFENSIVE_POSITIONS.has(p));
-  const hasDef = positions.some((p) => DEFENSIVE_POSITIONS.has(p));
-  if (hasOff && hasDef) return "Both";
-  if (hasOff) return "Offense";
-  if (hasDef) return "Defense";
-  return "Offense";
-}
+export const GENDER = [
+  {
+    value: "male",
+    label: "Male",
+    abbr: "M",
+  },
+  {
+    value: "female",
+    label: "Female",
+    abbr: "F",
+  },
+];

@@ -70,7 +70,10 @@ export function LoadingState() {
       </section>
 
       {/* Stats strip skeleton */}
-      <section className="border-b border-white/5 overflow-x-auto" style={{ backgroundColor: "#09090f" }}>
+      <section
+        className="border-b border-white/5 overflow-x-auto"
+        style={{ backgroundColor: "#09090f" }}
+      >
         <div className="flex" style={{ minWidth: "650px" }}>
           {[0, 1, 2, 3, 4].map((i) => (
             <div

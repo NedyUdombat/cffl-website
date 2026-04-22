@@ -1,13 +1,12 @@
 "use client";
 
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonSize, ButtonVariant } from "./styles";
 import { buttonClass } from "./styles";
-import type { ButtonVariant, ButtonSize } from "./styles";
 
-export type { ButtonVariant, ButtonSize } from "./styles";
+export type { ButtonSize, ButtonVariant } from "./styles";
 
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
@@ -52,7 +51,7 @@ export function Button({
       {loading ? (
         <Spinner />
       ) : isIcon ? (
-        icon ?? children
+        (icon ?? children)
       ) : (
         <>
           {leftIcon && <span className="shrink-0">{leftIcon}</span>}

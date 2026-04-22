@@ -1,6 +1,6 @@
 import { BsFillGridFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { BODY } from "@/styles/tokens";
+import { Button } from "@/components/Button";
 
 interface OrientationToggleProps {
   view: "card" | "list";
@@ -9,21 +9,23 @@ interface OrientationToggleProps {
 
 const OrientationToggle = ({ view, setView }: OrientationToggleProps) => {
   return (
-    <div className="flex h-10 bg-[#fafafa] border border-[#e7e8eb] rounded-lg p-1 gap-0.5 ml-auto">
+    <div className="flex h-10 bg-surface-2 border border-line rounded-lg p-1 gap-1 ml-auto">
       {(["card", "list"] as const).map((v) => (
-        <button
+        <Button
           key={v}
+          variant="icon"
+          size="sm"
           onClick={() => setView(v)}
-          className={`h-full px-3 text-[11px] font-bold tracking-[0.14em] uppercase rounded flex items-center cursor-pointer transition-all duration-150 ${
+          aria-label={v === "card" ? "Card view" : "List view"}
+          aria-pressed={view === v}
+          className={`px-3 w-full h-full font-bold tracking-wide-ui uppercase rounded ${
             view === v
-              ? "text-[#0a0a0b] bg-white shadow-[0_4px_12px_rgba(10,10,15,0.12),_0_1px_3px_rgba(10,10,15,0.08)]"
-              : "text-[#6b7280] bg-transparent shadow-none"
+              ? "text-ink bg-surface shadow-raised"
+              : "text-muted bg-transparent shadow-none"
           }`}
-          style={{ fontFamily: BODY }}
-          type="button"
         >
           {v === "card" ? <BsFillGridFill /> : <GiHamburgerMenu />}
-        </button>
+        </Button>
       ))}
     </div>
   );

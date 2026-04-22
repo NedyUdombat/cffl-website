@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import TopAppBar from "@/components/TopAppBar";
+import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import type { TeamSocialLinks } from "../types";
 import { EASE } from "../types";
 import { SocialIconsRow } from "./SocialIconsRow";

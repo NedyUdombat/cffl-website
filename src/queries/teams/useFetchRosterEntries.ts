@@ -1,7 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { type UseQueryResult, useQuery } from "@tanstack/react-query";
 import { defineQuery } from "next-sanity";
+import type { ROSTER_ENTRIES_QUERYResult } from "sanity.types";
 import { client } from "@/sanity/lib/client";
 
 const ROSTER_ENTRIES_QUERY = defineQuery(`*[_type == "rosterEntry"
@@ -23,43 +24,24 @@ const ROSTER_ENTRIES_QUERY = defineQuery(`*[_type == "rosterEntry"
   }
 }`);
 
-export interface RosterEntry {
-  _id: string;
-  isCaptain: boolean | null;
-  jerseyName: string | null;
-  jerseyNumber: number | null;
-  positions: string[] | null;
-  player: {
-    _id: string;
-    firstName: string | null;
-    lastName: string | null;
-    photo: string | null;
-    gender: string | null;
-    email: string | null;
-  } | null;
-}
-
 interface FetchRosterEntriesParams {
   team?: string;
   competition?: string;
   enabled?: boolean;
 }
 
-const useFetchRosterEntries = ({
-  team,
-  competition,
-  enabled = true,
-}: FetchRosterEntriesParams) => {
-  const { data, isPending, isError, error } = useQuery<RosterEntry[]>({
-    queryKey: ["roster-entries", team, competition],
-    queryFn: () =>
-      client.fetch(ROSTER_ENTRIES_QUERY, {
-        team: team ?? null,
-        competition: competition ?? null,
-      }),
-    refetchOnWindowFocus: false,
-    enabled: enabled && !!team,
-  });
+const useFetchRosterEntries = ({ team, competition, enabled = true }: FetchRosterEntriesParams) => {
+  const { data, isPending, isError, error }: UseQueryResult<ROSTER_ENTRIES_QUERYResult, Error> =
+    useQuery<ROSTER_ENTRIES_QUERYResult, Error>({
+      queryKey: ["roster-entries", team, competition],
+      queryFn: () =>
+        client.fetch(ROSTER_ENTRIES_QUERY, {
+          team: team ?? null,
+          competition: competition ?? null,
+        }),
+      refetchOnWindowFocus: false,
+      enabled: enabled && !!team,
+    });
 
   return {
     data: data ?? [],

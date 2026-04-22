@@ -1,4 +1,5 @@
-import { T, MONO } from "@/styles/tokens";
+import { Button } from "@/components/Button";
+import { Select } from "@/components/Select";
 
 export function Pagination({
   total,
@@ -18,103 +19,46 @@ export function Pagination({
   const endIdx = Math.min(startIdx + perPage, total);
   const pageList = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  const pgBtn = (
-    label: React.ReactNode,
-    onClick: () => void,
-    active = false,
-    disabled = false
-  ) => (
-    <button
+  const pgBtn = (label: React.ReactNode, onClick: () => void, active = false, disabled = false) => (
+    <Button
+      variant="transparent"
       onClick={onClick}
       disabled={disabled}
-      style={{
-        minWidth: 32,
-        height: 32,
-        padding: "0 10px",
-        borderRadius: 8,
-        fontFamily: MONO,
-        fontSize: 12,
-        fontWeight: 700,
-        color: active ? "#fff" : disabled ? T.muted2 : T.muted,
-        background: active ? T.ink : "transparent",
-        border: 0,
-        cursor: disabled ? "not-allowed" : "pointer",
-        opacity: disabled ? 0.35 : 1,
-        transition: "all 0.12s",
-      }}
+      className={`min-w-8 h-8 px-3 font-mono text-xs font-bold rounded-lg transition-all duration-[120ms] disabled:opacity-[0.35] ${
+        active ? "bg-ink text-white hover:bg-ink hover:text-white" : disabled ? "text-muted-2" : "text-muted"
+      }`}
     >
       {label}
-    </button>
+    </Button>
   );
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginTop: 18,
-        padding: "0 4px",
-        flexWrap: "wrap",
-        gap: 12,
-      }}
-    >
-      <div
-        style={{
-          fontFamily: MONO,
-          fontSize: 11,
-          color: T.muted,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
+    <div className="flex items-center justify-between mt-6 px-1 gap-3">
+      <div className="font-mono text-xs text-muted tracking-[0.08em] uppercase">
         Showing {total === 0 ? 0 : startIdx + 1}–{endIdx} of {total}
       </div>
-      <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+
+      <div className="flex gap-1 items-center">
         {pgBtn("‹ Prev", () => setPage(Math.max(1, page - 1)), false, page === 1)}
-        {pageList.map((p) => pgBtn(String(p).padStart(2, "0"), () => setPage(p), p === page))}
+        {pageList.map((p) => <span key={p}>{pgBtn(String(p).padStart(2, "0"), () => setPage(p), p === page)}</span>)}
         {pgBtn("Next ›", () => setPage(Math.min(totalPages, page + 1)), false, page === totalPages)}
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          fontFamily: MONO,
-          fontSize: 11,
-          color: T.muted,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
-        <span>Per page</span>
-        <select
+
+      <div className="flex items-center gap-2 font-mono text-xs text-muted tracking-[0.08em] uppercase">
+        <p>Per page</p>
+        <Select
+          size="sm"
           value={perPage}
           onChange={(e) => {
             setPerPage(Number(e.target.value));
             setPage(1);
           }}
-          style={{
-            height: 28,
-            padding: "0 24px 0 8px",
-            border: `1px solid ${T.line}`,
-            borderRadius: 6,
-            background: "#fff",
-            fontFamily: MONO,
-            fontSize: 12,
-            fontWeight: 700,
-            appearance: "none",
-            cursor: "pointer",
-            backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path d='M2 3.5l3 3 3-3' stroke='%236b7280' fill='none' stroke-width='1.4'/></svg>")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 6px center",
-          }}
+          className="h-7 font-mono text-xs font-bold"
         >
-          <option value={8}>8</option>
-          <option value={12}>12</option>
-          <option value={20}>20</option>
-          <option value={50}>50</option>
-        </select>
+          {[20, 30, 50].map((n) => (
+            <option key={n} value={n}>{n}</option>
+          ))}
+        </Select>
       </div>
     </div>
   );

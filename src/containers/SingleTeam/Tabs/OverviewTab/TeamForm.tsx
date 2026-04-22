@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import type { MATCHES_QUERYResult } from "sanity.types";
 import { fadeUp } from "../../types";
 
@@ -65,26 +66,28 @@ export function TeamForm({
                     WebkitBackdropFilter: "blur(12px)",
                   }}
                 >
-                  {opponent?.logo ? (
-                    <Image
-                      src={opponent.logo}
-                      alt={oppName}
-                      width={48}
-                      height={48}
-                      className="object-contain p-1"
-                    />
-                  ) : (
-                    <span
-                      style={{
-                        fontSize: 26,
-                        fontWeight: 800,
-                        color: "rgba(255,255,255,0.85)",
-                        letterSpacing: "-0.03em",
-                      }}
-                    >
-                      {oppInitials}
-                    </span>
-                  )}
+                  <Link href={`/teams/${opponent?.slug}`} className="cursor-pointer">
+                    {opponent?.logo ? (
+                      <Image
+                        src={opponent.logo}
+                        alt={oppName}
+                        width={48}
+                        height={48}
+                        className="object-contain p-1"
+                      />
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: 26,
+                          fontWeight: 800,
+                          color: "rgba(255,255,255,0.85)",
+                          letterSpacing: "-0.03em",
+                        }}
+                      >
+                        {oppInitials}
+                      </span>
+                    )}
+                  </Link>
                 </div>
 
                 {/* W / L badge — overlapping bottom-right corner */}
@@ -137,26 +140,28 @@ export function TeamForm({
                     WebkitBackdropFilter: "blur(12px)",
                   }}
                 >
-                  {opponent?.logo ? (
-                    <Image
-                      src={opponent.logo}
-                      alt={oppName}
-                      width={48}
-                      height={48}
-                      className="object-contain p-1"
-                    />
-                  ) : (
-                    <span
-                      style={{
-                        fontSize: 26,
-                        fontWeight: 800,
-                        color: "rgba(255,255,255,0.85)",
-                        letterSpacing: "-0.03em",
-                      }}
-                    >
-                      {oppInitials}
-                    </span>
-                  )}
+                  <Link href={`/teams/${opponent?.slug}`} className="cursor-pointer">
+                    {opponent?.logo ? (
+                      <Image
+                        src={opponent.logo}
+                        alt={oppName}
+                        width={48}
+                        height={48}
+                        className="object-contain p-1"
+                      />
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: 26,
+                          fontWeight: 800,
+                          color: "rgba(255,255,255,0.85)",
+                          letterSpacing: "-0.03em",
+                        }}
+                      >
+                        {oppInitials}
+                      </span>
+                    )}
+                  </Link>
                 </div>
 
                 <div className="w-full flex items-center justify-center text-[11px] font-inter text-black">

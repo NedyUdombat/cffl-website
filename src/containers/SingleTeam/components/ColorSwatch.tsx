@@ -34,9 +34,7 @@ export function ColorSwatch({ color }: { color: string }) {
         height: 18,
         borderRadius: "50%",
         backgroundColor: color,
-        border: copied
-          ? `1.5px solid ${color}`
-          : "1.5px solid rgba(255,255,255,0.14)",
+        border: copied ? `1.5px solid ${color}` : "1.5px solid rgba(255,255,255,0.14)",
         transform: `scale(${scale})`,
         transition: "transform 0.15s ease, border-color 0.15s ease, outline-color 0.15s ease",
         cursor: "pointer",

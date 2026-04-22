@@ -1,7 +1,19 @@
 const TEAM_COLOR_PALETTE = [
-  "#1d4ed8", "#15803d", "#b91c1c", "#7c3aed", "#c2410c",
-  "#0f766e", "#b45309", "#1e40af", "#065f46", "#9f1239",
-  "#1a56db", "#0694a2", "#d61f69", "#6875f5", "#e3a008",
+  "#1d4ed8",
+  "#15803d",
+  "#b91c1c",
+  "#7c3aed",
+  "#c2410c",
+  "#0f766e",
+  "#b45309",
+  "#1e40af",
+  "#065f46",
+  "#9f1239",
+  "#1a56db",
+  "#0694a2",
+  "#d61f69",
+  "#6875f5",
+  "#e3a008",
 ];
 
 /** Deterministic color from a string — no images needed */
