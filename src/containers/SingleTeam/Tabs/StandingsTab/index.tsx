@@ -27,7 +27,7 @@ const StandingsTab = ({
   const draws = completedMatches.filter((m) => m.homeScore === m.awayScore).length;
 
   return (
-    <section className="bg-[#f0f2f5]">
+    <section className="bg-bg-2">
       <div className="max-w-[1440px] mx-auto py-8  px-6 md:px-14 lg:px-20">
         <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">

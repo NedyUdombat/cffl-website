@@ -5,6 +5,7 @@ import { fadeUp } from "../../types";
 export function SeasonStatsBar({ stats }: { stats: OverviewStats }) {
   const items = [
     { label: "Wins", value: stats.wins },
+    { label: "Draws", value: stats.draws },
     { label: "Losses", value: stats.losses },
     { label: "Win %", value: `${stats.winPct}%` },
     { label: "Pts For", value: stats.ptsFor },
@@ -25,7 +26,7 @@ export function SeasonStatsBar({ stats }: { stats: OverviewStats }) {
                 {value}
               </span>
               <span
-                className="text-[9px] uppercase tracking-widest mt-1 font-inter"
+                className="text-[9px] uppercase tracking-widest mt-1 font-mono"
                 style={{ color: "#4b5563" }}
               >
                 {label}

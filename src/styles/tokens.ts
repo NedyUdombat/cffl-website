@@ -20,6 +20,7 @@ export const T = {
 
   // Surfaces
   bg: "#f3f4f6",
+  bg2: "#f0f2f5",
   surface: "#ffffff",
   surface2: "#fafafa",
 

@@ -11,21 +11,23 @@ import { TeamForm } from "./TeamForm";
 import TeamStandingsPreview from "./TeamStandingsPreview";
 import { TopHighlights } from "./TopHighlights";
 
+interface OverviewTabProps {
+  overviewStats: OverviewStats;
+  nextMatchData: MATCHES_QUERYResult;
+  matchResults: MATCHES_QUERYResult;
+  teamId: string;
+}
+
 export function OverviewTab({
   overviewStats,
   nextMatchData,
   matchResults,
   teamId,
-}: {
-  overviewStats: OverviewStats;
-  nextMatchData: MATCHES_QUERYResult;
-  matchResults: MATCHES_QUERYResult;
-  teamId: string;
-}) {
+}: OverviewTabProps) {
   const { selectedCompetition } = useCompetition();
 
   return (
-    <section className="bg-[#f0f2f5]">
+    <section className="bg-bg-2">
       <div className="max-w-[1440px] mx-auto py-8 px-6 md:px-14 lg:px-20 ">
         <motion.div
           variants={staggerGrid}
@@ -38,6 +40,7 @@ export function OverviewTab({
           <div className="flex flex-col gap-3">
             <FeaturedStory />
             <TopHighlights />
+            {/* TODO: Add team contact info */}
           </div>
 
           {/* ── Right column (sidebar) ── */}

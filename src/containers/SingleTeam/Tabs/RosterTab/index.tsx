@@ -13,7 +13,12 @@ import OrientationToggle from "./OrientationToggle";
 import { Pagination } from "./Pagination";
 import { RosterSkeleton } from "./RosterSkeleton";
 
-export function RosterTab({ teamId, competitionId }: { teamId: string; competitionId?: string }) {
+interface RosterTabProps {
+  teamId: string;
+  competitionId?: string;
+}
+
+export function RosterTab({ teamId, competitionId }: RosterTabProps) {
   const {
     query,
     setQuery,
@@ -34,7 +39,7 @@ export function RosterTab({ teamId, competitionId }: { teamId: string; competiti
     setGenderFilter,
   } = useRosterTabLogic({ teamId, competitionId });
   return (
-    <section className="bg-[#f0f2f5]">
+    <section className="bg-bg-2">
       <div className="max-w-[1440px] mx-auto py-8  px-6 md:px-14 lg:px-20">
         {/* Toolbar */}
         <div className="bg-surface border border-line rounded-[14px] p-3 flex items-center gap-2.5 mb-4 shadow-subtle flex-wrap">

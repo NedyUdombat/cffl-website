@@ -9,7 +9,7 @@ import { HighlightsCarousel } from "./components/HighlightsCarousel";
 import { LoadingState } from "./components/LoadingState";
 import { NewsTab } from "./components/NewsTab";
 import { ResultsTab } from "./components/ResultsTab";
-import { StaffTab } from "./components/StaffTab";
+// import { StaffTab } from "./components/StaffTab";
 import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
 import {
@@ -21,8 +21,10 @@ import {
   mockStandings,
   mockStats,
 } from "./mockTeamData";
+import CalendarTab from "./Tabs/Calendar";
 import { OverviewTab } from "./Tabs/OverviewTab";
 import { RosterTab } from "./Tabs/RosterTab";
+import StaffTab from "./Tabs/Staff";
 import StandingsTab from "./Tabs/StandingsTab";
 import type { SingleTeamProps } from "./types";
 
@@ -127,37 +129,23 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         />
       )}
 
-      {activeTab === "standings" && (
-        <StandingsTab teamId={singleTeam._id} matchResults={matchResults} />
-      )}
-
       {activeTab === "roster" && (
         <RosterTab teamId={singleTeam._id} competitionId={selectedCompetition?._id} />
       )}
 
-      {/*
       {activeTab === "matches" && (
-        <ResultsTab
-          results={mockResults}
-          fixtures={mockFixtures}
-          primaryColor={primaryColor}
-        />
+        <CalendarTab teamId={singleTeam._id} matches={[...matchResults, ...nextMatchData]} />
+      )}
+
+      {activeTab === "standings" && (
+        <StandingsTab teamId={singleTeam._id} matchResults={matchResults} />
       )}
 
       {activeTab === "staff" && (
-        <StaffTab
-          headCoach={headCoach}
-          assistantCoach={assistantCoach}
-          primaryColor={primaryColor}
-          email={singleTeam.email ?? undefined}
-          phone={singleTeam.phone ?? undefined}
-          url={singleTeam.url ?? undefined}
-          country={singleTeam.country ?? undefined}
-          state={singleTeam.state ?? undefined}
-        />
+        <StaffTab teamId={singleTeam._id} matches={[...matchResults, ...nextMatchData]} />
       )}
 
-      {activeTab === "news" && (
+      {/* {activeTab === "news" && (
         <NewsTab
           news={mockNews}
           teamSlug={slug}

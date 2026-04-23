@@ -36,6 +36,7 @@ export function TeamForm({
             myScore !== undefined &&
             oppScore !== undefined &&
             myScore > oppScore;
+          const isDraw = myScore === oppScore;
           const oppName = opponent?.name ?? opponent?.abbreviation ?? "?";
           const oppInitials = oppName
             .split(/\s+/)
@@ -98,8 +99,9 @@ export function TeamForm({
 
               {/* Score — white on dark */}
               <div
-                style={{ backgroundColor: isWin ? "#34a853" : "#e60023" }}
-                className="w-full flex justify-center items-center py-2 rounded-b-xl"
+                className={`w-full flex justify-center items-center py-2 rounded-b-xl ${
+                  isWin ? "bg-win" : isDraw ? "bg-tie" : "bg-loss"
+                }`}
               >
                 <p className="font-barlow-condensed tabular-nums leading-none text-white">
                   {isHome

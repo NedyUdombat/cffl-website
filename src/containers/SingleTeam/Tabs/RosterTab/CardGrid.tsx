@@ -38,10 +38,10 @@ export function CardGrid({ entries }: { entries: ROSTER_ENTRIES_QUERYResult }) {
           >
             {/* Diagonal stripe texture */}
             <div
-              className="absolute inset-0 pointer-events-none -z-10"
+              className="absolute inset-0 pointer-events-none z-[-1000px]"
               style={{
                 backgroundImage:
-                  "repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, rgba(255,255,255,0) 10px 22px)",
+                  "repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 10px, rgba(255,255,255,0) 10px 25px)",
               }}
             />
 

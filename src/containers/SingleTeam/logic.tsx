@@ -8,7 +8,7 @@ const useSingleTeamLogic = (slug: string) => {
   const { data: nextMatchData } = useFetchMatches({
     status: "scheduled",
     team: singleTeam?._id,
-    pageSize: 10,
+    pageSize: 20,
     enabled: !!singleTeam?._id,
   });
 
@@ -37,6 +37,8 @@ const useSingleTeamLogic = (slug: string) => {
       const isHome = match.homeTeam._id === teamId;
       return isHome ? match.homeScore > match.awayScore : match.awayScore > match.homeScore;
     }).length ?? 0;
+
+  const draws = matchResults?.filter((match) => match.homeScore === match.awayScore).length ?? 0;
 
   const losses =
     matchResults?.filter((match) => {
@@ -71,6 +73,7 @@ const useSingleTeamLogic = (slug: string) => {
 
     overviewStats: {
       wins,
+      draws,
       losses,
       winPct,
       ptsFor,

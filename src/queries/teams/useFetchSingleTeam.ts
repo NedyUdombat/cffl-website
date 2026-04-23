@@ -1,7 +1,7 @@
 import { type UseQueryResult, useQuery } from "@tanstack/react-query";
 import { defineQuery } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import type { Team } from "../../../sanity.types";
+import type { TEAM_QUERYResult } from "../../../sanity.types";
 
 const TEAM_QUERY = defineQuery(`*[_type == "team" && isActive == true && slug.current == $slug][0] {
   _id,
@@ -43,15 +43,13 @@ const TEAM_QUERY = defineQuery(`*[_type == "team" && isActive == true && slug.cu
 }`);
 
 const useFetchSingleTeam = (slug: string) => {
-  const { data, isPending, isError, error, refetch }: UseQueryResult<Team, Error> = useQuery<
-    Team,
-    Error
-  >({
-    queryKey: ["single-team", slug],
-    queryFn: () => client.fetch(TEAM_QUERY, { slug }),
-    refetchOnWindowFocus: false,
-    enabled: !!slug,
-  });
+  const { data, isPending, isError, error, refetch }: UseQueryResult<TEAM_QUERYResult, Error> =
+    useQuery<TEAM_QUERYResult, Error>({
+      queryKey: ["single-team", slug],
+      queryFn: () => client.fetch(TEAM_QUERY, { slug }),
+      refetchOnWindowFocus: false,
+      enabled: !!slug,
+    });
 
   return {
     singleTeam: data,

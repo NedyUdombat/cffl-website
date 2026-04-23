@@ -114,6 +114,7 @@ export const staggerGrid = {
 
 export interface OverviewStats {
   wins: number;
+  draws: number;
   losses: number;
   winPct: number;
   ptsFor: number;
