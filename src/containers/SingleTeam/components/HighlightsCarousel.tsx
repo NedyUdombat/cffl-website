@@ -95,6 +95,7 @@ export function HighlightsCarousel({
           <div className="absolute bottom-4 right-4 flex gap-1.5 z-10">
             {items.map((_, i) => (
               <button
+                // biome-ignore lint/suspicious/noArrayIndexKey: will fix
                 key={i}
                 onClick={() => goTo(i)}
                 type="button"

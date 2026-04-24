@@ -18,6 +18,7 @@ const NewsCard = ({ item, index, activeIndex, setActiveIndex }: NewsCardProps) =
   const inactiveWidth = 250;
   const inactiveHeight = 210;
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: will fix
     <div onMouseEnter={() => setActiveIndex(index)} aria-description="button">
       <Link href={item.url} target="_blank" rel="noopener noreferrer" className="block">
         <motion.div

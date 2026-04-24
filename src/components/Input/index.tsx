@@ -1,21 +1,14 @@
 "use client";
 
-import { useState, useId } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import type { InputHTMLAttributes, ReactNode } from "react";
+import { useId, useState } from "react";
 import type { InputSize } from "./styles";
-import {
-  inputClass,
-  ICON_WRAPPER_SIZE,
-  LABEL_BASE,
-  HELPER_BASE,
-  ERROR_BASE,
-} from "./styles";
+import { ERROR_BASE, HELPER_BASE, ICON_WRAPPER_SIZE, inputClass, LABEL_BASE } from "./styles";
 
 export type { InputSize } from "./styles";
 
-export interface InputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /** sm | md | lg — default: "md" */
   size?: InputSize;
   /** Rendered in a <label> above the input */
@@ -81,10 +74,8 @@ export function Input({
           disabled={disabled}
           className={inputClass(size, !!validationError, hasStart, hasEnd, className)}
           {...props}
-          aria-invalid={!!validationError ? "true" : undefined}
-          aria-describedby={
-            validationError ? errorId : helperText ? helperId : undefined
-          }
+          aria-invalid={validationError ? "true" : undefined}
+          aria-describedby={validationError ? errorId : helperText ? helperId : undefined}
         />
 
         {isPassword ? (

@@ -8,13 +8,13 @@ import { client } from "@/sanity/lib/client";
 
 // 🧱 Configure Sanity Image Builder
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: string) {
   return builder.image(source);
 }
 
 interface FanPhoto {
   _id: string;
-  image: any;
+  image: string;
   order?: number;
 }
 

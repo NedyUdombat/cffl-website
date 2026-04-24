@@ -7,14 +7,35 @@ import { useEffect, useState } from "react";
 import { client } from "../../sanity/lib/client";
 
 const builder = imageUrlBuilder(client);
-const urlFor = (source: any) => builder.image(source);
+const urlFor = (source: string) => builder.image(source);
 
 export default function Upcoming() {
   const controls = useAnimation();
   const [isPaused, setIsPaused] = useState(false);
   const [isRunning, setIsRunning] = useState(true);
-  const [games, setGames] = useState<any[]>([]);
-  const [nextGames, setNextGames] = useState<any[]>([]);
+  const [games, setGames] = useState<
+    {
+      date: string;
+      week: string;
+      logo: string;
+      logoUrl: string;
+    }[]
+  >([]);
+  const [_nextGames, setNextGames] = useState<
+    {
+      _id: string;
+      team1: {
+        name: string;
+        logo: string;
+        color: string;
+      };
+      team2: {
+        name: string;
+        logo: string;
+        color: string;
+      };
+    }[]
+  >([]);
   const scrollDuration = 7;
 
   useEffect(() => {
@@ -66,7 +87,7 @@ export default function Upcoming() {
       setIsRunning(false);
       if (loopTimeout) clearTimeout(loopTimeout);
     };
-  }, [controls, isPaused, scrollDuration, isRunning]);
+  }, [controls, isPaused, isRunning]);
 
   return (
     <section
@@ -97,7 +118,7 @@ export default function Upcoming() {
           >
             Upcoming Schedule
           </h2>
-
+          {/** biome-ignore lint/a11y/noStaticElementInteractions: Will fix */}
           <div
             className="absolute bottom-0 left-0 right-0 overflow-hidden z-20"
             onMouseEnter={() => setIsPaused(true)}
@@ -107,9 +128,9 @@ export default function Upcoming() {
               className="flex gap-6 py-6 px-8 w-full max-w-[1200px] mx-auto"
               animate={controls}
             >
-              {[...games, ...games].map((game, index) => (
+              {[...games, ...games].map((game) => (
                 <div
-                  key={index}
+                  key={game.date}
                   className="relative flex-shrink-0 w-[280px] h-[100px] border border-[#EBEEF3BF] rounded-xl flex items-center overflow-hidden backdrop-blur-sm"
                 >
                   <div className="absolute left-0 top-0 h-full w-1/2 bg-white flex items-center justify-center p-4 rounded-l-xl z-0">

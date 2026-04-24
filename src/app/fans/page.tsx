@@ -27,12 +27,12 @@ export default function MeetTheFans() {
       </section>
 
       {/* Fan Grid */}
-      <section className="bg-gray-50 text-black py-16 flex-grow">
+      <section className="bg-gray-50 text-black py-16 grow">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-auto">
             {fanImages.slice(0, visibleCount).map((src, index) => (
               <div
-                key={index}
+                key={src}
                 className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square"
               >
                 <Image
@@ -49,11 +49,13 @@ export default function MeetTheFans() {
           {visibleCount < fanImages.length && (
             <div className="text-center mt-12">
               <button
+                type="button"
                 onClick={loadMore}
                 className="inline-flex items-center gap-2 text-gray-700 hover:text-black font-semibold text-lg transition-colors"
               >
                 Load more
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <title>Load more</title>
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

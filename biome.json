@@ -20,5 +20,10 @@
   },
   "files": {
     "includes": ["**", "!node_modules", "!.next", "!dist"]
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   }
 }

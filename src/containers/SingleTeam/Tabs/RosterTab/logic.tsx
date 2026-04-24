@@ -24,6 +24,7 @@ const useRosterTabLogic = ({ teamId, competitionId }: UseRosterTabLogicProps) =>
     setPage(1);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Whenever any filter changes → reset to page 1
   useEffect(() => {
     setPage(1);
   }, [query, genderFilter, positionFilter, view]);

@@ -20,7 +20,21 @@ const weekData = [
 
 /* ---------------- GAME RESULTS COMPONENT ---------------- */
 const GameResults: React.FC = () => {
-  const [games, setGames] = useState<any[]>([]);
+  const [games, setGames] = useState<
+    {
+      _id: string;
+      date: string;
+      gameImage: { asset: { url: string } };
+      teams: {
+        name: string;
+        record: string;
+        quarters: number[];
+        total: string;
+        isWinner: boolean;
+        logo: { asset: { url: string } };
+      }[];
+    }[]
+  >([]);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -58,9 +72,9 @@ const GameResults: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-6 p-4">
             {/* Teams and Scores */}
             <div className="flex flex-col flex-grow">
-              {game.teams?.map((team: any, teamIndex: number) => (
+              {game.teams?.map((team, teamIndex: number) => (
                 <div
-                  key={teamIndex}
+                  key={team.name}
                   className={`flex items-center justify-between py-3 ${
                     teamIndex === 0 ? "" : "border-t border-gray-300"
                   } ${team.isWinner ? "font-bold" : ""}`}
@@ -68,7 +82,7 @@ const GameResults: React.FC = () => {
                   {/* Team Info */}
                   <div className="flex items-center space-x-3">
                     {team.logo?.asset?.url ? (
-                      <img
+                      <Image
                         src={team.logo.asset.url}
                         alt={team.name}
                         className="object-contain"
@@ -90,8 +104,8 @@ const GameResults: React.FC = () => {
 
                   {/* Scores */}
                   <div className="flex items-center space-x-2 text-sm text-gray-800">
-                    {team.quarters?.map((q: number, i: number) => (
-                      <span key={i} className="w-6 text-center">
+                    {team.quarters?.map((q: number) => (
+                      <span key={q} className="w-6 text-center">
                         {q}
                       </span>
                     ))}
@@ -114,7 +128,7 @@ const GameResults: React.FC = () => {
             {/* Image + Play Button */}
             <div className="relative w-full md:w-[220px] h-[130px] flex-shrink-0 rounded-lg overflow-hidden shadow-md">
               {game.gameImage?.asset?.url ? (
-                <img
+                <Image
                   src={game.gameImage.asset.url}
                   alt="Game highlight"
                   className="w-full h-full object-cover"
@@ -130,6 +144,7 @@ const GameResults: React.FC = () => {
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
+                    <title>Play button</title>
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
@@ -138,13 +153,22 @@ const GameResults: React.FC = () => {
 
             {/* Buttons */}
             <div className="flex flex-col space-y-2 w-full md:w-[140px] text-xs font-medium">
-              <button className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition">
+              <button
+                type="button"
+                className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition"
+              >
                 Gamecast
               </button>
-              <button className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition">
+              <button
+                type="button"
+                className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition"
+              >
                 Box Score
               </button>
-              <button className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition">
+              <button
+                type="button"
+                className="px-3 py-2 border border-gray-400 rounded-md hover:bg-gray-100 transition"
+              >
                 Highlights
               </button>
             </div>
@@ -159,7 +183,16 @@ const GameResults: React.FC = () => {
 export default function GamesPage() {
   const [currentWeekIndex, setCurrentWeekIndex] = useState(0);
   const [activeDivision, setActiveDivision] = useState<"Men" | "Women">("Men");
-  const [matches, setMatches] = useState<any[]>([]);
+  const [matches, setMatches] = useState<
+    {
+      _id: string;
+      matchDay: number;
+      date: string;
+      time: string;
+      team1: { name: string; logo: { asset: { url: string } } };
+      team2: { name: string; logo: { asset: { url: string } } };
+    }[]
+  >([]);
 
   const handleWeekClick = (index: number) => setCurrentWeekIndex(index);
   const handleDivisionClick = (division: "Men" | "Women") => setActiveDivision(division);
@@ -211,6 +244,7 @@ export default function GamesPage() {
           <section className="relative py-4 border-b border-gray-200 overflow-x-auto">
             <div className="flex items-center justify-between w-full select-none min-w-[320px]">
               <button
+                type="button"
                 onClick={() => handleWeekClick(currentWeekIndex - 1)}
                 disabled={currentWeekIndex === 0}
                 className={`p-2 rounded-full transition-all ${
@@ -220,16 +254,18 @@ export default function GamesPage() {
                 <ChevronLeft size={24} />
               </button>
 
-              <div className="flex flex-wrap justify-center md:justify-between items-start flex-grow mx-2 sm:mx-4 gap-3 md:gap-0">
+              <div className="flex flex-wrap justify-center md:justify-between items-start grow mx-2 sm:mx-4 gap-3 md:gap-0">
                 {weekData.map((weekItem, index) => {
                   const isCurrent = index === currentWeekIndex;
                   return (
+                    // biome-ignore lint/a11y/noStaticElementInteractions: will fix
                     <div
-                      key={index}
+                      key={weekItem.week}
                       className={`flex flex-col items-center cursor-pointer px-1 transition-all duration-300 ${
                         isCurrent ? "scale-105" : "hover:opacity-75"
                       }`}
                       onClick={() => handleWeekClick(index)}
+                      onKeyDown={() => handleWeekClick(index)}
                     >
                       <span
                         className="font-bold uppercase text-center"
@@ -255,6 +291,7 @@ export default function GamesPage() {
               </div>
 
               <button
+                type="button"
                 onClick={() => handleWeekClick(currentWeekIndex + 1)}
                 disabled={currentWeekIndex === weekData.length - 1}
                 className={`p-2 rounded-full transition-all ${
@@ -282,6 +319,7 @@ export default function GamesPage() {
 
               <div className="flex rounded-md overflow-hidden bg-[#C90F0F] shadow-lg">
                 <button
+                  type="button"
                   onClick={() => handleDivisionClick("Men")}
                   className={`${segmentBaseStyle} ${
                     activeDivision === "Men" ? segmentActiveStyle : segmentInactiveStyle
@@ -290,6 +328,7 @@ export default function GamesPage() {
                   Men
                 </button>
                 <button
+                  type="button"
                   onClick={() => handleDivisionClick("Women")}
                   className={`${segmentBaseStyle} ${
                     activeDivision === "Women" ? segmentActiveStyle : segmentInactiveStyle
@@ -307,12 +346,12 @@ export default function GamesPage() {
                   {matches.map((match) => (
                     <div key={match._id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                       <div className="relative w-full mb-[5px]">
-                        <img
+                        <Image
                           src="/m2.png"
                           alt="Match Background"
                           className="w-full h-auto object-contain rounded-t-lg"
                         />
-                        <img
+                        <Image
                           src="/matchday2.png"
                           alt="Overlay Graphic"
                           className="absolute inset-0 w-full h-full object-contain opacity-80 pointer-events-none hidden sm:block"
@@ -320,7 +359,7 @@ export default function GamesPage() {
 
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-2 sm:px-4 z-10">
                           <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-2 sm:space-y-0">
-                            <img
+                            <Image
                               src={match.team1.logo.asset.url}
                               alt={match.team1.name}
                               className="object-contain"
@@ -346,7 +385,7 @@ export default function GamesPage() {
                               {match.team1.name} <span className="text-white">vs</span>{" "}
                               {match.team2.name}
                             </h2>
-                            <img
+                            <Image
                               src={match.team2.logo.asset.url}
                               alt={match.team2.name}
                               className="object-contain"
@@ -399,6 +438,7 @@ export default function GamesPage() {
 
                         <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                           <button
+                            type="button"
                             className="flex items-center justify-center space-x-1 py-2 px-3 rounded-md text-white font-medium text-sm transition duration-300 w-full sm:w-auto"
                             style={{
                               backgroundColor: "#012752",
@@ -409,6 +449,7 @@ export default function GamesPage() {
                           </button>
 
                           <button
+                            type="button"
                             className="flex items-center justify-center space-x-1 py-2 px-3 rounded-md font-medium text-sm transition duration-300 w-full sm:w-auto"
                             style={{
                               backgroundColor: "white",

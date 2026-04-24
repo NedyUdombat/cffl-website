@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type Dispatch, type SetStateAction, useEffect, useRef, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { IoFilter } from "react-icons/io5";
 import { PiCaretDownBold } from "react-icons/pi";
@@ -12,7 +12,7 @@ interface FilterItemProps {
   togglePosition: (p: string) => void;
   onClearAll: () => void;
   genderFilter: string;
-  setGenderFilter: (g: any) => void;
+  setGenderFilter: Dispatch<SetStateAction<string>>;
 }
 
 export function FiltersDropdown({

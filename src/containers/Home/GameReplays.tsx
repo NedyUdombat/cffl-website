@@ -1,9 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 const GameReplays = () => {
-  const getTeam1Color = (color: any) => {
+  const getTeam1Color = (color: string) => {
     if (Array.isArray(color)) return color[0];
     return color;
   };

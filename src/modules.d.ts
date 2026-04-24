@@ -14,3 +14,5 @@ type GenericResponse<T> = {
     hasMore?: boolean;
   };
 };
+
+declare module "*.css";

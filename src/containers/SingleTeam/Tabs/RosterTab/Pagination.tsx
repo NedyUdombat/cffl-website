@@ -25,7 +25,11 @@ export function Pagination({
       onClick={onClick}
       disabled={disabled}
       className={`min-w-8 h-8 px-3 font-mono text-xs font-bold rounded-lg transition-all duration-[120ms] disabled:opacity-[0.35] ${
-        active ? "bg-ink text-white hover:bg-ink hover:text-white" : disabled ? "text-muted-2" : "text-muted"
+        active
+          ? "bg-ink text-white hover:bg-ink hover:text-white"
+          : disabled
+            ? "text-muted-2"
+            : "text-muted"
       }`}
     >
       {label}
@@ -40,7 +44,9 @@ export function Pagination({
 
       <div className="flex gap-1 items-center">
         {pgBtn("‹ Prev", () => setPage(Math.max(1, page - 1)), false, page === 1)}
-        {pageList.map((p) => <span key={p}>{pgBtn(String(p).padStart(2, "0"), () => setPage(p), p === page)}</span>)}
+        {pageList.map((p) => (
+          <span key={p}>{pgBtn(String(p).padStart(2, "0"), () => setPage(p), p === page)}</span>
+        ))}
         {pgBtn("Next ›", () => setPage(Math.min(totalPages, page + 1)), false, page === totalPages)}
       </div>
 
@@ -56,7 +62,9 @@ export function Pagination({
           className="h-7 font-mono text-xs font-bold"
         >
           {[20, 30, 50].map((n) => (
-            <option key={n} value={n}>{n}</option>
+            <option key={n} value={n}>
+              {n}
+            </option>
           ))}
         </Select>
       </div>

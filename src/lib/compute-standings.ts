@@ -28,28 +28,42 @@ export function computeStandings(matches: Match[]): StandingRow[] {
   const h2h = new Map<string, Map<string, H2HRecord>>();
 
   const getOrCreate = (team: Match["homeTeam"]): StandingRow => {
-    if (!map.has(team._id)) {
-      map.set(team._id, {
-        rank: 0,
-        team,
-        gp: 0,
-        w: 0,
-        l: 0,
-        t: 0,
-        pct: 0,
-        pf: 0,
-        pa: 0,
-        pd: 0,
-      });
-    }
-    return map.get(team._id)!;
+    const existing = map.get(team._id);
+    if (existing) return existing;
+
+    const row: StandingRow = {
+      rank: 0,
+      team,
+      gp: 0,
+      w: 0,
+      l: 0,
+      t: 0,
+      pct: 0,
+      pf: 0,
+      pa: 0,
+      pd: 0,
+    };
+
+    map.set(team._id, row);
+    return row;
   };
 
   const getH2H = (teamId: string, opponentId: string): H2HRecord => {
-    if (!h2h.has(teamId)) h2h.set(teamId, new Map());
-    const inner = h2h.get(teamId)!;
-    if (!inner.has(opponentId)) inner.set(opponentId, { w: 0, t: 0, l: 0 });
-    return inner.get(opponentId)!;
+    let inner = h2h.get(teamId);
+
+    if (!inner) {
+      inner = new Map();
+      h2h.set(teamId, inner);
+    }
+
+    let record = inner.get(opponentId);
+
+    if (!record) {
+      record = { w: 0, t: 0, l: 0 };
+      inner.set(opponentId, record);
+    }
+
+    return record;
   };
 
   for (const match of matches) {

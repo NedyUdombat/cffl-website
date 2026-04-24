@@ -1,5 +1,5 @@
-import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export type InputSize = "sm" | "md" | "lg";
 
@@ -20,7 +20,7 @@ export const INPUT_SIZE: Record<InputSize, string> = {
 /** Border + focus ring colours for default vs error states */
 export const INPUT_STATE: Record<"default" | "error", string> = {
   default: "border-line focus:border-accent focus:ring-accent/20",
-  error:   "border-danger focus:border-danger focus:ring-danger/20",
+  error: "border-danger focus:border-danger focus:ring-danger/20",
 };
 
 /**

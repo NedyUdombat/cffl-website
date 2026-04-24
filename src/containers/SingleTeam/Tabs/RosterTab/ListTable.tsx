@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ROSTER_ENTRIES_QUERYResult } from "sanity.types";
-import { type ColumnDef, Table } from "@/components/Table";
+import { Table } from "@/components/Table";
+import type { ColumnDef } from "@/components/Table/types";
 import { EmptyState } from "./EmptyState";
 
 type Entry = ROSTER_ENTRIES_QUERYResult[number];
@@ -105,7 +106,7 @@ const COLUMNS: ColumnDef<Entry>[] = [
     sortValue: (row) => captainStr(row, (row.positions ?? [])[0]?.toLowerCase() ?? ""),
     cell: (row) => (
       <div className="flex gap-1 flex-wrap">
-        {(row.positions ?? []).map((pos, i) => (
+        {(row.positions ?? []).map((pos) => (
           <span
             key={pos}
             className={[

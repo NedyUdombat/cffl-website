@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type ColumnDef, Table } from "../Table";
+import { Table } from "../Table";
+import type { ColumnDef } from "../Table/types";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -76,7 +77,7 @@ export const COMPACT_COLUMNS: StandingsColumnKey[] = ["rank", "team", "gp", "w",
 
 // ─── Column definitions ───────────────────────────────────────────────────────
 
-function buildColumns(rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDef<StandingRow>[] {
+function buildColumns(_rows: StandingRow[], keys: StandingsColumnKey[]): ColumnDef<StandingRow>[] {
   const all: Record<StandingsColumnKey, ColumnDef<StandingRow>> = {
     rank: {
       key: "rank",
@@ -227,11 +228,7 @@ function Num({ children, highlight }: { children: React.ReactNode; highlight?: "
   return (
     <span
       className={`font-mono text-xs ${
-        highlight === "green"
-          ? "text-win"
-          : highlight === "red"
-            ? "text-loss"
-            : "text-ink/70"
+        highlight === "green" ? "text-win" : highlight === "red" ? "text-loss" : "text-ink/70"
       }`}
     >
       {children}

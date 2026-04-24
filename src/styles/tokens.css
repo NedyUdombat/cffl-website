@@ -10,7 +10,7 @@
 
 @theme {
   /* ── Brand ── */
-  --color-accent: #ED3237;
+  --color-accent: #ed3237;
   --color-accent-tint: #fce8ea;
   --color-accent-tint-2: #fdf2f3;
   --color-gold: #d4af37;
@@ -45,14 +45,14 @@
   --color-tie: #f59e0b;
 
   /* ── Font families ── */
-  --font-display: 'Barlow Condensed', 'Oswald', Impact, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Mono', ui-monospace, Menlo, monospace;
-  --font-body: 'DM Sans', 'Inter', ui-sans-serif, sans-serif;
-  --font-machine: 'ITC Machine Std', sans-serif;
-  --font-inter: 'Inter', ui-sans-serif, sans-serif;
+  --font-display: "Barlow Condensed", "Oswald", Impact, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Mono", ui-monospace, Menlo, monospace;
+  --font-body: "DM Sans", "Inter", ui-sans-serif, sans-serif;
+  --font-machine: "ITC Machine Std", sans-serif;
+  --font-inter: "Inter", ui-sans-serif, sans-serif;
   /* Aliases used in existing components */
-  --font-barlow-condensed: 'Barlow Condensed', 'Oswald', Impact, sans-serif;
-  --font-barlow: 'Barlow Condensed', sans-serif;
+  --font-barlow-condensed: "Barlow Condensed", "Oswald", Impact, sans-serif;
+  --font-barlow: "Barlow Condensed", sans-serif;
 
   /* ── Custom font sizes (not in Tailwind defaults) ── */
   --text-2xs: 10px;

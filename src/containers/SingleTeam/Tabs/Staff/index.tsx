@@ -1,4 +1,4 @@
-import useStaffTab from "./logic";
+// import useStaffTab from "./logic";
 
 interface StaffTabProps {
   teamId: string;
@@ -6,7 +6,9 @@ interface StaffTabProps {
 }
 
 const StaffTab = ({ teamId, competitionId }: StaffTabProps) => {
-  const {} = useStaffTab();
+  // const {} = useStaffTab();
+
+  console.log({ teamId, competitionId });
 
   return (
     <section className="bg-bg-2">

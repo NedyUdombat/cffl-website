@@ -17,13 +17,20 @@ const StandingsTab = ({
     (m) => m.status === "completed" && m.homeScore != null && m.awayScore != null
   );
   const wins = completedMatches.filter((m) => {
+    if (m.homeScore == null || m.awayScore == null) return false;
     const isHome = m.homeTeam?._id === teamId;
-    return isHome ? m.homeScore! > m.awayScore! : m.awayScore! > m.homeScore!;
+
+    return isHome ? m.homeScore > m.awayScore : m.awayScore > m.homeScore;
   }).length;
+
   const losses = completedMatches.filter((m) => {
+    if (m.homeScore == null || m.awayScore == null) return false;
+
     const isHome = m.homeTeam?._id === teamId;
-    return isHome ? m.homeScore! < m.awayScore! : m.awayScore! < m.homeScore!;
+
+    return isHome ? m.homeScore < m.awayScore : m.awayScore < m.homeScore;
   }).length;
+
   const draws = completedMatches.filter((m) => m.homeScore === m.awayScore).length;
 
   return (

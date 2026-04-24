@@ -84,7 +84,7 @@ export default defineType({
       type: "date",
       validation: (Rule) =>
         Rule.custom((endDate, context) => {
-          const startDate = (context.document as any)?.startDate;
+          const startDate = context.document?.startDate;
           if (!endDate || !startDate) return true;
           return endDate >= startDate || "End date must be on or after start date";
         }),

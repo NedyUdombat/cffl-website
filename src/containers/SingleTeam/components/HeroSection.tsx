@@ -12,7 +12,7 @@ export function HeroSection({
   teamName,
   abbreviation,
   primaryColor,
-  secondaryColor,
+  // secondaryColor,
   foundedYear,
   bannerImage,
   logoImage,

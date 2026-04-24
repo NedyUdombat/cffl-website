@@ -11,7 +11,7 @@ import { client } from "@/sanity/lib/client";
 
 // 🧱 Sanity image builder
 const builder = imageUrlBuilder(client);
-function urlFor(source: any) {
+function urlFor(source: string) {
   return builder.image(source);
 }
 

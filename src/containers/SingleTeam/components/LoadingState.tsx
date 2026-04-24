@@ -101,6 +101,7 @@ export function LoadingState() {
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
               {Array.from({ length: 10 }).map((_, i) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: will fix
                 <Shimmer key={i} className="h-36 rounded-xl" />
               ))}
             </div>

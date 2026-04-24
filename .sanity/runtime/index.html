@@ -82,8 +82,8 @@ Modifications to this file are automatically discarded.
 
     errorElement.id = '__sanityError'
     errorElement.innerHTML = [
-      '<div style="' + ERROR_BOX_STYLE + '">',
-      '<div style="font-weight: 700;">Uncaught error: ' + error.message + '</div>',
+      `<div style="${ERROR_BOX_STYLE}">`,
+      `<div style="font-weight: 700;">Uncaught error: ${error.message}</div>`,
       '<div style="color: #515E72; font-size: 13px; line-height: 17px; margin: 10px 0;">' +
         filename +
         ':' +
@@ -91,7 +91,7 @@ Modifications to this file are automatically discarded.
         ':' +
         colno +
         '</div>',
-      '<pre style="' + ERROR_CODE_STYLE + '">' + error.stack + '</pre>',
+      `<pre style="${ERROR_CODE_STYLE}">' + error.stack + '</pre>`,
       '</div>',
     ].join('')
 

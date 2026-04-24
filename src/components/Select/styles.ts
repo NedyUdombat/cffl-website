@@ -1,5 +1,5 @@
-import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export type SelectSize = "sm" | "md" | "lg";
 
@@ -19,7 +19,7 @@ export const SELECT_SIZE: Record<SelectSize, string> = {
 /** Border + focus ring colours for default vs error states */
 export const SELECT_STATE: Record<"default" | "error", string> = {
   default: "border-line focus:border-accent focus:ring-accent/20",
-  error:   "border-danger focus:border-danger focus:ring-danger/20",
+  error: "border-danger focus:border-danger focus:ring-danger/20",
 };
 
 /**
@@ -48,11 +48,7 @@ export const ERROR_BASE = "mt-1 text-xs text-danger";
  * @param hasError  - true when validationError is non-empty
  * @param className - consumer override, applied last via twMerge
  */
-export function selectClass(
-  size: SelectSize,
-  hasError: boolean,
-  className?: string
-): string {
+export function selectClass(size: SelectSize, hasError: boolean, className?: string): string {
   return twMerge(
     clsx(
       SELECT_BASE,
