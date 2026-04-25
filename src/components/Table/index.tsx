@@ -56,9 +56,9 @@ export function Table<T>({
   // ── Empty state ───────────────────────────────────────────────────────────
   if (!data.length) {
     return (
-      <div className={`w-full ${className}`}>
-        {emptyState ?? <p className="py-8 text-center text-sm text-gray-500">No data available.</p>}
-      </div>
+      // <div className={`w-full ${className}`}>
+      emptyState ?? <p className="py-8 text-center text-sm text-gray-500">No data available.</p>
+      // </div>
     );
   }
 

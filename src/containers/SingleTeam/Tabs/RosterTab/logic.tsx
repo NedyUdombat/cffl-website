@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import useFetchRosterEntries from "@/queries/teams/useFetchRosterEntries";
+import useFetchRosterEntries from "@/queries/players/useFetchRosterEntries";
 
 interface UseRosterTabLogicProps {
   teamId: string;
@@ -15,7 +15,11 @@ const useRosterTabLogic = ({ teamId, competitionId }: UseRosterTabLogicProps) =>
   const [query, setQuery] = useState("");
   const [genderFilter, setGenderFilter] = useState<string | null>(null);
   const [positionFilter, setPositionFilter] = useState<string[]>([]);
-  const [view, setView] = useState<"card" | "list">("card");
+  const [view, setView] = useState<"card" | "list">(() => {
+    if (typeof window === "undefined") return "card";
+    const stored = localStorage.getItem("roster-view");
+    return stored === "list" ? "list" : "card";
+  });
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(20);
 
@@ -23,6 +27,10 @@ const useRosterTabLogic = ({ teamId, competitionId }: UseRosterTabLogicProps) =>
     setPositionFilter((prev) => (prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p]));
     setPage(1);
   };
+
+  useEffect(() => {
+    localStorage.setItem("roster-view", view);
+  }, [view]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Whenever any filter changes → reset to page 1
   useEffect(() => {

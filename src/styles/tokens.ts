@@ -83,3 +83,12 @@ export const GENDER = [
     abbr: "F",
   },
 ];
+
+export const STAFF_ROLES: Record<string, string> = {
+  headCoach: "Head Coach",
+  assistantHeadCoach: "Assistant Coach",
+  offensiveCoordinator: "Offensive Coordinator",
+  defensiveCoordinator: "Defensive Coordinator",
+  teamManager: "Team Manager",
+  teamOwner: "Team Owner",
+};

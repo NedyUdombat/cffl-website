@@ -1,39 +1,36 @@
 import Image from "next/image";
-import type { ROSTER_ENTRIES_QUERYResult } from "sanity.types";
+import type { STAFFS_QUERYResult } from "sanity.types";
 import EmptyState from "@/components/EmptyState";
 import { Table } from "@/components/Table";
 import type { ColumnDef } from "@/components/Table/types";
 import { formatGender } from "@/lib/format-gender";
+import { STAFF_ROLES } from "@/styles/tokens";
 
-type Entry = ROSTER_ENTRIES_QUERYResult[number];
+type Entry = STAFFS_QUERYResult[number];
 
 const COLUMNS: ColumnDef<Entry>[] = [
   {
     key: "number",
-    header: "#",
+    header: "S/N",
     className: "w-[70px] text-right",
-    sortValue: (row) => row.jerseyNumber ?? 0,
-    cell: (row) => (
-      <span className="text-black font-mono text-xs">
-        {String(row.jerseyNumber ?? 0).padStart(2, "0")}
-      </span>
+    cell: (_, index) => (
+      <span className="text-black font-mono text-xs">{String(index + 1).padStart(2, "0")}</span>
     ),
   },
   {
     key: "name",
-    header: "Player",
+    header: "Staff",
     sortValue: (row) => {
-      const fn = row.player?.firstName ?? "";
-      const ln = row.player?.lastName ?? "";
+      const fn = row?.firstName ?? "";
+      const ln = row?.lastName ?? "";
       return `${fn} ${ln}`.trim().toLowerCase();
     },
     cell: (row) => {
-      const firstName = row.player?.firstName ?? "";
-      const lastName = row.player?.lastName ?? "";
+      const firstName = row?.firstName ?? "";
+      const lastName = row?.lastName ?? "";
       const fullName = `${firstName} ${lastName}`.trim() || "—";
-      const photo = row.player?.photo;
+      const photo = row?.photo;
       const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase() || "?";
-      const isCaptain = row.isCaptain ?? false;
 
       return (
         <div className="flex items-center gap-2">
@@ -54,23 +51,18 @@ const COLUMNS: ColumnDef<Entry>[] = [
           </div>
           <div className="flex items-center gap-1">
             <span className="font-mono text-black text-xs">{fullName}</span>
-            {isCaptain && (
-              <span className="bg-accent px-1 py-px rounded font-bold font-mono text-white text-2xs">
-                CAPT
-              </span>
-            )}
           </div>
         </div>
       );
     },
   },
   {
-    key: "jerseyName",
-    header: "Jersey Name",
-    sortValue: (row) => row.jerseyName?.toLowerCase() ?? "",
+    key: "role",
+    header: "Role",
+    // sortValue: (row) => row.jerseyName?.toLowerCase() ?? "",
     cell: (row) =>
-      row.jerseyName ? (
-        <span className="font-mono text-xs text-ink">{row.jerseyName}</span>
+      row.role ? (
+        <span className="font-mono text-xs text-ink">{STAFF_ROLES[row.role]}</span>
       ) : (
         <span className="font-mono text-xs text-muted">—</span>
       ),
@@ -79,35 +71,12 @@ const COLUMNS: ColumnDef<Entry>[] = [
     key: "gender",
     header: "Gender",
     className: "text-center",
-    sortValue: (row) => row.player?.gender ?? "",
-    cell: (row) => (
-      <span className="font-mono text-xs text-ink">{formatGender(row.player?.gender)}</span>
-    ),
-  },
-  {
-    key: "positions",
-    header: "Position(s)",
-    className: " max-w-[200px]",
-    sortValue: (row) => (row.positions ?? [])[0]?.toLowerCase() ?? "",
-    cell: (row) => (
-      <div className="flex gap-1 flex-wrap">
-        {(row.positions ?? []).map((pos) => (
-          <span
-            key={pos}
-            className={[
-              "w-7 h-6 shrink-0 flex items-center justify-center rounded-md",
-              "font-inter text-3xs font-semibold tracking-ui bg-line-2 text-ink",
-            ].join(" ")}
-          >
-            {pos}
-          </span>
-        ))}
-      </div>
-    ),
+    sortValue: (row) => row?.gender ?? "",
+    cell: (row) => <span className="font-mono text-xs text-ink">{formatGender(row?.gender)}</span>,
   },
 ];
 
-export function ListTable({ entries }: { entries: ROSTER_ENTRIES_QUERYResult }) {
+export function ListTable({ entries }: { entries: STAFFS_QUERYResult }) {
   return (
     <div
       className={`bg-white border border-gray-100 rounded-2xl ${entries.length > 0 ? "p-5 shadow-sm" : "p-0"}`}
@@ -121,9 +90,6 @@ export function ListTable({ entries }: { entries: ROSTER_ENTRIES_QUERYResult }) 
         defaultSortDir="asc"
         striped
         emptyState={<EmptyState title="No players found" />}
-        getRowClassName={(row) =>
-          row.isCaptain ? "!bg-accent-tint-2 border-l-4 border-l-accent" : ""
-        }
         tdClassName="text-black align-middle"
       />
     </div>

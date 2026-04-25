@@ -1,17 +1,16 @@
-"use client";
-
 import { MdClear } from "react-icons/md";
 import { RiSearchLine } from "react-icons/ri";
+import { ActiveFiltersStrip } from "@/components/ActiveFiltersStrip";
 import { Button } from "@/components/Button";
+import { FiltersDropdown } from "@/components/FiltersDropdown";
 import { Input } from "@/components/Input";
-import { ActiveFiltersStrip } from "./ActiveFiltersStrip";
+import OrientationToggle from "@/components/OrientationToggle";
+import { Pagination } from "@/components/Pagination";
+import { DataSkeleton } from "@/components/Skeletons";
+import { ALL_POSITIONS, GENDER } from "@/styles/tokens";
 import { CardGrid } from "./CardGrid";
-import { FiltersDropdown } from "./FiltersDropdown";
 import { ListTable } from "./ListTable";
 import useRosterTabLogic from "./logic";
-import OrientationToggle from "./OrientationToggle";
-import { Pagination } from "./Pagination";
-import { RosterSkeleton } from "./RosterSkeleton";
 
 interface RosterTabProps {
   teamId: string;
@@ -38,9 +37,12 @@ export function RosterTab({ teamId, competitionId }: RosterTabProps) {
     genderFilter,
     setGenderFilter,
   } = useRosterTabLogic({ teamId, competitionId });
+
+  const isAnyFilterActive = !!query || !!genderFilter || positionFilter.length > 0;
+
   return (
     <section className="bg-bg-2">
-      <div className="max-w-[1440px] mx-auto py-8  px-6 md:px-14 lg:px-20">
+      <div className="max-w-[1440px] mx-auto py-8 px-6 md:px-14 lg:px-20">
         {/* Toolbar */}
         <div className="bg-surface border border-line rounded-[14px] p-3 flex items-center gap-2.5 mb-4 shadow-subtle flex-wrap">
           {/* Search */}
@@ -66,15 +68,26 @@ export function RosterTab({ teamId, competitionId }: RosterTabProps) {
 
           {/* Filters */}
           <FiltersDropdown
-            positionFilter={positionFilter}
-            genderFilter={genderFilter}
-            togglePosition={togglePosition}
-            setGenderFilter={setGenderFilter}
+            activeCount={(genderFilter ? 1 : 0) + positionFilter.length}
             onClearAll={() => {
               setPositionFilter([]);
               setGenderFilter(null);
               setQuery("");
             }}
+            sections={[
+              {
+                label: "Gender",
+                options: GENDER.map((g) => ({ label: g.label, value: g.value })),
+                isSelected: (v) => v === genderFilter,
+                onToggle: (v) => setGenderFilter((prev) => (prev === v ? null : v)),
+              },
+              {
+                label: "Position",
+                options: ALL_POSITIONS.map((p) => ({ label: p, value: p })),
+                isSelected: (v) => positionFilter.includes(v),
+                onToggle: togglePosition,
+              },
+            ]}
           />
 
           {/* View toggle */}
@@ -84,21 +97,33 @@ export function RosterTab({ teamId, competitionId }: RosterTabProps) {
         <div className="flex flex-row items-center justify-between gap-6 mb-5">
           {/* Active filters strip */}
           <ActiveFiltersStrip
-            positionFilter={positionFilter}
-            genderFilter={genderFilter}
-            togglePosition={togglePosition}
-            setGenderFilter={setGenderFilter}
-            query={query}
-            setQuery={setQuery}
+            filters={[
+              ...(genderFilter
+                ? [{ label: genderFilter, onRemove: () => setGenderFilter(null) }]
+                : []),
+              ...positionFilter.map((p) => ({ label: p, onRemove: () => togglePosition(p) })),
+              ...(query
+                ? [{ label: `"${query.slice(0, 16)}"`, onRemove: () => setQuery("") }]
+                : []),
+            ]}
+            onClearAll={() => {
+              positionFilter.slice().forEach(togglePosition);
+              setQuery("");
+              setGenderFilter(null);
+            }}
           />
           <div className="font-body text-xs text-muted tracking-wide-ui uppercase ml-auto">
-            {isPending ? "Loading…" : `${roster.length} players`}
+            {isPending
+              ? "Loading…"
+              : isAnyFilterActive
+                ? `${total} players`
+                : `${roster.length} players`}
           </div>
         </div>
 
         {/* Content */}
         {isPending ? (
-          <RosterSkeleton />
+          <DataSkeleton view={view} />
         ) : view === "card" ? (
           <CardGrid entries={paged} />
         ) : (
