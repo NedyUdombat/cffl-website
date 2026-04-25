@@ -17,7 +17,7 @@ interface RosterTabProps {
   competitionId?: string;
 }
 
-export function RosterTab({ teamId, competitionId }: RosterTabProps) {
+const RosterTab = ({ teamId, competitionId }: RosterTabProps) => {
   const {
     query,
     setQuery,
@@ -143,4 +143,6 @@ export function RosterTab({ teamId, competitionId }: RosterTabProps) {
       </div>
     </section>
   );
-}
+};
+
+export default RosterTab;

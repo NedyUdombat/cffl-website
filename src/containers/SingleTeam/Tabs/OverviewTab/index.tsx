@@ -18,12 +18,7 @@ interface OverviewTabProps {
   teamId: string;
 }
 
-export function OverviewTab({
-  overviewStats,
-  nextMatchData,
-  matchResults,
-  teamId,
-}: OverviewTabProps) {
+const OverviewTab = ({ overviewStats, nextMatchData, matchResults, teamId }: OverviewTabProps) => {
   const { selectedCompetition } = useCompetition();
 
   return (
@@ -53,4 +48,6 @@ export function OverviewTab({
       </div>
     </section>
   );
-}
+};
+
+export default OverviewTab;

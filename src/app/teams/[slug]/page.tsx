@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Footer from "@/containers/Footer/Footer";
-import SingleTeam from "@/containers/SingleTeam/SingleTeam";
+import SingleTeam from "@/containers/SingleTeam";
 
 interface TeamPageProps {
   params: Promise<{

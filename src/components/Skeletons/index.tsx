@@ -12,4 +12,3 @@ export function DataSkeleton({ view }: { view: "card" | "list" }) {
     </>
   );
 }
-

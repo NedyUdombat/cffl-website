@@ -1,4 +1,3 @@
-
 export type Gender = "male" | "female" | "non-binary" | "prefer-not-to-say";
 
 export function formatGender(g: Gender | null | undefined): string {
