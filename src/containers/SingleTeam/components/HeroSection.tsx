@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import Image from "next/image";
 import TopAppBar from "@/components/TopAppBar";
@@ -12,7 +10,6 @@ export function HeroSection({
   teamName,
   abbreviation,
   primaryColor,
-  // secondaryColor,
   foundedYear,
   bannerImage,
   logoImage,
@@ -42,9 +39,7 @@ export function HeroSection({
   return (
     <section
       className="relative w-full overflow-hidden min-h-[500px] bg-white flex"
-      style={{
-        backgroundColor: primaryColor,
-      }}
+      style={{ backgroundColor: primaryColor }}
     >
       {hasBanner ? (
         <>
@@ -84,14 +79,7 @@ export function HeroSection({
             className="absolute top-16 inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
             aria-hidden="true"
           >
-            <span
-              className="font-machine font-black leading-none text-white"
-              style={{
-                fontSize: "clamp(200px, 42vw, 600px)",
-                opacity: 0.08,
-                letterSpacing: "-0.06em",
-              }}
-            >
+            <span className="font-machine font-black leading-none text-white text-hero-abbr-bg opacity-[0.08] tracking-neg-lg">
               {abbreviation}
             </span>
           </div>
@@ -116,48 +104,26 @@ export function HeroSection({
             initial={{ opacity: 0, scale: 0.85, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.55, ease: EASE }}
-            className="shrink-0 bg-transparent rounded-xl shadow-2xl flex items-center justify-center"
-            style={{
-              width: "clamp(100px,13vw,176px)",
-              height: "clamp(100px,13vw,176px)",
-            }}
+            className="shrink-0 bg-transparent rounded-xl shadow-2xl flex items-center justify-center size-logo"
           >
-            {logoImage ? (
-              <div className="relative w-full h-full bg-rd-500">
-                <Image
-                  src={logoImage}
-                  alt={`${teamName} logo`}
-                  fill={true}
-                  className="object-contain w-full h-full"
-                />
-              </div>
-            ) : (
-              <span
-                className="font-machine font-black leading-none"
-                style={{
-                  fontSize: "clamp(28px,5vw,60px)",
-                  color: primaryColor,
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                {abbreviation}
-              </span>
-            )}
+            <div className="relative w-full h-full">
+              <Image
+                src={logoImage}
+                alt={`${teamName} logo`}
+                fill={true}
+                className="object-contain w-full h-full"
+              />
+            </div>
           </motion.div>
 
           {/* Name + badges + socials */}
           <div className="flex flex-col gap-3 pb-1">
-            <div className="">
+            <div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.55, ease: EASE }}
-                className="font-inter font-extrabold text-gray-400 leading-none"
-                style={{
-                  fontSize: "clamp(7px, 1.3vw, 17px)",
-                  letterSpacing: "-0.02em",
-                  textShadow: "0 2px 24px rgba(0,0,0,0.45)",
-                }}
+                className="font-inter font-extrabold text-muted-2 leading-none text-hero-sub tracking-neg-sm text-shadow-hero"
               >
                 {foundedYear ? `Since ${foundedYear}` : null}
               </motion.p>
@@ -165,12 +131,7 @@ export function HeroSection({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.55, ease: EASE }}
-                className="font-barlow-condensed font-extrabold uppercase text-white leading-none italic"
-                style={{
-                  fontSize: "clamp(36px, 6.5vw, 84px)",
-                  letterSpacing: "-0.02em",
-                  textShadow: "0 2px 24px rgba(0,0,0,0.45)",
-                }}
+                className="font-barlow-condensed font-extrabold uppercase text-white leading-none italic text-hero-name tracking-neg-sm text-shadow-hero"
               >
                 {teamName}
               </motion.h1>
@@ -192,30 +153,16 @@ export function HeroSection({
             initial={{ opacity: 0, x: 16, y: 8 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
-            className="flex-shrink-0 text-white rounded-xl border p-6 font-inter"
-            style={{
-              minWidth: "300px",
-              maxWidth: "340px",
-              backgroundColor: "rgba(255,255,255,0.1)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              borderColor: "rgba(255,255,255,0.2)",
-            }}
+            className="shrink-0 text-white rounded-xl border border-white/10 p-6 font-inter min-w-[300px] max-w-xs bg-white/10 backdrop-blur-md"
           >
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/80 mb-4 font-inter">
+            <p className="text-2xs font-black uppercase tracking-xwide text-white/80 mb-4 font-inter">
               Next Matchup
             </p>
 
             <div className="flex justify-between items-center">
               {/* Home team */}
               <div className="text-center">
-                <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.15)",
-                    border: "1px solid rgba(255,255,255,0.3)",
-                  }}
-                >
+                <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/15 border border-white/30">
                   {logoImage ? (
                     <Image
                       src={logoImage}
@@ -228,19 +175,19 @@ export function HeroSection({
                     abbreviation.slice(0, 3)
                   )}
                 </div>
-                <p className="text-[10px] font-bold font-inter tracking-wider">
+                <p className="text-2xs font-bold font-inter tracking-label">
                   {abbreviation.slice(0, 3)}
                 </p>
               </div>
 
               {/* VS */}
               <div className="text-center px-3">
-                <p className="text-2xl font-black italic font-inter tracking-tighter">VS</p>
-                <p className="text-[9px] uppercase font-bold tracking-tight mt-1 text-white/90 font-inter">
+                <p className="text-2xl font-black italic font-inter tracking-neg-sm">VS</p>
+                <p className="text-3xs uppercase font-bold tracking-ui mt-1 text-white/90 font-inter">
                   {nextMatchup.dateStr}
                 </p>
                 {nextMatchup.location && (
-                  <p className="text-[9px] uppercase tracking-tight mt-0.5 text-white/90 font-inter">
+                  <p className="text-3xs uppercase tracking-ui mt-0.5 text-white/90 font-inter">
                     {nextMatchup.location}
                   </p>
                 )}
@@ -248,13 +195,7 @@ export function HeroSection({
 
               {/* Away team */}
               <div className="text-center">
-                <div
-                  className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.1)",
-                    border: "1px solid rgba(255,255,255,0.2)",
-                  }}
-                >
+                <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/10 border border-white/20">
                   {nextMatchup.opponentLogo ? (
                     <Image
                       src={nextMatchup.opponentLogo}
@@ -267,14 +208,14 @@ export function HeroSection({
                     nextMatchup.opponentAbbr.slice(0, 3)
                   )}
                 </div>
-                <p className="text-[10px] font-bold font-inter tracking-wider">
+                <p className="text-2xs font-bold font-inter tracking-label">
                   {nextMatchup.opponentAbbr.slice(0, 3)}
                 </p>
               </div>
             </div>
 
             <button
-              className="w-full mt-4 bg-white font-black py-2.5 rounded-full hover:bg-white/90 transition-all text-xs uppercase tracking-widest font-inter"
+              className="w-full mt-4 bg-white font-black py-2.5 rounded-full hover:bg-white/90 transition-all text-2xs uppercase tracking-xwide font-inter"
               style={{ color: primaryColor }}
               type="button"
             >

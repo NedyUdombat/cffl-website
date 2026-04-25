@@ -1,8 +1,5 @@
-"use client";
-
-// import { Instagram, Youtube } from "lucide-react";
+import Link from "next/link";
 import { SiInstagram, SiTiktok, SiX, SiYoutube } from "react-icons/si";
-// import { } from "simple-icons";
 import type { TeamSocialLinks } from "../types";
 
 export function SocialIconsRow({
@@ -42,7 +39,7 @@ export function SocialIconsRow({
   return (
     <div className="flex items-center gap-2">
       {entries.map(({ href, label, icon }) => (
-        <a
+        <Link
           key={label}
           href={href}
           target="_blank"
@@ -51,7 +48,7 @@ export function SocialIconsRow({
           className={base}
         >
           {icon}
-        </a>
+        </Link>
       ))}
     </div>
   );

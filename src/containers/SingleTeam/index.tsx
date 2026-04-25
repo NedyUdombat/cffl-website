@@ -2,10 +2,10 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import ErrorState from "@/components/ErrorState";
+import LoadingState from "@/components/LoadingState";
 import { useCompetition } from "@/contexts/CompetitionContext";
-import { ErrorState } from "./components/ErrorState";
 import { HeroSection } from "./components/HeroSection";
-import { LoadingState } from "./components/LoadingState";
 import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
 import CalendarTab from "./Tabs/Calendar";
@@ -13,6 +13,7 @@ import OverviewTab from "./Tabs/OverviewTab";
 import RosterTab from "./Tabs/RosterTab";
 import StaffTab from "./Tabs/Staff";
 import StandingsTab from "./Tabs/StandingsTab";
+import StatsTab from "./Tabs/StatsTab";
 import type { SingleTeamProps } from "./types";
 
 export type { SingleTeamProps };
@@ -44,8 +45,13 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
   );
 
   if (isPending) return <LoadingState />;
-  if (isError) return <ErrorState message={error?.message} onRetry={refetch} />;
-  if (!singleTeam) return <ErrorState message="This team could not be found." />;
+  if (isError || !singleTeam)
+    return (
+      <ErrorState
+        message={!singleTeam ? "This team could not be found." : error?.message}
+        onRetry={refetch}
+      />
+    );
 
   const primaryColor = singleTeam.primaryColor ?? "#111827";
 
@@ -96,6 +102,8 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
       {activeTab === "staff" && (
         <StaffTab teamId={singleTeam._id} competitionId={selectedCompetition?._id} />
       )}
+
+      {activeTab === "stats" && <StatsTab teamId={singleTeam._id} />}
 
       {/* {activeTab === "news" && (
         <NewsTab
