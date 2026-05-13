@@ -50,8 +50,6 @@ export default defineType({
         list: [
           { title: "Male", value: "male" },
           { title: "Female", value: "female" },
-          { title: "Non-binary", value: "non-binary" },
-          { title: "Prefer not to say", value: "prefer-not-to-say" },
         ],
         layout: "dropdown",
       },

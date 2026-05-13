@@ -75,6 +75,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         socialLinks={socialLinks}
         nextMatchup={nextMatchup}
         onCompetitionChange={setSelectedCompetition}
+        teamSlug={slug}
       />
       <TabBar activeTab={activeTab} onTabChange={setActiveTab} primaryColor={primaryColor} />
 
@@ -84,6 +85,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
           nextMatchData={nextMatchData}
           matchResults={matchResults}
           teamId={singleTeam._id}
+          teamSlug={slug}
         />
       )}
 
@@ -104,19 +106,6 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
       )}
 
       {activeTab === "stats" && <StatsTab teamId={singleTeam._id} />}
-
-      {/* {activeTab === "news" && (
-        <NewsTab
-          news={mockNews}
-          teamSlug={slug}
-          primaryColor={primaryColor}
-        />
-      )}
-
-      {carouselItems.length > 0 && (
-        <HighlightsCarousel items={carouselItems} primaryColor={primaryColor} />
-      )}
-      */}
     </main>
   );
 };

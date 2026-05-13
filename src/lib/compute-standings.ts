@@ -1,4 +1,4 @@
-import type { StandingRow } from "@/components/StandingsTable";
+import type { StandingRow } from "@/components/StandingsTable/types";
 
 type Match = {
   _id: string;

@@ -1,5 +1,214 @@
 [
   {
+    "name": "playerMatchStats",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "playerMatchStats"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "match": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "match"
+        },
+        "optional": true
+      },
+      "rosterEntry": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "_ref": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              }
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "reference"
+              }
+            },
+            "_weak": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
+              },
+              "optional": true
+            }
+          },
+          "dereferencesTo": "rosterEntry"
+        },
+        "optional": true
+      },
+      "passTds": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "interceptionTouchdowns": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "extraPoints1pt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "extraPoints2pt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "safeties": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "targets": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "catches": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "drops": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "passAttempts": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "passCompletions": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "interceptionsThrown": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "sacksTaken": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "sacks": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "interceptions": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "flagPulls": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "passBreakups": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
     "name": "staff",
     "type": "document",
     "attributes": {
@@ -130,14 +339,6 @@
             {
               "type": "string",
               "value": "female"
-            },
-            {
-              "type": "string",
-              "value": "non-binary"
-            },
-            {
-              "type": "string",
-              "value": "prefer-not-to-say"
             }
           ]
         },
@@ -579,14 +780,6 @@
             {
               "type": "string",
               "value": "female"
-            },
-            {
-              "type": "string",
-              "value": "non-binary"
-            },
-            {
-              "type": "string",
-              "value": "prefer-not-to-say"
             }
           ]
         },
@@ -875,6 +1068,13 @@
         },
         "optional": true
       },
+      "url": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "competition": {
         "type": "objectAttribute",
         "value": {
@@ -1134,203 +1334,6 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
-        },
-        "optional": true
-      },
-      "foundedYear": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "number"
-        },
-        "optional": true
-      },
-      "headCoach": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "asstHeadCoach": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "players": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "firstName": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
-              "lastName": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
-              "email": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
-              "jerseyName": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
-              "jerseyNumber": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "number"
-                },
-                "optional": true
-              },
-              "gender": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "union",
-                  "of": [
-                    {
-                      "type": "string",
-                      "value": "male"
-                    },
-                    {
-                      "type": "string",
-                      "value": "female"
-                    },
-                    {
-                      "type": "string",
-                      "value": "non-binary"
-                    },
-                    {
-                      "type": "string",
-                      "value": "prefer-not-to-say"
-                    }
-                  ]
-                },
-                "optional": true
-              },
-              "photo": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "object",
-                  "attributes": {
-                    "asset": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "object",
-                        "attributes": {
-                          "_ref": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string"
-                            }
-                          },
-                          "_type": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "string",
-                              "value": "reference"
-                            }
-                          },
-                          "_weak": {
-                            "type": "objectAttribute",
-                            "value": {
-                              "type": "boolean"
-                            },
-                            "optional": true
-                          }
-                        },
-                        "dereferencesTo": "sanity.imageAsset"
-                      },
-                      "optional": true
-                    },
-                    "media": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "unknown"
-                      },
-                      "optional": true
-                    },
-                    "hotspot": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "inline",
-                        "name": "sanity.imageHotspot"
-                      },
-                      "optional": true
-                    },
-                    "crop": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "inline",
-                        "name": "sanity.imageCrop"
-                      },
-                      "optional": true
-                    },
-                    "_type": {
-                      "type": "objectAttribute",
-                      "value": {
-                        "type": "string",
-                        "value": "image"
-                      }
-                    }
-                  }
-                },
-                "optional": true
-              },
-              "isCaptain": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
-                },
-                "optional": true
-              },
-              "positions": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "array",
-                  "of": {
-                    "type": "string"
-                  }
-                },
-                "optional": true
-              },
-              "instagram": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              }
-            },
-            "rest": {
-              "type": "object",
-              "attributes": {
-                "_key": {
-                  "type": "objectAttribute",
-                  "value": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
         },
         "optional": true
       },

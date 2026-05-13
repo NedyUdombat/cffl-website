@@ -65,12 +65,26 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    // define field for URL to match highlights or details page
+    defineField({
+      name: "url",
+      title: "Match URL",
+      type: "url",
+    }),
     defineField({
       name: "competition",
-      title: "Competitions",
+      title: "Competition",
       type: "reference",
       to: [{ type: "competition" }],
     }),
+  ],
+  __experimental_search: [
+    { path: "matchNumber", weight: 10 },
+    { path: "homeTeam.name", weight: 5 },
+    { path: "awayTeam.name", weight: 5 },
+    { path: "homeTeam.abbreviation", weight: 5 },
+    { path: "awayTeam.abbreviation", weight: 5 },
+    { path: "date", weight: 1 },
   ],
   preview: {
     select: {
@@ -84,8 +98,11 @@ export default defineType({
     },
     prepare({ homeTeam, awayTeam, date, media, homeScore, awayScore, matchNumber }) {
       return {
-        title: `${matchNumber}: ${homeTeam} vs ${awayTeam} (${date ? date : "TBD"})`,
-        subtitle: `${homeScore ?? 0} - ${awayScore ?? 0}`,
+        title: ` (${matchNumber}) ${homeTeam} vs ${awayTeam}`,
+        // subtitle: `${homeTeam} vs ${awayTeam}`,
+        // title: homeTeam,
+        // title: `${matchNumber}: ${homeTeam} vs ${awayTeam} (${date ? date : "TBD"})`,
+        subtitle: `${homeTeam} ${homeScore ?? 0} - ${awayScore ?? 0} ${awayTeam}`,
         media,
       };
     },

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import type { StandingRow } from "@/components/StandingsTable";
+import type { StandingRow } from "@/components/StandingsTable/types";
 import StandingsTable, { ALL_COLUMNS } from "@/components/StandingsTable";
-import type { ColumnDef } from "@/components/Table";
+import type { ColumnDef } from "@/components/Table/types";
 import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import { computeStandings } from "@/lib/compute-standings";
 import useFetchMatches from "@/queries/matches/useFetchMatches";

@@ -29,6 +29,7 @@ const useSingleTeamLogic = (slug: string) => {
         opponentLogo: opponent?.logo ?? undefined,
         dateStr: `${nextMatch.date ?? "TBD"} · ${nextMatch.time ?? ""}`,
         location: nextMatch.location ?? undefined,
+        slug: opponent?.slug,
       }
     : undefined;
   const teamId = singleTeam?._id;

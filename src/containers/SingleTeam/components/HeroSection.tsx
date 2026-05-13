@@ -1,22 +1,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import TopAppBar from "@/components/TopAppBar";
 import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import type { TeamSocialLinks } from "../types";
 import { EASE } from "../types";
 import { SocialIconsRow } from "./SocialIconsRow";
 
-export function HeroSection({
-  teamName,
-  abbreviation,
-  primaryColor,
-  foundedYear,
-  bannerImage,
-  logoImage,
-  socialLinks,
-  nextMatchup,
-  onCompetitionChange,
-}: {
+interface HeroSectionProps {
   teamName: string;
   abbreviation: string;
   primaryColor: string;
@@ -31,9 +22,24 @@ export function HeroSection({
     opponentLogo?: string;
     dateStr: string;
     location?: string;
+    slug?: string;
   };
+  teamSlug: string;
   onCompetitionChange?: (competition: CompetitionItem | undefined) => void;
-}) {
+}
+
+export function HeroSection({
+  teamName,
+  abbreviation,
+  primaryColor,
+  foundedYear,
+  bannerImage,
+  logoImage,
+  socialLinks,
+  nextMatchup,
+  onCompetitionChange,
+  teamSlug,
+}: HeroSectionProps) {
   const hasBanner = Boolean(bannerImage);
 
   return (
@@ -153,9 +159,9 @@ export function HeroSection({
             initial={{ opacity: 0, x: 16, y: 8 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
-            className="shrink-0 text-white rounded-xl border border-white/10 p-6 font-inter min-w-[300px] max-w-xs bg-white/10 backdrop-blur-md"
+            className="shrink-0 text-white rounded-xl p-4 w-[300px] max-w-xs bg-white/10 backdrop-blur-md flex flex-col gap-4"
           >
-            <p className="text-2xs font-black uppercase tracking-xwide text-white/80 mb-4 font-inter">
+            <p className="text-2xs font-black uppercase tracking-xwide text-white/80 font-inter">
               Next Matchup
             </p>
 
@@ -163,7 +169,7 @@ export function HeroSection({
               {/* Home team */}
               <div className="text-center">
                 <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/15 border border-white/30">
-                  {logoImage ? (
+                  <Link style={{ color: primaryColor }} href={`/teams/${teamSlug}`}>
                     <Image
                       src={logoImage}
                       alt={abbreviation}
@@ -171,9 +177,7 @@ export function HeroSection({
                       height={48}
                       className="object-contain p-1"
                     />
-                  ) : (
-                    abbreviation.slice(0, 3)
-                  )}
+                  </Link>
                 </div>
                 <p className="text-2xs font-bold font-inter tracking-label">
                   {abbreviation.slice(0, 3)}
@@ -196,7 +200,11 @@ export function HeroSection({
               {/* Away team */}
               <div className="text-center">
                 <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/10 border border-white/20">
-                  {nextMatchup.opponentLogo ? (
+                  <Link
+                    // className="w-full block text-center bg-white font-bold py-2.5 rounded-full hover:bg-white/50 transition-all text-2xs uppercase tracking-xwide font-inter"
+                    style={{ color: primaryColor }}
+                    href={`/teams/${nextMatchup.slug}`}
+                  >
                     <Image
                       src={nextMatchup.opponentLogo}
                       alt={nextMatchup.opponentAbbr}
@@ -204,9 +212,7 @@ export function HeroSection({
                       height={48}
                       className="object-contain p-1"
                     />
-                  ) : (
-                    nextMatchup.opponentAbbr.slice(0, 3)
-                  )}
+                  </Link>
                 </div>
                 <p className="text-2xs font-bold font-inter tracking-label">
                   {nextMatchup.opponentAbbr.slice(0, 3)}
@@ -214,13 +220,13 @@ export function HeroSection({
               </div>
             </div>
 
-            <button
-              className="w-full mt-4 bg-white font-black py-2.5 rounded-full hover:bg-white/90 transition-all text-2xs uppercase tracking-xwide font-inter"
+            <Link
+              className="w-full block text-center bg-white font-bold py-2.5 rounded-full hover:bg-white/50 transition-all text-2xs uppercase tracking-xwide font-inter"
               style={{ color: primaryColor }}
-              type="button"
+              href={`/teams/${teamSlug}?tab=matches`}
             >
               Match Center
-            </button>
+            </Link>
           </motion.div>
         )}
       </div>

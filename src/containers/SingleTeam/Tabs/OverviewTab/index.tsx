@@ -16,9 +16,16 @@ interface OverviewTabProps {
   nextMatchData: MATCHES_QUERYResult;
   matchResults: MATCHES_QUERYResult;
   teamId: string;
+  teamSlug: string;
 }
 
-const OverviewTab = ({ overviewStats, nextMatchData, matchResults, teamId }: OverviewTabProps) => {
+const OverviewTab = ({
+  overviewStats,
+  nextMatchData,
+  matchResults,
+  teamId,
+  teamSlug,
+}: OverviewTabProps) => {
   const { selectedCompetition } = useCompetition();
 
   return (
@@ -29,20 +36,24 @@ const OverviewTab = ({ overviewStats, nextMatchData, matchResults, teamId }: Ove
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
-          className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-3"
+          className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4"
         >
           {/* ── Left column ── */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <FeaturedStory />
             <TopHighlights />
             {/* TODO: Add team contact info */}
           </div>
 
           {/* ── Right column (sidebar) ── */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <SeasonStatsBar stats={overviewStats} />
             <TeamForm matchResults={matchResults} teamId={teamId} nextMatchData={nextMatchData} />
-            <TeamStandingsPreview competition={selectedCompetition} teamId={teamId} />
+            <TeamStandingsPreview
+              competition={selectedCompetition}
+              teamId={teamId}
+              teamSlug={teamSlug}
+            />
           </div>
         </motion.div>
       </div>

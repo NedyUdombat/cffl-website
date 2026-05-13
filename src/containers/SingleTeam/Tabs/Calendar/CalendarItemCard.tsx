@@ -16,6 +16,7 @@ interface CalendarItemCardProps {
       homeScore: number;
       awayScore: number;
       status: "cancelled" | "completed" | "scheduled";
+      url?: string;
       homeTeam: {
         _id: string;
         name: string;
@@ -77,7 +78,7 @@ const CalendarItemCard = ({ day, dayData, teamId }: CalendarItemCardProps) => {
       </div>
       <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
         <Link
-          href={`/teams/${homeTeam?.slug}`}
+          href={`/teams/${homeTeam?.slug}?tab=matches`}
           className="cursor-pointer flex gap-1 items-center justify-end text-right"
         >
           <p className="font-mono text-sm">{homeTeam?.name ?? homeTeam?.abbreviation ?? "?"}</p>
@@ -112,13 +113,17 @@ const CalendarItemCard = ({ day, dayData, teamId }: CalendarItemCardProps) => {
                 <p className="font-mono font-bold">{dayData.match.awayScore}</p>
               </div>
 
-              <Link
-                href={`/teams/${myTeam?.slug}`}
-                className="flex gap-1 text-center justify-center items-center w-full"
-              >
-                <FaYoutube className="text-loss" />
-                <p className="text-3xs font-mono">Watch Recap</p>
-              </Link>
+              {dayData.match.url && (
+                <Link
+                  href={dayData.match.url || `teams/${myTeam?.slug}?tab=matches`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex gap-1 text-center justify-center items-center w-full"
+                >
+                  <FaYoutube className="text-loss" />
+                  <p className="text-3xs font-mono">Watch Recap</p>
+                </Link>
+              )}
             </div>
           ) : (
             <div className="flex gap-1 bg-bg-2 px-2">
@@ -128,7 +133,7 @@ const CalendarItemCard = ({ day, dayData, teamId }: CalendarItemCardProps) => {
         </div>
 
         <Link
-          href={`/teams/${awayTeam?.slug}`}
+          href={`/teams/${awayTeam?.slug}?tab=matches`}
           className="cursor-pointer flex items-center justify-start gap-1 text-left"
         >
           {awayTeam?.logo ? (

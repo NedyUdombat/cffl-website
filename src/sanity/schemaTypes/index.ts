@@ -7,6 +7,7 @@ import gameResult from "./gameResult";
 import match from "./match";
 import newsType from "./newsType"; // 👈 Add this line
 import player from "./player";
+import playerMatchStats from "./playerMatchStats";
 import { postType } from "./postType";
 import replay from "./replay"; // ✅ Import the new schema
 import rosterEntry from "./rosterEntry";
@@ -30,5 +31,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     player,
     rosterEntry,
     staff,
+    playerMatchStats,
   ], // 👈 And this one
 };

@@ -48,6 +48,7 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
   homeScore,
   awayScore,
   status,
+  url,
   "homeTeam": homeTeam-> {
     _id,
     name,

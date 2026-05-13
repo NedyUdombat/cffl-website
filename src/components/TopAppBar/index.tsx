@@ -15,7 +15,8 @@ interface TopAppBarProps {
   onCompetitionChange?: (competition: CompetitionItem | undefined) => void;
 }
 
-const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
+const 
+TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
   const { competitions } = useFetchCompetitions();
   const { selectedCompetition, setSelectedCompetition } = useCompetition();
   const [selectedId, setSelectedId] = useState<string>("");
@@ -83,7 +84,7 @@ const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
           <select
             value={selectedId}
             onChange={handleChange}
-            className="text-[10px] font-bold tracking-[0.12em] font-inter uppercase text-white/80 bg-transparent border border-white/20 rounded px-2 py-1 cursor-pointer outline-none hover:border-white/40 transition-colors"
+            className="text-[10px] font-bold tracking-[0.12em] font-inter uppercase text-white/70  border border-white/20 rounded px-2 py-1 cursor-pointer outline-none hover:border-white/40 transition-colors"
           >
             <option value={ALL_COMPETITIONS_VALUE} className="bg-black text-white normal-case">
               All Competitions
