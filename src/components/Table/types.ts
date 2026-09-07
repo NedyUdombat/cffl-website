@@ -46,4 +46,6 @@ export type TableProps<T> = {
   emptyState?: React.ReactNode;
   /** Return extra classes for a given row by its data and sorted index */
   getRowClassName?: (row: T, index: number) => string;
+  /** Use dark-mode color scheme for hover and sort highlights */
+  dark?: boolean;
 };

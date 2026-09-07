@@ -5,19 +5,14 @@ import type { OverviewStats } from "./types";
 const useSingleTeamLogic = (slug: string) => {
   const { singleTeam, isPending, isError, error, refetch } = useFetchSingleTeam(slug);
 
-  const { data: nextMatchData } = useFetchMatches({
-    status: "scheduled",
+  const { data: fullMatchResults } = useFetchMatches({
     team: singleTeam?._id,
-    pageSize: 20,
+    pageSize: 200,
     enabled: !!singleTeam?._id,
   });
 
-  const { data: matchResults } = useFetchMatches({
-    status: "completed",
-    team: singleTeam?._id,
-    pageSize: 20,
-    enabled: !!singleTeam?._id,
-  });
+  const nextMatchData = fullMatchResults?.filter((match) => match.status === "scheduled") ?? [];
+  const matchResults = fullMatchResults?.filter((match) => match.status === "completed") ?? [];
 
   const nextMatch = nextMatchData?.[0];
   const isHome = nextMatch?.homeTeam?._id === singleTeam?._id;
@@ -71,6 +66,7 @@ const useSingleTeamLogic = (slug: string) => {
     nextMatchup,
     matchResults,
     nextMatchData,
+    fullMatchResults,
 
     overviewStats: {
       wins,

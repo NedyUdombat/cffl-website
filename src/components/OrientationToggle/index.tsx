@@ -1,33 +1,27 @@
 import { BsFillGridFill } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Button } from "@/components/Button";
+import type { PillToggleItem } from "@/components/PillToggle";
+import PillToggle from "@/components/PillToggle";
 
 interface OrientationToggleProps {
   view: "card" | "list";
   setView: (view: "card" | "list") => void;
 }
 
+const ITEMS: PillToggleItem<"card" | "list">[] = [
+  { value: "card", label: <BsFillGridFill />, ariaLabel: "Card view" },
+  { value: "list", label: <GiHamburgerMenu />, ariaLabel: "List view" },
+];
+
 const OrientationToggle = ({ view, setView }: OrientationToggleProps) => {
   return (
-    <div className="flex h-10 bg-surface-2 border border-line rounded-lg p-1 gap-1 ml-auto">
-      {(["card", "list"] as const).map((v) => (
-        <Button
-          key={v}
-          variant="icon"
-          size="sm"
-          onClick={() => setView(v)}
-          aria-label={v === "card" ? "Card view" : "List view"}
-          aria-pressed={view === v}
-          className={`px-3 w-full h-full font-bold tracking-wide-ui uppercase rounded ${
-            view === v
-              ? "text-ink bg-surface shadow-raised"
-              : "text-muted bg-transparent shadow-none"
-          }`}
-        >
-          {v === "card" ? <BsFillGridFill /> : <GiHamburgerMenu />}
-        </Button>
-      ))}
-    </div>
+    <PillToggle
+      items={ITEMS}
+      value={view}
+      onChange={setView}
+      containerClassName="h-10 ml-auto"
+      itemClassName="w-full h-full cursor-pointer"
+    />
   );
 };
 

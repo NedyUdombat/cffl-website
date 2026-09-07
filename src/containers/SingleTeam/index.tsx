@@ -10,10 +10,10 @@ import { type Tab, TabBar } from "./components/TabBar";
 import useSingleTeamLogic from "./logic";
 import CalendarTab from "./Tabs/Calendar";
 import OverviewTab from "./Tabs/OverviewTab";
-import RosterTab from "./Tabs/RosterTab";
-import StaffTab from "./Tabs/Staff";
+// import RosterTab from "./Tabs/RosterTab";
+// import StaffTab from "./Tabs/Staff";
 import StandingsTab from "./Tabs/StandingsTab";
-import StatsTab from "./Tabs/StatsTab";
+// import StatsTab from "./Tabs/StatsTab";
 import type { SingleTeamProps } from "./types";
 
 export type { SingleTeamProps };
@@ -29,6 +29,7 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
     overviewStats,
     nextMatchData,
     matchResults,
+    fullMatchResults,
   } = useSingleTeamLogic(slug);
   const { setSelectedCompetition, selectedCompetition } = useCompetition();
   const router = useRouter();
@@ -86,12 +87,13 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
           matchResults={matchResults}
           teamId={singleTeam._id}
           teamSlug={slug}
+          fullMatchResults={fullMatchResults}
         />
       )}
 
-      {activeTab === "roster" && (
+      {/* {activeTab === "roster" && (
         <RosterTab teamId={singleTeam._id} competitionId={selectedCompetition?._id} />
-      )}
+      )} */}
 
       {activeTab === "matches" && (
         <CalendarTab teamId={singleTeam._id} matches={[...matchResults, ...nextMatchData]} />
@@ -101,11 +103,11 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
         <StandingsTab teamId={singleTeam._id} matchResults={matchResults} />
       )}
 
-      {activeTab === "staff" && (
+      {/* {activeTab === "staff" && (
         <StaffTab teamId={singleTeam._id} competitionId={selectedCompetition?._id} />
-      )}
+      )} */}
 
-      {activeTab === "stats" && <StatsTab teamId={singleTeam._id} />}
+      {/* {activeTab === "stats" && <StatsTab teamId={singleTeam._id} />} */}
     </main>
   );
 };

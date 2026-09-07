@@ -1,93 +1,150 @@
 "use client";
-import imageUrlBuilder from "@sanity/image-url";
+
+import { format } from "date-fns";
 import Image from "next/image";
+import Link from "next/link";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import Navbar from "@/components/Navbar";
 import Footer from "@/containers/Footer/Footer";
-import { client } from "@/sanity/lib/client";
+import { NewsPageLoader } from "@/containers/News/components/full-page-loader";
+import { LatestScores } from "@/containers/News/components/latest-scores";
+import { NewsPageCard } from "@/containers/News/components/news-card";
+import useFetchNews from "@/queries/news/useFetchNews";
 
-// 🧱 Configure Sanity Image Builder
-const builder = imageUrlBuilder(client);
-function urlFor(source: string) {
-  return builder.image(source);
-}
+export default function NewsPage() {
+  const { news, isPending, isError, error } = useFetchNews();
 
-interface FanPhoto {
-  _id: string;
-  image: string;
-  order?: number;
-}
+  const articles = news || [];
+  const featuredArticle = articles[0];
+  const gridArticles = articles.slice(1, 10);
 
-export default async function MeetTheFansPage() {
-  const fans: FanPhoto[] = await client.fetch(`
-    *[_type == "fans"] | order(order asc) {
-      _id,
-      image,
-      order
-    }
-  `);
+  if (isPending) {
+    return <NewsPageLoader />;
+  }
+
+  if (isError) {
+    return (
+      <div className="bg-[#F8FAFC] min-h-screen text-[#002060]">
+        <Navbar linkTextColor="text-black" />
+        <main className="pt-35 pb-16 flex items-center justify-center min-h-[60vh]">
+          <p className="text-red-500 font-medium">
+            Failed to load articles: {error?.message || "An error occurred."}
+          </p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-[#13141C] min-h-screen text-white">
-      {/* ✅ Navbar inside hero */}
-      <section className="relative w-full min-h-[400px] flex flex-col items-center justify-center overflow-hidden">
-        {/* Navbar should appear on the hero itself */}
-        <div className="absolute top-0 left-0 w-full z-20">
-          <Navbar linkTextColor="text-white" />
-        </div>
+    <div className="bg-[#F8FAFC] min-h-screen text-[#002060]">
+      <Navbar linkTextColor="text-black" />
 
-        {/* Title */}
-        <div className="relative z-10 flex flex-col items-center justify-center mt-24 text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold uppercase tracking-wide">
-            Meet The Fans
-          </h1>
-        </div>
+      <main className="pt-35 pb-16">
+        <div className="max-w-360 mx-auto px-4 sm:px-8">
+          {featuredArticle && (
+            <section className="mb-12">
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-[12px] font-bold text-[#002060] tracking-wider uppercase">
+                  TOP STORY
+                </h2>
+              </div>
 
-        {/* Subtle background logo */}
-        <div className="absolute inset-0 opacity-[0.05] flex items-center justify-center">
-          <Image
-            src="/logo1.png"
-            alt="CFFL Background Logo"
-            width={600}
-            height={600}
-            className="object-contain"
-          />
-        </div>
-      </section>
-
-      {/* 🖼 Fan Gallery Grid */}
-      <main className="py-16 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          {fans.length === 0 ? (
-            <p className="text-center text-gray-400">No fan photos available.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {fans.map((fan) => (
-                <div
-                  key={fan._id}
-                  className="relative overflow-hidden rounded-xl shadow-lg group cursor-pointer"
-                >
-                  {fan.image ? (
+              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                <div className="lg:col-span-6 relative min-h-75 lg:min-h-95">
+                  {featuredArticle.mainImage ? (
                     <Image
-                      src={urlFor(fan.image).width(600).height(600).url()}
-                      alt="Fan photo"
-                      width={600}
-                      height={600}
-                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                      src={featuredArticle.mainImage}
+                      alt={featuredArticle.title || "Featured Image"}
+                      fill
+                      priority
+                      className="object-cover w-full h-full"
                     />
                   ) : (
-                    <div className="flex items-center justify-center h-[300px] bg-gray-800 text-gray-500 text-sm">
-                      No image
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm text-gray-400">
+                      No Image
                     </div>
                   )}
                 </div>
-              ))}
-            </div>
+
+                <div className="lg:col-span-6 p-6 sm:p-8 flex flex-col justify-between">
+                  <div>
+                    <div className="inline-block bg-[#E2E8F0] text-[#002060] text-2xs font-bold px-3 py-1 rounded-sm uppercase tracking-wider mb-4">
+                      ELITE 5S
+                    </div>
+
+                    <h1 className="text-[26px] sm:text-[32px] font-black leading-tight text-[#002060] mb-4">
+                      {featuredArticle.title}
+                    </h1>
+
+                    <p className="text-[14px] text-gray-600 leading-relaxed mb-6 line-clamp-4">
+                      There's a moment in every year when you realize it's no longer experimenting.
+                      It is growing up. Elite 5s is fast moment for Nigerian flag football — faster,
+                      fiercer, and built for the global stage.
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-[12px] font-semibold text-gray-500 mb-4">
+                      CFFL Staff &bull;{" "}
+                      {format(new Date(featuredArticle.publishedAt), "MMMM dd, yyyy")}
+                    </p>
+
+                    <Link
+                      href={`/news/${
+                        typeof featuredArticle.slug === "string"
+                          ? featuredArticle.slug
+                          : featuredArticle.slug?.current || ""
+                      }`}
+                      className="inline-flex items-center justify-center bg-[#52BD94] hover:bg-[#43a27e] text-white text-[13px] font-bold px-5 py-2.5 rounded-md transition-colors"
+                    >
+                      Read Article
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
           )}
 
-          {/* 🔽 Load More */}
-          <div className="text-center mt-12">
-            <LoadMoreButton />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-8 flex flex-col gap-8">
+              <div className="flex items-center gap-2">
+                <h2 className="text-[12px] font-bold text-[#002060] tracking-wider uppercase">
+                  LATEST NEWS
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                {gridArticles.map((article) => (
+                  <NewsPageCard key={article._id} article={article} />
+                ))}
+              </div>
+
+              <div className="flex justify-center mt-6">
+                <LoadMoreButton />
+              </div>
+            </div>
+
+            <aside className="lg:col-span-4 flex flex-col gap-8">
+              <LatestScores />
+              <div className="bg-transparent p-5 rounded-2xl flex flex-col gap-3">
+                <h3 className="text-[14px] font-black text-[#002060]">CFFL Newsletter</h3>
+                <p className="text-[11px] text-gray-500 leading-snug">
+                  Get the latest CFFL news, scores, and highlights to remain in your inbox.
+                </p>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full text-[12px] px-3 py-2 rounded-md border border-gray-200 focus:outline-none focus:border-[#002060]"
+                />
+                <button
+                  type="button"
+                  className="w-full bg-[#52BD94] hover:bg-[#43a27e] text-white text-[12px] font-bold py-2 rounded-md transition-colors"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </aside>
           </div>
         </div>
       </main>

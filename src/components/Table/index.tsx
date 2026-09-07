@@ -19,6 +19,7 @@ export function Table<T>({
   thClassName = "",
   emptyState,
   getRowClassName,
+  dark = false,
 }: TableProps<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(defaultSortKey);
   const [sortDir, setSortDir] = useState<SortDirection>(defaultSortDir);
@@ -84,7 +85,7 @@ export function Table<T>({
                     "text-left text-[10px] font-bold uppercase tracking-widest",
                     "text-gray-400 select-none whitespace-nowrap",
                     canSort && "cursor-pointer",
-                    isSorted && "text-gray-900",
+                    isSorted && (dark ? "!text-white/90" : "text-gray-900"),
                     col.hideOnMobile && "hidden sm:table-cell",
                     col.className,
                     thClassName
@@ -92,7 +93,7 @@ export function Table<T>({
                 >
                   <span className="inline-flex items-center gap-1">
                     {col.header}
-                    {canSort && <SortIcon active={isSorted} dir={sortDir} />}
+                    {canSort && <SortIcon active={isSorted} dir={sortDir} dark={dark} />}
                   </span>
                 </th>
               );
@@ -114,29 +115,33 @@ export function Table<T>({
                   isHighlighted
                     ? "bg-red-600/10 border-l-2 border-l-red-500"
                     : striped && index % 2 === 1
-                      ? "bg-white/[0.02]"
+                      ? dark ? "bg-white/[0.03]" : "bg-black/[0.02]"
                       : "",
-                  "hover:bg-gray-100",
+                  dark ? "hover:bg-white/[0.04]" : "hover:bg-gray-100",
                   getRowClassName ? getRowClassName(row, index) : "",
                 ]
                   .filter(Boolean)
                   .join(" ")}
               >
-                {columns.map((col) => (
-                  <td
-                    key={col.key}
-                    className={cn(
-                      rowPadding,
-                      "whitespace-nowrap",
-                      isHighlighted && "font-semibold",
-                      col.hideOnMobile && "hidden sm:table-cell",
-                      col.className,
-                      tdClassName
-                    )}
-                  >
-                    {col.cell(row, rowIndexOffset + index)}
-                  </td>
-                ))}
+                {columns.map((col) => {
+                  const isSortedCol = sortable && col.key === sortKey;
+                  return (
+                    <td
+                      key={col.key}
+                      className={cn(
+                        rowPadding,
+                        "whitespace-nowrap",
+                        isHighlighted && "font-semibold",
+                        isSortedCol && "font-semibold",
+                        col.hideOnMobile && "hidden sm:table-cell",
+                        col.className,
+                        tdClassName
+                      )}
+                    >
+                      {col.cell(row, rowIndexOffset + index)}
+                    </td>
+                  );
+                })}
               </tr>
             );
           })}
@@ -148,18 +153,18 @@ export function Table<T>({
 
 // ─── Sort Icon ────────────────────────────────────────────────────────────────
 
-function SortIcon({ active, dir }: { active: boolean; dir: SortDirection }) {
+function SortIcon({ active, dir, dark }: { active: boolean; dir: SortDirection; dark: boolean }) {
+  const inactiveColor = dark ? "border-b-white/30" : "border-b-gray-500";
+  const activeColorAsc = dark ? "border-b-white opacity-100" : "border-b-gray-900 opacity-100";
+  const inactiveColorDesc = dark ? "border-t-white/30" : "border-t-gray-500";
+  const activeColorDesc = dark ? "border-t-white opacity-100" : "border-t-gray-900 opacity-100";
   return (
     <span className="inline-flex flex-col gap-[2px] opacity-60">
       <span
-        className={`block w-0 h-0 border-l-[3px] border-r-[3px] border-b-[4px]
-          border-l-transparent border-r-transparent
-          ${active && dir === "asc" ? "border-b-gray-900 opacity-100" : "border-b-gray-500"}`}
+        className={`block w-0 h-0 border-l-[3px] border-r-[3px] border-b-[4px] border-l-transparent border-r-transparent ${active && dir === "asc" ? activeColorAsc : inactiveColor}`}
       />
       <span
-        className={`block w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px]
-          border-l-transparent border-r-transparent
-          ${active && dir === "desc" ? "border-t-gray-900 opacity-100" : "border-t-gray-500"}`}
+        className={`block w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent ${active && dir === "desc" ? activeColorDesc : inactiveColorDesc}`}
       />
     </span>
   );

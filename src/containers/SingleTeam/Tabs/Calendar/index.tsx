@@ -12,7 +12,7 @@ const CalendarTab = ({ matches, teamId }: CalendarTabProps) => {
 
   return (
     <section className="bg-bg-2">
-      <div className="max-w-[1440px] mx-auto py-8  px-6 md:px-14 lg:px-20  flex flex-col gap-6">
+      <div className="max-w-[1440px] mx-auto py-8 px-6 md:px-14 lg:px-20 flex flex-col gap-6">
         {Object.entries(groupedMatches)
           .sort(([, a], [, b]) => a.sortValue.getTime() - b.sortValue.getTime())
           .map(([month, monthData]) => (

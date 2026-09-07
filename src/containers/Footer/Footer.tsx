@@ -5,7 +5,6 @@ import Link from "next/link";
 import { SiInstagram, SiTiktok, SiYoutube } from "react-icons/si";
 import { useTeams } from "@/contexts/TeamContext";
 
-// --- Data for the Footer Link Columns (Unchanged) ---
 const footerLinks = [
   {
     title: "General",
@@ -51,11 +50,8 @@ export default function Footer() {
   const linkStyle = "text-sm font-normal text-gray-400 hover:text-white transition duration-200";
 
   return (
-    // Outer container: Provides the full-width background color and vertical padding
     <footer className="bg-[#1C2028] text-white pt-10 pb-4 shadow-lg w-full">
-      {/* NEW Inner Container: Centers content, limits max width, and adds horizontal padding */}
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        {/* 1. Team Logos Section */}
         <div className="flex justify-center items-center flex-wrap gap-x-8 gap-y-4 py-8 border-b border-gray-700/50">
           {teams?.length &&
             teams.map((team) => (
@@ -64,18 +60,11 @@ export default function Footer() {
                 key={team._id}
                 className="w-10 h-10 md:w-12 md:h-12 shrink-0"
               >
-                <Image
-                  src={team.logo}
-                  alt={`${team.name} Logo`}
-                  width={48}
-                  height={48}
-                  // className="object-contain"
-                />
+                <Image src={team.logo} alt={`${team.name} Logo`} width={48} height={48} />
               </Link>
             ))}
         </div>
 
-        {/* 2. Menu Links Section */}
         <div className="py-12 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           {footerLinks.map((col) => (
             <div key={col.title}>
@@ -95,11 +84,9 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* 3. Copyright and Social Media Section */}
         <div className="py-6 border-t border-gray-700/50 flex flex-col md:flex-row items-center md:items-center justify-between">
-          {/* Copyright Text and League Logo */}
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 max-w-2xl text-center md:text-left">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <Image
                 src="/logo1.png"
                 alt="CFFL League Logo"
@@ -116,7 +103,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Social Media Icons */}
           <div className="flex space-x-5 mt-6 md:mt-0">
             <Link
               href="https://www.instagram.com/peopleofcffl/"

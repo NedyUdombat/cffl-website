@@ -1,5 +1,5 @@
 "use client";
-// import GameReplays from "@/containers/GameReplays";
+import GameReplays from "@/containers//Home/GameReplays";
 // import Upcoming from "@/containers/Home/Upcoming";
 import Navbar from "../components/Navbar";
 // import Academy from "../containers/Academy";
@@ -17,7 +17,7 @@ export default function HomePage() {
       <Hero />
       <Trending />
       {/* <Upcoming /> */}
-      {/* <GameReplays /> */}
+      <GameReplays />
       {/* <Academy /> */}
       <Footer />
     </main>

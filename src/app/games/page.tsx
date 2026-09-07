@@ -85,10 +85,12 @@ const GameResults: React.FC = () => {
                       <Image
                         src={team.logo.asset.url}
                         alt={team.name}
+                        width={50}
+                        height={50}
                         className="object-contain"
                         style={{
-                          width: "50px",
-                          height: "50px",
+                          // width: "50px",
+                          // height: "50px",
                           opacity: 1,
                           mixBlendMode: "luminosity",
                         }}
@@ -131,6 +133,7 @@ const GameResults: React.FC = () => {
                 <Image
                   src={game.gameImage.asset.url}
                   alt="Game highlight"
+                  fill
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -349,11 +352,13 @@ export default function GamesPage() {
                         <Image
                           src="/m2.png"
                           alt="Match Background"
+                          fill
                           className="w-full h-auto object-contain rounded-t-lg"
                         />
                         <Image
                           src="/matchday2.png"
                           alt="Overlay Graphic"
+                          fill
                           className="absolute inset-0 w-full h-full object-contain opacity-80 pointer-events-none hidden sm:block"
                         />
 
@@ -362,10 +367,12 @@ export default function GamesPage() {
                             <Image
                               src={match.team1.logo.asset.url}
                               alt={match.team1.name}
+                              width={99}
+                              height={89}
                               className="object-contain"
                               style={{
-                                width: "99px",
-                                height: "89px",
+                                // width: "99px",
+                                // height: "89px",
                                 transform: "rotate(0deg)",
                                 opacity: 1,
                                 mixBlendMode: "luminosity",
@@ -389,9 +396,11 @@ export default function GamesPage() {
                               src={match.team2.logo.asset.url}
                               alt={match.team2.name}
                               className="object-contain"
+                              width={99}
+                              height={89}
                               style={{
-                                width: "99px",
-                                height: "89px",
+                                // width: "99px",
+                                // height: "89px",
                                 transform: "rotate(0deg)",
                                 opacity: 1,
                                 mixBlendMode: "luminosity",

@@ -34,7 +34,6 @@ const TeamsCard = ({ team }: TeamsCardProps) => {
         transition={{ type: "spring", stiffness: 220, damping: 18 }}
         className="flex flex-col items-center justify-start rounded-xl overflow-hidden bg-white cursor-pointer"
       >
-        {/* Logo Area */}
         <div className="w-full relative bg-gray-50 flex justify-center items-center h-40 overflow-hidden">
           <motion.div
             animate={{
@@ -58,7 +57,6 @@ const TeamsCard = ({ team }: TeamsCardProps) => {
           </motion.div>
         </div>
 
-        {/* Text Area */}
         <motion.div
           animate={{
             backgroundColor: isHovered ? "#012752" : "#ffffff",

@@ -16,9 +16,8 @@ const Teams = () => {
   const { teams, isPending, isError, error, refetch } = useTeams();
 
   return (
-    <main className="min-h-screen bg-white text-white pt-[140px] md:pt-[160px] pb-20 px-6 md:px-10 w-full">
+    <main className="min-h-screen bg-white text-white pt-35 md:pt-40 pb-20 px-6 md:px-10 w-full">
       <div className="max-w-5xl mx-auto">
-        {/* --- Loading State --- */}
         {isPending && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-10">
             {SKELETON_KEYS.map((key) => (
@@ -27,7 +26,6 @@ const Teams = () => {
           </div>
         )}
 
-        {/* --- Error State --- */}
         {isError && (
           <div className="flex flex-col items-center justify-center py-32 gap-6 text-center">
             <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
@@ -64,7 +62,6 @@ const Teams = () => {
           </div>
         )}
 
-        {/* --- Empty State --- */}
         {!isPending && !isError && teams && teams.length === 0 && (
           <div className="flex flex-col items-center justify-center py-32 gap-5 text-center">
             <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
@@ -93,7 +90,6 @@ const Teams = () => {
           </div>
         )}
 
-        {/* --- Success State --- */}
         {!isPending && !isError && teams && teams.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-10">
             {teams.map((team) => (

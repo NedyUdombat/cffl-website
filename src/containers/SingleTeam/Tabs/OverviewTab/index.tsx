@@ -17,6 +17,7 @@ interface OverviewTabProps {
   matchResults: MATCHES_QUERYResult;
   teamId: string;
   teamSlug: string;
+  fullMatchResults: MATCHES_QUERYResult;
 }
 
 const OverviewTab = ({
@@ -25,6 +26,7 @@ const OverviewTab = ({
   matchResults,
   teamId,
   teamSlug,
+  fullMatchResults,
 }: OverviewTabProps) => {
   const { selectedCompetition } = useCompetition();
 

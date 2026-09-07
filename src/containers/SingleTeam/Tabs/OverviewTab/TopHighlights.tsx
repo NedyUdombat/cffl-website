@@ -29,7 +29,7 @@ export function TopHighlights() {
           type="button"
           className="text-[10px] font-bold uppercase tracking-widest font-inter text-gray-400 hover:text-gray-800 transition-colors"
         >
-          View All
+          See All
         </button>
       </div>
 

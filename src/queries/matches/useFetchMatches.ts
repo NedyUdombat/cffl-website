@@ -24,6 +24,9 @@ export interface MatchFilters {
   page?: number; // default: 1
   pageSize?: number; // default: 10
   enabled?: boolean; // default: true
+  hasUrl?: boolean;
+  sortField?: "date" | "matchDay" | "matchNumber"; // Add allowed sort fields
+  sortOrder?: "asc" | "desc"; // Default: "asc"
 }
 
 const MATCHES_QUERY = defineQuery(`*[_type == "match"
@@ -38,6 +41,7 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
   && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)
   && ($date == null || date == $date)
   && ($matchDay == null || matchDay == $matchDay)
+  && ($hasUrl == null || ($hasUrl == true && defined(url) && url != ""))
 ] | order(date asc) [$offset...$limit] {
   _id,
   matchDay,
@@ -53,6 +57,8 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
     _id,
     name,
     abbreviation,
+    primaryColor,
+    secondaryColor,
     "logo": logo.asset->url,
     "slug": slug.current,
   },
@@ -60,6 +66,8 @@ const MATCHES_QUERY = defineQuery(`*[_type == "match"
     _id,
     name,
     abbreviation,
+    primaryColor,
+    secondaryColor,
     "logo": logo.asset->url,
     "slug": slug.current,
   },
@@ -78,6 +86,7 @@ const MATCHES_COUNT_QUERY = defineQuery(`count(*[_type == "match"
   && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)
   && ($date == null || date == $date)
   && ($matchDay == null || matchDay == $matchDay)
+  && ($hasUrl == null || ($hasUrl == true && defined(url) && url != ""))
 ])`);
 
 const useFetchMatches = (filters: MatchFilters = {}) => {
@@ -96,11 +105,14 @@ const useFetchMatches = (filters: MatchFilters = {}) => {
     page = 1,
     pageSize = 20,
     enabled = true,
+    hasUrl,
+    sortField = "date",
+    sortOrder = "asc",
   } = filters;
 
   const offset = (page - 1) * pageSize;
   const limit = page * pageSize;
-
+  const orderClause = `| order(${sortField} ${sortOrder})`;
   const params = {
     status: status ?? null,
     competitionId: competition ?? null,
@@ -115,13 +127,16 @@ const useFetchMatches = (filters: MatchFilters = {}) => {
     matchDay: matchDay ?? null,
     offset,
     limit,
+    hasUrl: hasUrl ?? null,
   };
+
+  const DYNAMIC_MATCHES_QUERY = MATCHES_QUERY.replace("| order(date asc)", orderClause);
 
   const [dataResult, countResult] = useQueries({
     queries: [
       {
         queryKey: ["matches", filters],
-        queryFn: () => client.fetch<MATCHES_QUERYResult>(MATCHES_QUERY, params),
+        queryFn: () => client.fetch<MATCHES_QUERYResult>(DYNAMIC_MATCHES_QUERY, params),
         refetchOnWindowFocus: false,
         enabled,
       },

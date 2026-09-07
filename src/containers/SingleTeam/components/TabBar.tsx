@@ -2,11 +2,11 @@
 
 const TABS = [
   { id: "overview", label: "Overview" },
-  { id: "roster", label: "Roster" },
+  // { id: "roster", label: "Roster" },
   { id: "matches", label: "Matches" },
   { id: "standings", label: "Standings" },
-  { id: "stats", label: "Statistics" },
-  { id: "staff", label: "Staff" },
+  // { id: "stats", label: "Statistics" },
+  // { id: "staff", label: "Staff" },
 ] as const;
 
 export type Tab = (typeof TABS)[number]["id"];

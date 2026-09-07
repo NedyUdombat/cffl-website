@@ -11,7 +11,7 @@ const TEAMS_QUERY = defineQuery(`*[_type == "team" && isActive == true] | order(
   primaryColor,
   secondaryColor,
   country,
-  "logo": logo.asset->url,
+  "logo": logo.asset->url
 }`);
 
 const useFetchTeams = () => {
