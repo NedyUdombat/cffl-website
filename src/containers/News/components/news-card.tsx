@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { NewsItem } from "@/queries/news/useFetchNews";
 
 interface NewsCardProps {
-  article: any;
+  article: NewsItem;
 }
 
 export function NewsPageCard({ article }: NewsCardProps) {

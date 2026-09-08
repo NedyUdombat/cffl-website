@@ -31,7 +31,7 @@ export function LatestScores() {
 
       <div className="flex flex-col gap-4">
         {matches && matches.length > 0 ? (
-          matches.map((match: any) => (
+          matches.map((match) => (
             <MatchReplayCard
               key={match._id}
               match={match}

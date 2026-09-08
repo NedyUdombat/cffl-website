@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useMemo } from "react";
-import StandingsTable, { COMPACT_COLUMNS } from "@/components/StandingsTable";
+import StandingsTable from "@/components/StandingsTable";
+import { COMPACT_COLUMNS } from "@/components/StandingsTable/table-constants";
 import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import { computeStandings } from "@/lib/compute-standings";
 import useFetchMatches from "@/queries/matches/useFetchMatches";
-import team from "@/sanity/schemaTypes/team";
 import { fadeUp } from "../../types";
 
 function useStandings(competitionId: string) {
@@ -32,7 +32,6 @@ function TeamStandingsPreview({ competition, teamId, teamSlug }: StandingOvervie
   const { rows } = useStandings(competition?._id);
 
   const teamIndex = rows.findIndex((r) => r.team._id === teamId);
-  // Centre the window around the team, clamped so we don't go out of bounds
   const center = teamIndex >= 0 ? teamIndex : 0;
   const start = Math.max(0, Math.min(center - Math.floor(MAX_ROWS / 2), rows.length - MAX_ROWS));
   const slicedRows = rows.slice(start, start + MAX_ROWS);

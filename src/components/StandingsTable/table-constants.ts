@@ -13,5 +13,4 @@ export const ALL_COLUMNS: StandingsColumnKey[] = [
   "pd",
 ];
 
-/** Sidebar / overview — fewer columns */
 export const COMPACT_COLUMNS: StandingsColumnKey[] = ["rank", "team", "gp", "w", "l", "pct"];

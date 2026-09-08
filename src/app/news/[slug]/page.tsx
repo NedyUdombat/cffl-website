@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, CalendarDays, Camera } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
+import type { RELATED_QUERYResult } from "sanity.types";
 import Navbar from "@/components/Navbar";
 import Footer from "@/containers/Footer/Footer";
 import { LatestScores } from "@/containers/News/components/latest-scores";
@@ -172,7 +173,7 @@ export default async function NewsDetailPage({ params }: Props) {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {related?.map((item: any) => (
+                  {related?.map((item: RELATED_QUERYResult[number]) => (
                     <Link
                       key={item._id}
                       href={`/news/${item.slug}`}

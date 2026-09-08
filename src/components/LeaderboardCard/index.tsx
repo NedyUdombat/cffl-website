@@ -23,12 +23,10 @@ const LeaderboardCard = ({
   ];
 
   return (
-    <div className="bg-white border border-line rounded-xl overflow-hidden flex-shrink-0 w-[248px] shadow-sm">
-      {/* Card header */}
+    <div className="bg-white border border-line rounded-xl overflow-hidden shrink-0 w-62 shadow-sm">
       <div className="relative px-4 pt-4 pb-3 border-b border-line-2 bg-surface-2 overflow-hidden">
-        {/* Ghost background text */}
         <span
-          className="absolute right-2 bottom-0 font-mono font-bold text-[64px] leading-none text-ink/[0.04] select-none pointer-events-none translate-y-2"
+          className="absolute right-2 bottom-0 font-mono font-bold text-[64px] leading-none text-ink/4 select-none pointer-events-none translate-y-2"
           aria-hidden
         >
           {def.abbr}
@@ -36,12 +34,11 @@ const LeaderboardCard = ({
         <p className="font-mono font-bold text-2xl text-ink leading-none tracking-wide relative z-10">
           {def.abbr}
         </p>
-        <p className="font-mono text-[9px] text-muted uppercase tracking-[0.14em] mt-1 relative z-10">
+        <p className="font-mono text-3xs text-muted uppercase tracking-wide-ui mt-1 relative z-10">
           {def.label}
         </p>
       </div>
 
-      {/* Ranked rows */}
       <div>
         {slots.map((player, i) => {
           const isTop = i === 0;
@@ -49,11 +46,10 @@ const LeaderboardCard = ({
 
           return (
             <div
-              // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length padding slots
               key={player?._id ?? `empty-${i}`}
               className={[
                 "flex items-center gap-3 px-4 border-b border-line-2 last:border-b-0 transition-colors",
-                player ? "h-[52px] hover:bg-line-2" : "h-[52px]",
+                player ? "h-13 hover:bg-line-2" : "h-13",
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -76,7 +72,7 @@ const LeaderboardCard = ({
                         className="object-cover"
                       />
                     ) : (
-                      <span className="font-mono font-semibold text-[10px] text-muted">
+                      <span className="font-mono font-semibold text-2xs text-muted">
                         {getInitials(player)}
                       </span>
                     )}
@@ -87,7 +83,7 @@ const LeaderboardCard = ({
                     <p className="font-mono font-semibold text-sm text-ink leading-tight tracking-wide truncate">
                       {getDisplayName(player)}
                     </p>
-                    <p className="font-mono text-[9px] text-muted leading-tight">
+                    <p className="font-mono text-3xs text-muted leading-tight">
                       #{String(player.jerseyNumber ?? 0).padStart(2, "0")}
                     </p>
                   </div>

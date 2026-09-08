@@ -91,11 +91,7 @@ export default function NewsPage() {
                     </p>
 
                     <Link
-                      href={`/news/${
-                        typeof featuredArticle.slug === "string"
-                          ? featuredArticle.slug
-                          : featuredArticle.slug?.current || ""
-                      }`}
+                      href={`/news/${featuredArticle.slug}`}
                       className="inline-flex items-center justify-center bg-[#52BD94] hover:bg-[#43a27e] text-white text-[13px] font-bold px-5 py-2.5 rounded-md transition-colors"
                     >
                       Read Article

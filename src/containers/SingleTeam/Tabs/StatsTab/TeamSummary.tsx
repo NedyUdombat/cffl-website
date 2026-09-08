@@ -3,11 +3,10 @@ import { CATEGORIES } from "./categories";
 import { getDisplayName } from "./helpers";
 import type { Category, PlayerStatRow } from "./types";
 
-// ── Design tokens (matches tokens.css) ───────────────────────────────────────
 const CHART_COLORS: Record<Category, string> = {
-  passing: "#34a853", // --color-win
-  receiving: "#3b82f6", // --color-info
-  defense: "#f59e0b", // --color-warning
+  passing: "#34a853",
+  receiving: "#3b82f6",
+  defense: "#f59e0b",
 };
 
 const SEGMENT_PALETTES: Record<Category, [string, string, string]> = {
@@ -16,11 +15,9 @@ const SEGMENT_PALETTES: Record<Category, [string, string, string]> = {
   defense: ["#f59e0b", "#f9bf5a", "#fcd98e"],
 };
 
-// ── Donut geometry ────────────────────────────────────────────────────────────
 const R = 40;
-const CIRC = 2 * Math.PI * R; // ≈ 251.33
+const CIRC = 2 * Math.PI * R;
 
-// ── Single-segment Donut ──────────────────────────────────────────────────────
 function DonutChart({
   pct,
   color,
@@ -44,9 +41,8 @@ function DonutChart({
         role="img"
         aria-label={`${centerLabel} ${footnote}`}
       >
-        {/* Track */}
         <circle cx="50" cy="50" r={R} fill="none" stroke="#e7e8eb" strokeWidth="10" />
-        {/* Progress arc */}
+
         <circle
           cx="50"
           cy="50"
@@ -58,7 +54,6 @@ function DonutChart({
           strokeLinecap="round"
           transform="rotate(-90 50 50)"
         />
-        {/* Center: primary value */}
         <text
           x="50"
           y="45"
@@ -70,7 +65,6 @@ function DonutChart({
         >
           {centerLabel}
         </text>
-        {/* Center: sub-label */}
         {centerSub && (
           <text
             x="50"
@@ -85,16 +79,15 @@ function DonutChart({
           </text>
         )}
       </svg>
-      <p className="font-mono text-[10px] text-muted uppercase tracking-[0.14em] text-center leading-tight">
+      <p className="font-mono text-2xs text-muted uppercase tracking-wide-ui text-center leading-tight">
         {footnote}
       </p>
     </div>
   );
 }
 
-// ── Multi-segment Donut (target share) ────────────────────────────────────────
 interface Segment {
-  value: number; // proportion 0–1
+  value: number;
   color: string;
   name: string;
 }
@@ -110,7 +103,6 @@ function MultiDonut({
   centerSub?: string;
   footnote: string;
 }) {
-  // Build arcs with cumulative offsets
   let cumulativeOffset = 0;
   const arcs = segments.map((seg) => {
     const dash = Math.max(0, Math.min(1, seg.value)) * CIRC;
@@ -128,13 +120,10 @@ function MultiDonut({
         role="img"
         aria-label={`${footnote}: ${segments.map((s) => `${s.name} ${Math.round(s.value * 100)}%`).join(", ")}`}
       >
-        {/* Track */}
         <circle cx="50" cy="50" r={R} fill="none" stroke="#e7e8eb" strokeWidth="10" />
-        {/* Segments — rendered back-to-front so first is on top at 12 o'clock */}
-        {arcs.map((arc, i) => (
-          // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length stable array
+        {arcs.map((arc) => (
           <circle
-            key={i}
+            key={arc.name}
             cx="50"
             cy="50"
             r={R}
@@ -146,7 +135,6 @@ function MultiDonut({
             transform="rotate(-90 50 50)"
           />
         ))}
-        {/* Center: primary label */}
         <text
           x="50"
           y="45"
@@ -173,7 +161,6 @@ function MultiDonut({
         )}
       </svg>
 
-      {/* Receiver legend */}
       <div className="flex flex-col gap-1 w-full">
         {segments.map((seg) => (
           <div key={seg.name} className="flex items-center gap-1.5">
@@ -182,22 +169,21 @@ function MultiDonut({
               style={{ background: seg.color }}
               aria-hidden
             />
-            <span className="font-mono text-[9px] text-muted flex-1 truncate">{seg.name}</span>
-            <span className="font-mono text-[9px] font-semibold text-ink tabular-nums">
+            <span className="font-mono text-3xs text-muted flex-1 truncate">{seg.name}</span>
+            <span className="font-mono text-3xs font-semibold text-ink tabular-nums">
               {Math.round(seg.value * 100)}%
             </span>
           </div>
         ))}
       </div>
 
-      <p className="font-mono text-[10px] text-muted uppercase tracking-[0.14em] text-center leading-tight">
+      <p className="font-mono text-2xs text-muted uppercase tracking-wide-ui text-center leading-tight">
         {footnote}
       </p>
     </div>
   );
 }
 
-// ── Stat Pair (bold number + label + avg) ─────────────────────────────────────
 function StatPair({
   value,
   label,
@@ -219,21 +205,31 @@ function StatPair({
       <span className="font-inter text-[11px] font-medium text-muted uppercase tracking-[0.08em] leading-tight truncate">
         {label}
       </span>
-      {sub && <span className="font-mono text-[9px] text-muted-2 leading-tight">{sub}</span>}
+      {sub && <span className="font-mono text-3xs text-muted-2 leading-tight">{sub}</span>}
     </div>
   );
 }
 
-// ── Summary data builder ───────────────────────────────────────────────────────
 type SummaryData =
   | {
       kind: "single";
-      donut: { pct: number; color: string; centerLabel: string; centerSub?: string; footnote: string };
+      donut: {
+        pct: number;
+        color: string;
+        centerLabel: string;
+        centerSub?: string;
+        footnote: string;
+      };
       stats: { value: string | number; label: string; sub?: string; accentClass?: string }[];
     }
   | {
       kind: "multi";
-      multiDonut: { segments: Segment[]; centerLabel: string; centerSub?: string; footnote: string };
+      multiDonut: {
+        segments: Segment[];
+        centerLabel: string;
+        centerSub?: string;
+        footnote: string;
+      };
       stats: { value: string | number; label: string; sub?: string; accentClass?: string }[];
     };
 
@@ -242,7 +238,7 @@ function buildSummary(
   category: Category,
   color: string,
   palette: [string, string, string],
-  accentColor: string,
+  accentColor: string
 ): SummaryData {
   const teamGames = rows.length > 0 ? Math.max(...rows.map((r) => r.gamesPlayed), 1) : 1;
   const avg = (n: number) => (n / teamGames).toFixed(1);
@@ -265,7 +261,12 @@ function buildSummary(
       stats: [
         { value: att, label: "Pass Attempts", sub: `${avg(att)} avg / game` },
         { value: cmp, label: "Completions", sub: `${avg(cmp)} avg / game` },
-        { value: tds, label: "Passing TDs", sub: `${avg(tds)} avg / game`, accentClass: accentColor },
+        {
+          value: tds,
+          label: "Passing TDs",
+          sub: `${avg(tds)} avg / game`,
+          accentClass: accentColor,
+        },
         { value: ints, label: "Interceptions" },
         { value: teamGames, label: "Games Played" },
       ],
@@ -273,17 +274,16 @@ function buildSummary(
   }
 
   if (category === "receiving") {
-    const tgts = rows.reduce((s, r) => s + r.targets, 0);
+    const targets = rows.reduce((s, r) => s + r.targets, 0);
     const recs = rows.reduce((s, r) => s + r.catches, 0);
     const tds = rows.reduce((s, r) => s + r.passTds, 0);
     const drops = rows.reduce((s, r) => s + r.drops, 0);
     const top3 = [...rows].sort((a, b) => b.targets - a.targets).slice(0, 3);
     const segments: Segment[] = top3
-      .filter((r) => r.targets > 0 && tgts > 0)
+      .filter((r) => r.targets > 0 && targets > 0)
       .map((r, i) => ({
-        value: r.targets / tgts,
+        value: r.targets / targets,
         color: palette[i],
-        // Last name or full fallback
         name: getDisplayName(r).split(" ").pop() ?? getDisplayName(r),
       }));
     const top3Share = segments.reduce((s, seg) => s + seg.value, 0);
@@ -296,16 +296,20 @@ function buildSummary(
         footnote: "Target Share",
       },
       stats: [
-        { value: tgts, label: "Total Targets", sub: `${avg(tgts)} avg / game` },
+        { value: targets, label: "Total Targets", sub: `${avg(targets)} avg / game` },
         { value: recs, label: "Receptions", sub: `${avg(recs)} avg / game` },
-        { value: tds, label: "Receiving TDs", sub: `${avg(tds)} avg / game`, accentClass: accentColor },
+        {
+          value: tds,
+          label: "Receiving TDs",
+          sub: `${avg(tds)} avg / game`,
+          accentClass: accentColor,
+        },
         { value: drops, label: "Drops" },
         { value: teamGames, label: "Games Played" },
       ],
     };
   }
 
-  // defense
   const sacks = rows.reduce((s, r) => s + r.sacks, 0);
   const ints = rows.reduce((s, r) => s + r.interceptions, 0);
   const fp = rows.reduce((s, r) => s + r.flagPulls, 0);
@@ -332,33 +336,33 @@ function buildSummary(
   };
 }
 
-// ── Main Component ─────────────────────────────────────────────────────────────
 const TeamSummary = ({ rows, category }: { rows: PlayerStatRow[]; category: Category }) => {
-  const activeCat = CATEGORIES.find((c) => c.id === category)!;
+  const activeCat = CATEGORIES.find((c) => c.id === category);
   const color = CHART_COLORS[category];
   const palette = SEGMENT_PALETTES[category];
 
   const summary = useMemo(
     () => buildSummary(rows, category, color, palette, activeCat.accentColor),
-    [rows, category, color, palette, activeCat.accentColor],
+    [rows, category, color, palette, activeCat.accentColor]
   );
+
+  if (!activeCat) {
+    return null;
+  }
 
   return (
     <div className="bg-white border border-line rounded-2xl overflow-hidden shadow-sm">
-      {/* ── Card header — mirrors the Leaderboard/Table header style ── */}
       <div className="flex items-center gap-3 px-5 py-3.5 border-b border-line-2 bg-surface-2">
         <span className={`w-1 h-5 rounded-full ${activeCat.borderAccent} shrink-0`} aria-hidden />
-        <h3 className="font-mono font-semibold text-sm uppercase tracking-[0.14em] text-ink">
+        <h3 className="font-mono font-semibold text-sm uppercase tracking-wide-ui text-ink">
           Team Summary
         </h3>
-        <span className="font-mono text-[10px] text-muted ml-auto">
+        <span className="font-mono text-2xs text-muted ml-auto">
           * Dummy data — stats not yet seeded
         </span>
       </div>
 
-      {/* ── Card body ── */}
       <div className="p-5 md:p-6 flex flex-col sm:flex-row gap-6 md:gap-10 items-start">
-        {/* Donut chart area */}
         <div className="shrink-0">
           {summary.kind === "multi" ? (
             <MultiDonut {...summary.multiDonut} />
@@ -367,10 +371,8 @@ const TeamSummary = ({ rows, category }: { rows: PlayerStatRow[]; category: Cate
           )}
         </div>
 
-        {/* Vertical rule (desktop) */}
         <div className="hidden sm:block w-px self-stretch bg-line-2" aria-hidden />
 
-        {/* Stats grid */}
         <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-5">
           {summary.stats.map((stat) => (
             <StatPair key={stat.label} {...stat} />

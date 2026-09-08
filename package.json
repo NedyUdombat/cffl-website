@@ -15,7 +15,9 @@
     "sanity:seed": "npx ts-node scripts/seed-matches.ts",
     "sanity:typegen": "npx sanity schema extract && npx sanity typegen generate",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "biomecheck": "biome check --write ."
   },
   "dependencies": {
     "@portabletext/react": "^4.0.3",

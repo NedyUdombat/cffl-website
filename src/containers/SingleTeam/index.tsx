@@ -31,7 +31,10 @@ const SingleTeam = ({ slug }: Pick<SingleTeamProps, "slug">) => {
     matchResults,
     fullMatchResults,
   } = useSingleTeamLogic(slug);
-  const { setSelectedCompetition, selectedCompetition } = useCompetition();
+  const {
+    setSelectedCompetition,
+    // selectedCompetition
+  } = useCompetition();
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeTab = (searchParams.get("tab") as Tab) ?? "overview";

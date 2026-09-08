@@ -123,7 +123,7 @@ export default defineType({
       initialValue: 0,
       validation: (Rule) => Rule.min(0),
     }),
-     defineField({
+    defineField({
       name: "sacksTaken",
       title: "Sacks Taken",
       type: "number",
@@ -168,7 +168,7 @@ export default defineType({
       teamName: "teamName",
       team: "rosterEntry.team.abbreviation",
     },
-    prepare({ playerName, player, teamName, team, }) {
+    prepare({ playerName, player, teamName, team }) {
       return {
         title: playerName || player || "Player",
         subtitle: `${teamName || team || ""}`,

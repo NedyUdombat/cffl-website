@@ -26,13 +26,12 @@ const OverviewTab = ({
   matchResults,
   teamId,
   teamSlug,
-  fullMatchResults,
 }: OverviewTabProps) => {
   const { selectedCompetition } = useCompetition();
 
   return (
     <section className="bg-bg-2">
-      <div className="max-w-[1440px] mx-auto py-8 px-6 md:px-14 lg:px-20 ">
+      <div className="max-w-360 mx-auto py-8 px-6 md:px-14 lg:px-20 ">
         <motion.div
           variants={staggerGrid}
           initial="hidden"
@@ -40,14 +39,12 @@ const OverviewTab = ({
           viewport={{ once: true, margin: "-40px" }}
           className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4"
         >
-          {/* ── Left column ── */}
           <div className="flex flex-col gap-4">
             <FeaturedStory />
             <TopHighlights />
             {/* TODO: Add team contact info */}
           </div>
 
-          {/* ── Right column (sidebar) ── */}
           <div className="flex flex-col gap-4">
             <SeasonStatsBar stats={overviewStats} />
             <TeamForm matchResults={matchResults} teamId={teamId} nextMatchData={nextMatchData} />

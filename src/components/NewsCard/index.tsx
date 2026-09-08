@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import type { NewsItem } from "@/containers/Home/Trending";
+import type { NewsItemType } from "@/containers/Home/Trending";
 
 interface NewsCardProps {
-  item: NewsItem;
+  item: NewsItemType;
   index: number;
   activeIndex: number;
   setActiveIndex?: (index: number) => void;

@@ -65,7 +65,6 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
-    // define field for URL to match highlights or details page
     defineField({
       name: "url",
       title: "Match URL",
@@ -96,12 +95,9 @@ export default defineType({
       media: "competition.logo",
       matchNumber: "matchNumber",
     },
-    prepare({ homeTeam, awayTeam, date, media, homeScore, awayScore, matchNumber }) {
+    prepare({ homeTeam, awayTeam, media, homeScore, awayScore, matchNumber }) {
       return {
         title: ` (${matchNumber}) ${homeTeam} vs ${awayTeam}`,
-        // subtitle: `${homeTeam} vs ${awayTeam}`,
-        // title: homeTeam,
-        // title: `${matchNumber}: ${homeTeam} vs ${awayTeam} (${date ? date : "TBD"})`,
         subtitle: `${homeTeam} ${homeScore ?? 0} - ${awayScore ?? 0} ${awayTeam}`,
         media,
       };

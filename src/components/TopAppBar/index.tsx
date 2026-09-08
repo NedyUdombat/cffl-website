@@ -15,8 +15,7 @@ interface TopAppBarProps {
   onCompetitionChange?: (competition: CompetitionItem | undefined) => void;
 }
 
-const 
-TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
+const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
   const { competitions } = useFetchCompetitions();
   const { selectedCompetition, setSelectedCompetition } = useCompetition();
   const [selectedId, setSelectedId] = useState<string>("");

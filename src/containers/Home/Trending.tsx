@@ -6,9 +6,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import NewsCard from "@/components/NewsCard";
-import useFetchNews from "@/queries/news/useFetchNews";
+import useFetchNews, { type NewsItem } from "@/queries/news/useFetchNews";
 
-export interface NewsItem {
+export interface NewsItemType {
   id: string | number;
   title: string;
   slug: string;
@@ -17,12 +17,12 @@ export interface NewsItem {
   mainImage: string;
 }
 
-function extractPlainText(blocks: any[] = []): string {
+function extractPlainText(blocks: NewsItem["content"] = []): string {
   if (!Array.isArray(blocks)) return "";
   return blocks
     .map((block) => {
       if (block._type !== "block" || !block.children) return "";
-      return block.children.map((child: any) => child.text).join("");
+      return block.children.map((child) => child.text).join("") || "";
     })
     .filter(Boolean)
     .join(" ");
@@ -42,10 +42,10 @@ export default function Trending() {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const formattedNews: NewsItem[] = useMemo(() => {
+  const formattedNews: NewsItemType[] = useMemo(() => {
     if (!news || !Array.isArray(news)) return [];
 
-    return news.map((item: any) => ({
+    return news.map((item: NewsItem) => ({
       id: item._id,
       title: item.title,
       slug: item.slug,

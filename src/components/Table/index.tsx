@@ -115,7 +115,9 @@ export function Table<T>({
                   isHighlighted
                     ? "bg-red-600/10 border-l-2 border-l-red-500"
                     : striped && index % 2 === 1
-                      ? dark ? "bg-white/[0.03]" : "bg-black/[0.02]"
+                      ? dark
+                        ? "bg-white/[0.03]"
+                        : "bg-black/[0.02]"
                       : "",
                   dark ? "hover:bg-white/[0.04]" : "hover:bg-gray-100",
                   getRowClassName ? getRowClassName(row, index) : "",

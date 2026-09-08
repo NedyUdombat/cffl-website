@@ -1,6 +1,7 @@
 import { useMemo } from "react";
+import StandingsTable from "@/components/StandingsTable";
+import { ALL_COLUMNS } from "@/components/StandingsTable/table-constants";
 import type { StandingRow } from "@/components/StandingsTable/types";
-import StandingsTable, { ALL_COLUMNS } from "@/components/StandingsTable";
 import type { ColumnDef } from "@/components/Table/types";
 import type { CompetitionItem } from "@/contexts/CompetitionContext";
 import { computeStandings } from "@/lib/compute-standings";
@@ -138,11 +139,9 @@ const FullStandingsTable = ({ competition }: StandingOverviewProps) => {
         columns={ALL_COLUMNS}
         extraColumns={[formColumn]}
         sortable
-        // highlightTeamId={teamId}
         getRowClassName={getRowClassName}
       />
 
-      {/* ── Legend ── */}
       <div className="flex flex-col gap-2 mt-4 px-1 border-t border-line pt-2">
         {ZONES.map((zone) => (
           <div key={zone.label} className="flex items-center gap-2">

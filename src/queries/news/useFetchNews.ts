@@ -1,7 +1,7 @@
 import { type UseQueryResult, useQuery } from "@tanstack/react-query";
 import { defineQuery } from "next-sanity";
 import { client } from "@/sanity/lib/client";
-import type { NEWS_QUERYResult } from "../../../sanity.types";
+import type { ALL_NEWS_QUERYResult, LIMITED_NEWS_QUERYResult } from "../../../sanity.types";
 
 const ALL_NEWS_QUERY = defineQuery(`
   *[_type == "news"] | order(publishedAt desc) {
@@ -28,6 +28,10 @@ const LIMITED_NEWS_QUERY = defineQuery(`
 interface UseFetchNewsOptions {
   limit?: number | null;
 }
+
+export type NEWS_QUERYResult = ALL_NEWS_QUERYResult | LIMITED_NEWS_QUERYResult;
+
+export type NewsItem = NEWS_QUERYResult[number];
 
 const useFetchNews = (options?: UseFetchNewsOptions) => {
   const limit = options?.limit ?? null;
