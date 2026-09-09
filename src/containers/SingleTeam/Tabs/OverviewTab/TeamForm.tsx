@@ -51,18 +51,15 @@ export function TeamForm({
               className="shrink-0 flex flex-col items-center"
               style={{ minWidth: 88 }}
             >
-              {/* WK n • H / A — muted on dark */}
               <p className="w-full flex item-center justify-center text-[12px] text-black tracking-wide font-inter whitespace-nowrap">
                 {result.matchDay ? `WK ${result.matchDay}` : "–"} • {isHome ? "H" : "A"}
               </p>
 
-              {/* Glassy logo container — mirrors HeroSection exactly */}
               <div className="relative">
                 <div
                   className="w-18 h-18 mx-auto rounded-lg flex items-center justify-center overflow-hidden"
                   style={{
                     backgroundColor: "rgba(255,255,255,0.1)",
-                    // border: "1px solid rgba(255,255,255,0.2)",
                     backdropFilter: "blur(12px)",
                     WebkitBackdropFilter: "blur(12px)",
                   }}
@@ -91,13 +88,11 @@ export function TeamForm({
                   </Link>
                 </div>
 
-                {/* W / L badge — overlapping bottom-right corner */}
                 <div className="w-full flex items-center justify-center text-[11px] font-inter text-black">
                   {opponent.abbreviation}
                 </div>
               </div>
 
-              {/* Score — white on dark */}
               <div
                 className={`w-full flex justify-center items-center py-2 rounded-b-xl ${
                   isWin ? "bg-win" : isDraw ? "bg-tie" : "bg-loss"

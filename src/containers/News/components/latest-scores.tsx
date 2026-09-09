@@ -1,5 +1,6 @@
 "use client";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { MatchReplayCard } from "@/components/MatchReplayCard";
 import useFetchMatches from "@/queries/matches/useFetchMatches";
 
@@ -21,12 +22,12 @@ export function LatestScores() {
         <h3 className="text-[12px] font-bold text-[#002060] tracking-wider uppercase">
           LATEST SCORES
         </h3>
-        <a
-          href="/matches"
+        <Link
+          href="#"
           className="text-[12px] font-medium text-[#0052FF] hover:underline flex items-center gap-1"
         >
           See all <ArrowRight className="w-3 h-3" />
-        </a>
+        </Link>
       </div>
 
       <div className="flex flex-col gap-4">

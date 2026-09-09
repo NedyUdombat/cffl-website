@@ -10,9 +10,9 @@ const footerLinks = [
     title: "General",
     links: [
       { name: "News", href: "/news" },
-      { name: "Season Schedule", href: "/games" },
+      { name: "Season Schedule", href: "#" },
       { name: "Team", href: "/teams" },
-      { name: "Historical Scores", href: "/seasons" },
+      { name: "Historical Scores", href: "#" },
     ],
   },
   {

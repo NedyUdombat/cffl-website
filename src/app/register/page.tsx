@@ -1,9 +1,11 @@
 "use client";
 
+import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/containers/Footer/Footer";
 
 export default function RegisterPage() {
+  redirect("/");
   return (
     <div className="flex flex-col min-h-screen bg-[#13141C] text-white">
       <Navbar linkTextColor="text-white" />

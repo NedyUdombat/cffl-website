@@ -27,7 +27,7 @@ export function TopHighlights() {
       <div className="flex items-center justify-between mb-3">
         <button
           type="button"
-          className="text-[10px] font-bold uppercase tracking-widest font-inter text-gray-400 hover:text-gray-800 transition-colors"
+          className="text-2xs font-bold uppercase tracking-widest font-inter text-gray-400 hover:text-gray-800 transition-colors"
         >
           See All
         </button>
@@ -36,18 +36,15 @@ export function TopHighlights() {
       <div className="grid grid-cols-2 gap-3">
         {CLIPS.map((clip) => (
           <div key={clip.title}>
-            {/* Video thumbnail — CSS gradient + subtle grid texture */}
             <div
               className="relative rounded-lg overflow-hidden"
               style={{ background: clip.grad, paddingBottom: "56.25%" }}
             >
-              {/* Grid texture overlay */}
               <div
                 className="absolute inset-0"
                 style={{ opacity: 0.08, backgroundImage: GRID_TEXTURE }}
               />
 
-              {/* Frosted play button */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center"
@@ -61,9 +58,8 @@ export function TopHighlights() {
                 </div>
               </div>
 
-              {/* Duration badge */}
               <span
-                className="absolute bottom-2 left-2 text-[9px] font-bold text-white font-inter px-1.5 py-0.5 rounded"
+                className="absolute bottom-2 left-2 text-3xs font-bold text-white font-inter px-1.5 py-0.5 rounded"
                 style={{ backgroundColor: "rgba(0,0,0,0.65)" }}
               >
                 {clip.duration}
@@ -72,7 +68,7 @@ export function TopHighlights() {
 
             <div className="mt-2">
               <p
-                className="text-[9px] uppercase tracking-widest font-inter mb-1"
+                className="text-3xs uppercase tracking-widest font-inter mb-1"
                 style={{ color: "#9ca3af" }}
               >
                 {clip.cat}

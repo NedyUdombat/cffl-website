@@ -63,7 +63,7 @@ const GameReplays = () => {
           </h2>
         </div>
         <Link
-          href="/games"
+          href="#"
           className="flex items-center gap-1 text-[#002060] text-[16px] font-bold hover:underline transition"
         >
           See all <ArrowRight size={15} />
