@@ -84,20 +84,20 @@ export function ProfileCard({
       </div>
 
       {/* Static label */}
-      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 transition-opacity duration-[220ms] ease-out group-hover:opacity-0">
+      <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 transition-opacity duration-220 ease-out group-hover:opacity-0">
         <div className="font-display font-bold text-xl text-white uppercase tracking-ui leading-[1.1] truncate">
           {displayName}
         </div>
       </div>
 
       {/* Reveal panel */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-[8px] p-4 border-t border-white/[0.08] translate-y-full transition-transform duration-[320ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
+      <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-sm p-4 border-t border-white/8 translate-y-full transition-transform duration-320 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
         <div className="font-display font-bold text-xl text-white uppercase tracking-ui leading-[1.1] mb-1 truncate">
           {displayName}
         </div>
         <div className="flex gap-1 items-center">
           {jerseyName && (
-            <div className="text-xs text-white/60 uppercase tracking-[0.06em] font-medium">
+            <div className="text-xs text-white/60 uppercase -tracking-neg-lg font-medium">
               {jerseyName}
             </div>
           )}
@@ -111,7 +111,7 @@ export function ProfileCard({
             {positions.map((pos) => (
               <span
                 key={pos}
-                className="font-mono text-2xs font-bold tracking-label uppercase px-2 py-1 rounded border border-white/20 text-white/75 bg-white/[0.06]"
+                className="font-mono text-2xs font-bold tracking-label uppercase px-2 py-1 rounded border border-white/20 text-white/75 bg-white/6"
               >
                 {pos}
               </span>
@@ -119,7 +119,7 @@ export function ProfileCard({
           </div>
         )}
         {role && (
-          <span className="font-mono text-2xs font-bold tracking-label uppercase px-2 py-1 rounded border border-white/20 text-white/75 bg-white/[0.06]">
+          <span className="font-mono text-2xs font-bold tracking-label uppercase px-2 py-1 rounded border border-white/20 text-white/75 bg-white/6">
             {STAFF_ROLES[role]}
           </span>
         )}

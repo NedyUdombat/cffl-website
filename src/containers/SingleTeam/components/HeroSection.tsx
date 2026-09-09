@@ -49,7 +49,6 @@ export function HeroSection({
     >
       {hasBanner ? (
         <>
-          {/* ── Banner: full-opacity real background ───────────── */}
           <div className="absolute inset-0">
             <Image
               src={bannerImage}
@@ -60,7 +59,6 @@ export function HeroSection({
             />
           </div>
 
-          {/* ── Dark scrim for text readability ────────────────── */}
           <div
             className="absolute inset-0"
             style={{
@@ -69,7 +67,6 @@ export function HeroSection({
             }}
           />
 
-          {/* ── Grid on top of banner ──────────────────────────── */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -90,7 +87,6 @@ export function HeroSection({
             </span>
           </div>
 
-          {/* ── Grid on top of abbreviation ────────────────────── */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -104,7 +100,7 @@ export function HeroSection({
 
       <TopAppBar teamName={teamName} onCompetitionChange={onCompetitionChange} />
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-14 lg:px-20 pb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="relative z-10 w-full max-w-360 mx-auto px-6 sm:px-14 lg:px-20 pb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="flex items-center gap-5 md:gap-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 12 }}
@@ -122,7 +118,6 @@ export function HeroSection({
             </div>
           </motion.div>
 
-          {/* Name + badges + socials */}
           <div className="flex flex-col gap-3 pb-1">
             <div>
               <motion.p
@@ -143,7 +138,6 @@ export function HeroSection({
               </motion.h1>
             </div>
 
-            {/* Social links */}
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -159,14 +153,13 @@ export function HeroSection({
             initial={{ opacity: 0, x: 16, y: 8 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5, ease: EASE }}
-            className="shrink-0 text-white rounded-xl p-4 w-[300px] max-w-xs bg-white/10 backdrop-blur-md flex flex-col gap-4"
+            className="shrink-0 text-white rounded-xl p-4 w-75 max-w-xs bg-white/10 backdrop-blur-md flex flex-col gap-4"
           >
             <p className="text-2xs font-black uppercase tracking-xwide text-white/80 font-inter">
               Next Matchup
             </p>
 
             <div className="flex justify-between items-center">
-              {/* Home team */}
               <div className="text-center">
                 <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/15 border border-white/30">
                   <Link style={{ color: primaryColor }} href={`/teams/${teamSlug}`}>
@@ -184,7 +177,6 @@ export function HeroSection({
                 </p>
               </div>
 
-              {/* VS */}
               <div className="text-center px-3">
                 <p className="text-2xl font-black italic font-inter tracking-neg-sm">VS</p>
                 <p className="text-3xs uppercase font-bold tracking-ui mt-1 text-white/90 font-inter">
@@ -197,14 +189,9 @@ export function HeroSection({
                 )}
               </div>
 
-              {/* Away team */}
               <div className="text-center">
                 <div className="w-12 h-12 mx-auto rounded-lg flex items-center justify-center font-inter font-black text-sm mb-1.5 overflow-hidden bg-white/10 border border-white/20">
-                  <Link
-                    // className="w-full block text-center bg-white font-bold py-2.5 rounded-full hover:bg-white/50 transition-all text-2xs uppercase tracking-xwide font-inter"
-                    style={{ color: primaryColor }}
-                    href={`/teams/${nextMatchup.slug}`}
-                  >
+                  <Link style={{ color: primaryColor }} href={`/teams/${nextMatchup.slug}`}>
                     <Image
                       src={nextMatchup.opponentLogo}
                       alt={nextMatchup.opponentAbbr}

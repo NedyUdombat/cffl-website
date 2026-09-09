@@ -29,11 +29,8 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
       <div className="w-full max-w-360 px-6 sm:px-20 md:px-31.25 py-6 flex justify-center items-center relative">
         <div className="flex items-center justify-between font-bold tracking-wide text-sm w-full sm:w-99.25 h-auto sm:h-23.5 gap-4 sm:gap-5">
           <div className="hidden sm:flex items-center justify-center gap-6">
-            <Link href="/watch" className={linkBaseClass}>
-              WATCH
-            </Link>
-            <Link href="/games" className={linkBaseClass}>
-              GAMES
+            <Link href="/teams" className={linkBaseClass}>
+              TEAMS
             </Link>
           </div>
 
@@ -51,12 +48,15 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
           </div>
 
           <div className="hidden sm:flex items-center justify-center gap-6">
-            <Link href="/teams" className={linkBaseClass}>
-              TEAMS
-            </Link>
             <Link href="/news" className={linkBaseClass}>
               NEWS
             </Link>
+            {/* <Link href="/games" className={linkBaseClass}>
+              GAMES
+            </Link>
+            <Link href="/fans" className={linkBaseClass}>
+              FANS
+            </Link> */}
           </div>
 
           <div className="sm:hidden flex items-center">
@@ -92,7 +92,7 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
           </button>
 
           <div className="flex flex-col justify-center items-center space-y-8">
-            {["HOME", "WATCH", "GAMES", "TEAMS", "FANS"].map((item) => (
+            {["HOME", "TEAMS", "NEWS"].map((item) => (
               <Link
                 key={item}
                 href={`/${item === "HOME" ? "" : item.toLowerCase()}`}

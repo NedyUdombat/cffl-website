@@ -61,9 +61,8 @@ const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
         borderBottom: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-14 lg:px-20 h-12 flex items-center justify-between">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.2em] font-inter">
+      <div className="max-w-360 mx-auto px-6 sm:px-14 lg:px-20 h-12 flex items-center justify-between">
+        <div className="flex items-center gap-1.5 text-2xs font-bold tracking-[0.2em] font-inter">
           <Link href="/" className="text-white/40 hover:text-white/70 transition-colors uppercase">
             CFFL
           </Link>
@@ -78,12 +77,11 @@ const TopAppBar = ({ teamName, onCompetitionChange }: TopAppBarProps) => {
           <span className="text-white uppercase">{teamName}</span>
         </div>
 
-        {/* Competitions dropdown */}
         {competitions?.length ? (
           <select
             value={selectedId}
             onChange={handleChange}
-            className="text-[10px] font-bold tracking-[0.12em] font-inter uppercase text-white/70  border border-white/20 rounded px-2 py-1 cursor-pointer outline-none hover:border-white/40 transition-colors"
+            className="text-2xs font-bold tracking-[0.12em] font-inter uppercase text-white/70  border border-white/20 rounded px-2 py-1 cursor-pointer outline-none hover:border-white/40 transition-colors"
           >
             <option value={ALL_COMPETITIONS_VALUE} className="bg-black text-white normal-case">
               All Competitions

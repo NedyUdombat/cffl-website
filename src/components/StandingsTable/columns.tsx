@@ -32,7 +32,6 @@ function TeamBadge({
       height={28}
       className="w-7 h-7 rounded-full object-contain bg-white/5"
       onError={(e) => {
-        // fallback to monogram on load error
         (e.target as HTMLImageElement).style.display = "none";
       }}
     />
@@ -43,8 +42,8 @@ function TeamBadge({
 
 function Monogram({ abbreviation }: { abbreviation: string }) {
   return (
-    <div className="w-7 h-7 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center flex-shrink-0">
-      <span className="text-[10px] font-bold text-accent tracking-tight">
+    <div className="w-7 h-7 rounded-full bg-accent/20 border border-accent/30 flex items-center justify-center shrink-0">
+      <span className="text-2xs font-bold text-accent tracking-tight">
         {abbreviation.slice(0, 2)}
       </span>
     </div>
@@ -74,7 +73,6 @@ export function buildColumns(
 
       cell: (row) => (
         <div className="flex items-center gap-2">
-          {/* Logo with fallback monogram */}
           <Link href={`/teams/${row.team.slug}?tab=standings`} className="flex items-center gap-2">
             <TeamBadge
               logo={row.team.logo}

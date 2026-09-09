@@ -1,6 +1,7 @@
 "use client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import Footer from "@/containers/Footer/Footer";
 import Navbar from "../../components/Navbar";
@@ -20,6 +21,7 @@ const weekData = [
 
 /* ---------------- GAME RESULTS COMPONENT ---------------- */
 const GameResults: React.FC = () => {
+  redirect("/");
   const [games, setGames] = useState<
     {
       _id: string;
