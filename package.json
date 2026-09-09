@@ -6,8 +6,8 @@
     "node": "24.x"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3006",
-    "build": "next build",
+    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev --port 3006 --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "format": "biome format --write .",
     "check": "biome check --write .",
