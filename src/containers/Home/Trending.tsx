@@ -14,6 +14,7 @@ export interface NewsItemType {
   slug: string;
   publishedAt: string;
   content: string;
+  excerpt: string;
   mainImage: string;
 }
 
@@ -51,6 +52,7 @@ export default function Trending() {
       slug: item.slug,
       publishedAt: format(new Date(item.publishedAt), "MMMM dd, yyyy"),
       content: extractPlainText(item.content),
+      excerpt: item.excerpt,
       mainImage: item.mainImage || "/placeholder.png",
     }));
   }, [news]);
@@ -90,68 +92,60 @@ export default function Trending() {
   }, [emblaApi]);
 
   return (
-    <section className="relative bg-white text-black w-full py-6 overflow-hidden">
+    <section className="relative bg-white text-black w-full py-8 sm:py-12 overflow-hidden">
       <h1
-        className="absolute top-0 left-0 -translate-y-[40%] text-left whitespace-nowrap pt-37.5 text-[80px] sm:text-[140px] md:text-[200px] lg:text-[250px] leading-none font-medium uppercase text-[#BAB8B8] opacity-20 pointer-events-none select-none z-0 pl-5 sm:pl-15 lg:pl-33.5"
+        className="absolute top-0 left-0 -translate-y-[20%] sm:-translate-y-[35%] text-left whitespace-nowrap text-[60px] sm:text-[120px] md:text-[180px] lg:text-[250px] leading-none font-medium uppercase text-[#BAB8B8] opacity-20 pointer-events-none select-none z-0 pl-4 sm:pl-12 lg:pl-33.5"
         style={{ fontFamily: "ITC Machine Std, sans-serif" }}
       >
         Trending
       </h1>
 
-      <div className="px-4 sm:px-8 md:px-20 lg:px-33.5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 w-full relative z-10">
+      <div className="px-4 sm:px-8 md:px-16 lg:px-33.5 flex flex-row items-end justify-between gap-4 w-full relative z-10 pt-4 sm:pt-8">
         <div>
           <div className="flex items-center mb-1">
-            <span className="text-[11px] font-bold text-[#64748B] tracking-wider uppercase">
+            <span className="text-2xs sm:text-[11px] font-bold text-[#64748B] tracking-wider uppercase">
               STAY IN THE LOOP
             </span>
           </div>
-          <h2 className="text-[28px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight">
+          <h2 className="text-[22px] sm:text-[32px] md:text-[40px] font-extrabold text-[#012752] uppercase tracking-tight">
             Trending News
           </h2>
         </div>
 
         <Link
           href="/news"
-          className="flex items-center gap-1 text-[#002060] text-[16px] font-bold hover:underline transition"
+          className="flex items-center gap-1 text-[#002060] text-[14px] sm:text-[16px] font-bold hover:underline transition shrink-0"
         >
           See all <ArrowRight size={15} />
         </Link>
       </div>
 
-      <div className="gap-5 flex flex-col relative z-10  pt-12 px-3.5 sm:px-7 md:px-15 lg:px-32.5 ">
+      <div className="gap-5 flex flex-col relative z-10 pt-6 sm:pt-10 px-4 sm:px-8 md:px-16 lg:px-32.5">
         {isPending ? (
           <div className="w-full">
-            <div className="flex gap-6 overflow-hidden -ml-6 pl-6">
+            <div className="flex gap-4 sm:gap-6 overflow-hidden">
               {SKELETON_CARDS.map((id) => (
                 <div
                   key={id}
                   className="shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] flex flex-col gap-3 animate-pulse"
                 >
-                  <div className="w-full h-48 rounded-lg animate-shimmer" />
-                  <div className="h-4 rounded w-1/3 animate-shimmer" />
-                  <div className="h-6 rounded w-full animate-shimmer" />
-                  <div className="h-6 rounded w-4/5 animate-shimmer" />
-                  <div className="h-4 rounded w-2/3 animate-shimmer" />
+                  <div className="w-full h-48 rounded-lg bg-gray-200" />
+                  <div className="h-4 rounded w-1/3 bg-gray-200" />
+                  <div className="h-6 rounded w-full bg-gray-200" />
+                  <div className="h-6 rounded w-4/5 bg-gray-200" />
                 </div>
               ))}
-            </div>
-
-            <div className="flex items-center justify-center gap-10 mt-10 animate-pulse">
-              <div className="w-17.5 h-12.5 bg-gray-200 rounded-[3px]  animate-shimmer" />
-              <div className="flex items-center gap-8">
-                {SKELETON_PAGES.map((id) => (
-                  <div key={id} className="w-6 h-8 bg-gray-200 rounded animate-shimmer" />
-                ))}
-              </div>
-              <div className="w-17.5 h-12.5 bg-gray-200 rounded-[3px]" />
             </div>
           </div>
         ) : (
           <>
             <div className="w-full overflow-hidden" ref={emblaRef}>
-              <div className="flex items-stretch -ml-6">
+              <div className="flex items-stretch -ml-4 sm:-ml-6">
                 {formattedNews.map((item, index) => (
-                  <div key={item.id} className="shrink-0 pl-6 w-full sm:w-1/2 lg:w-1/4 min-w-0">
+                  <div
+                    key={item.id}
+                    className="shrink-0 pl-4 sm:pl-6 w-full sm:w-1/2 lg:w-1/4 min-w-0"
+                  >
                     <NewsCard
                       item={item}
                       index={index}
@@ -164,16 +158,17 @@ export default function Trending() {
             </div>
 
             {formattedNews.length > 0 && (
-              <div className="flex items-center justify-center gap-4 mt-12">
+              <div className="flex items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-12">
                 <button
                   type="button"
                   onClick={handlePrev}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white hover:border-[#002060] transition cursor-pointer"
+                  className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white hover:border-[#002060] transition cursor-pointer"
+                  aria-label="Previous Slide"
                 >
                   <ArrowLeft className="w-4 h-4 text-[#475569]" />
                 </button>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto max-w-50 sm:max-w-none no-scrollbar">
                   {formattedNews.map((item, index) => {
                     const isActive = activeIndex === index;
                     return (
@@ -181,7 +176,7 @@ export default function Trending() {
                         key={item.id}
                         type="button"
                         onClick={() => scrollTo(index)}
-                        className={`w-9 h-9 rounded-full text-[14px] font-bold flex items-center justify-center transition-all ${
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full text-[13px] sm:text-[14px] font-bold flex items-center justify-center transition-all shrink-0 ${
                           isActive
                             ? "bg-[#002060] text-white shadow-sm"
                             : "text-[#64748B] hover:text-[#002060]"
@@ -196,7 +191,8 @@ export default function Trending() {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white hover:border-[#002060] transition cursor-pointer"
+                  className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 bg-white hover:border-[#002060] transition cursor-pointer"
+                  aria-label="Next Slide"
                 >
                   <ArrowRight className="w-4 h-4 text-[#475569]" />
                 </button>
@@ -210,4 +206,3 @@ export default function Trending() {
 }
 
 const SKELETON_CARDS = ["card-1", "card-2", "card-3", "card-4"];
-const SKELETON_PAGES = ["page-1", "page-2", "page-3", "page-4", "page-5"];

@@ -58,7 +58,7 @@ export default function NewsPage() {
                       alt={featuredArticle.title || "Featured Image"}
                       fill
                       priority
-                      className="object-cover w-full h-full"
+                      className="object-coer w-full h-full object-center"
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm text-gray-400">

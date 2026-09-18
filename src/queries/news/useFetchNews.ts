@@ -10,6 +10,7 @@ const ALL_NEWS_QUERY = defineQuery(`
     "slug": slug.current,
     publishedAt,
     content,
+    excerpt,
     "mainImage" : mainImage.asset->url
   }
 `);
@@ -21,6 +22,7 @@ const LIMITED_NEWS_QUERY = defineQuery(`
     "slug": slug.current,
     publishedAt,
     content,
+    excerpt,
     "mainImage" : mainImage.asset->url
   }
 `);

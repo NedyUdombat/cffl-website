@@ -5,11 +5,12 @@ import { categoryType } from "./categoryType";
 import competition from "./competition";
 import gameResult from "./gameResult";
 import match from "./match";
-import newsType from "./newsType"; // 👈 Add this line
+import media from "./media";
+import newsType from "./newsType";
 import player from "./player";
 import playerMatchStats from "./playerMatchStats";
 import { postType } from "./postType";
-import replay from "./replay"; // ✅ Import the new schema
+import replay from "./replay";
 import rosterEntry from "./rosterEntry";
 import staff from "./staff";
 import team from "./team";
@@ -32,5 +33,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     rosterEntry,
     staff,
     playerMatchStats,
+    media,
   ], // 👈 And this one
 };

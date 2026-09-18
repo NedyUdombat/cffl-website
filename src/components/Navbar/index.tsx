@@ -53,10 +53,10 @@ export default function Navbar({ linkTextColor }: NavbarProps) {
             </Link>
             {/* <Link href="/games" className={linkBaseClass}>
               GAMES
-            </Link>
+            </Link> */}
             <Link href="/fans" className={linkBaseClass}>
               FANS
-            </Link> */}
+            </Link>
           </div>
 
           <div className="sm:hidden flex items-center">

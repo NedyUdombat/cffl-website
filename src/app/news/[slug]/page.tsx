@@ -67,14 +67,39 @@ const fetchArticleData = async (slug: string) => {
 const portableTextComponents: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
-      <p className="text-[#334155] text-[16px] md:text-[17px] leading-[1.8] mb-6 font-normal">
+      <p className="text-gray-800 text-[16px] md:text-[17px] leading-[1.8] mb-6 font-normal">
         {children}
       </p>
     ),
+    h1: ({ children }) => (
+      <h1 className="text-[28px] md:text-[36px] font-extrabold text-gray-900 mt-10 mb-5 tracking-tight leading-tight">
+        {children}
+      </h1>
+    ),
     h2: ({ children }) => (
-      <h2 className="text-[24px] md:text-[28px] font-bold text-[#002060] mt-10 mb-4 tracking-tight">
+      <h2 className="text-[24px] md:text-[30px] font-bold text-gray-900 mt-9 mb-4 tracking-tight leading-snug">
         {children}
       </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-[20px] md:text-[24px] font-bold text-gray-900 mt-8 mb-3 tracking-normal">
+        {children}
+      </h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="text-[18px] md:text-[20px] font-semibold text-gray-900 mt-6 mb-3">
+        {children}
+      </h4>
+    ),
+    h5: ({ children }) => (
+      <h5 className="text-[16px] md:text-[18px] font-semibold text-gray-900 mt-5 mb-2">
+        {children}
+      </h5>
+    ),
+    h6: ({ children }) => (
+      <h6 className="text-[14px] md:text-[16px] font-medium text-gray-800 uppercase tracking-wider mt-4 mb-2">
+        {children}
+      </h6>
     ),
     blockquote: ({ children }) => (
       <blockquote className="my-8 pl-6 border-l-4 border-[#0052FF] text-[#002060] italic text-[18px] md:text-[20px] font-medium leading-relaxed bg-[#F8FAFC] py-4 pr-4 rounded-r-lg">

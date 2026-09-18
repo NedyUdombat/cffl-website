@@ -6,27 +6,27 @@ import type { MATCHES_QUERYResult } from "../../../sanity.types";
 export interface MatchFilters {
   status?: "scheduled" | "completed" | "cancelled";
 
-  competition?: string; // filter by competition _id (default)
-  competitionSlug?: string; // alternative: filter by competition slug
+  competition?: string;
+  competitionSlug?: string;
 
-  team?: string; // _id — matches where team is homeTeam OR awayTeam
-  teamSlug?: string; // slug — same, home OR away
+  team?: string;
+  teamSlug?: string;
 
-  homeTeam?: string; // _id — specifically home team only
-  homeTeamSlug?: string; // slug — specifically home team only
+  homeTeam?: string;
+  homeTeamSlug?: string;
 
-  awayTeam?: string; // _id — specifically away team only
-  awayTeamSlug?: string; // slug — specifically away team only
+  awayTeam?: string;
+  awayTeamSlug?: string;
 
   date?: string;
   matchDay?: number;
 
-  page?: number; // default: 1
-  pageSize?: number; // default: 10
-  enabled?: boolean; // default: true
+  page?: number;
+  pageSize?: number;
+  enabled?: boolean;
   hasUrl?: boolean;
-  sortField?: "date" | "matchDay" | "matchNumber"; // Add allowed sort fields
-  sortOrder?: "asc" | "desc"; // Default: "asc"
+  sortField?: "date" | "matchDay" | "matchNumber";
+  sortOrder?: "asc" | "desc";
 }
 
 const MATCHES_QUERY = defineQuery(`*[_type == "match"

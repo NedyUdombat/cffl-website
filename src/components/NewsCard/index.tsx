@@ -74,7 +74,7 @@ const NewsCard = ({ item, index, activeIndex, setActiveIndex }: NewsCardProps) =
                 fontWeight: 400,
               }}
             >
-              {item.content}
+              {item.excerpt}
             </p>
           </div>
         </motion.div>
