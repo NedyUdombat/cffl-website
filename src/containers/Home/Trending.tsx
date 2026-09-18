@@ -94,7 +94,7 @@ export default function Trending() {
   return (
     <section className="relative bg-white text-black w-full py-8 sm:py-12 overflow-hidden">
       <h1
-        className="absolute top-0 left-0 -translate-y-[20%] sm:-translate-y-[35%] text-left whitespace-nowrap text-[60px] sm:text-[120px] md:text-[180px] lg:text-[250px] leading-none font-medium uppercase text-[#BAB8B8] opacity-20 pointer-events-none select-none z-0 pl-4 sm:pl-12 lg:pl-33.5"
+        className="absolute top-25 left-0 -translate-y-[20%] sm:-translate-y-[35%] text-left whitespace-nowrap text-[60px] sm:text-[120px] md:text-[180px] lg:text-[250px] leading-none font-medium uppercase text-[#BAB8B8] opacity-20 pointer-events-none select-none z-0 pl-4 sm:pl-12 lg:pl-33.5"
         style={{ fontFamily: "ITC Machine Std, sans-serif" }}
       >
         Trending

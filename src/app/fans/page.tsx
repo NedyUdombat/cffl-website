@@ -1,5 +1,7 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: need */
 "use client";
 
+import { Download, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -15,6 +17,7 @@ const SKELETON_KEYS = Array.from({ length: 10 }, (_, i) => `skeleton-${i}`);
 export default function MeetTheFans() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
   const [visibleCount, setVisibleCount] = useState(18);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { fans, isPending, isError, error, refetch } = useFetchFansMedia();
 
   const galleryData = fans ?? [];
@@ -32,10 +35,27 @@ export default function MeetTheFans() {
     setVisibleCount(18);
   };
 
+  const handleDownload = async (imageUrl: string) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = imageUrl.split("/").pop() || "cffl-moment.jpg";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch {
+      window.open(imageUrl, "_blank");
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#1C2028] text-white">
       <section
-        className="relative bg-[#1C2028]  bg-cover bg-center bg-no-repeat"
+        className="relative bg-[#1C2028] bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage:
             'url("https://cdn.sanity.io/images/2v2lyg7l/production/50a6fb1009500b340560666777beb4ebe539dc4a-2000x2500.jpg")',
@@ -50,7 +70,7 @@ export default function MeetTheFans() {
 
         <Navbar linkTextColor="text-white" />
 
-        <section className="relative w-full  pt-36 pb-16 px-6 text-center mt-35.5 flex flex-col items-center justify-center">
+        <section className="relative w-full pt-36 pb-16 px-6 text-center mt-35.5 flex flex-col items-center justify-center">
           <div className="max-w-4xl mx-auto space-y-4 font-inter">
             <h1 className="text-4xl md:text-6xl font-extrabold uppercase tracking-wide font-sans">
               THE CFFL COMMUNITY
@@ -81,13 +101,13 @@ export default function MeetTheFans() {
 
       <section className="bg-gray-50 text-black py-12 grow">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-10">
+          <div className="flex flex-nowrap overflow-x-auto items-center gap-2 md:gap-3 mb-10 pb-2 scrollbar-none [ms-overflow-style:none] [scrollbar-width:none]">
             {categories.map((cat) => (
               <button
                 key={cat}
                 type="button"
                 onClick={() => handleCategoryChange(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
+                className={`whitespace-nowrap shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? "bg-[#0A2A6B] text-white shadow-md"
                     : "bg-white text-gray-700 hover:bg-gray-200 border border-gray-200"
@@ -99,7 +119,7 @@ export default function MeetTheFans() {
           </div>
 
           {isPending && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {SKELETON_KEYS.map((key) => (
                 <div key={key} className="aspect-square bg-gray-200 rounded-lg animate-pulse" />
               ))}
@@ -132,17 +152,19 @@ export default function MeetTheFans() {
           )}
 
           {!isPending && !isError && filteredImages.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-auto">
               {filteredImages.slice(0, visibleCount).map((item) => (
                 <div
                   key={item._id || item.id}
-                  className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square group bg-gray-200"
+                  onClick={() => setSelectedImage(item.src)}
+                  onKeyUp={() => setSelectedImage(item.src)}
+                  className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 aspect-square group bg-gray-200 cursor-pointer"
                 >
                   <Image
                     src={item.src}
                     alt={item.title || `CFFL Community Moment`}
                     fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -172,6 +194,50 @@ export default function MeetTheFans() {
           )}
         </div>
       </section>
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)}
+          onKeyUp={() => setSelectedImage(null)}
+        >
+          <div
+            className="absolute top-6 right-6 flex items-center gap-4 z-50"
+            onClick={(e) => e.stopPropagation()}
+            onKeyUp={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => handleDownload(selectedImage)}
+              className="h-10 flex items-center gap-2 bg-transparent hover:bg-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full border border-transparent hover:border-white/20 backdrop-blur-md transition-colors cursor-pointer"
+            >
+              <Download strokeWidth={2} className="w-4 h-4" />
+            </button>
+
+            <button
+              type="button"
+              className="h-10 flex items-center gap-2 bg-transparent hover:bg-white/20 text-white text-sm font-semibold px-4 py-2 rounded-full border border-transparent hover:border-white/20 backdrop-blur-md transition-colors cursor-pointer"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X strokeWidth={2} className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div
+            className="relative w-full max-w-5xl h-[85vh] cursor-default"
+            onClick={(e) => e.stopPropagation()}
+            onKeyUp={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={selectedImage}
+              alt="Fullscreen Preview"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
