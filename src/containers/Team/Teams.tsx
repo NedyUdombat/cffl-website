@@ -19,7 +19,7 @@ const Teams = () => {
   return (
     <>
       <section className="relative w-full bg-[#1C2028] pt-36 pb-16 px-6 text-center mt-35.5 flex flex-col items-center justify-center">
-        <div className="max-w-4xl mx-auto text-center flex flex-col gap-1  font-inter">
+        <div className="max-w-4xl mx-auto text-center flex flex-col gap-1 font-inter">
           <h1 className="text-4xl md:text-6xl font-extrabold uppercase tracking-wide font-sans">
             THE TEAMS
           </h1>
@@ -39,7 +39,7 @@ const Teams = () => {
       <div className="bg-gray-50 text-black py-12 grow">
         <div className="max-w-7xl mx-auto px-6 md:px-10 pt-12">
           {isPending && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
               {SKELETON_KEYS.map((key) => (
                 <SkeletonCard key={key} />
               ))}
@@ -84,7 +84,7 @@ const Teams = () => {
           )}
 
           {!isPending && !isError && teams && teams.length > 0 && (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8">
               {teams.map((team) => (
                 <TeamsCard key={team._id} team={{ ...team, slug: team.slug?.current ?? null }} />
               ))}

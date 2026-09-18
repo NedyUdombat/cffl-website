@@ -1,10 +1,13 @@
 "use client";
 
 import { format } from "date-fns";
+import { Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import LoadMoreButton from "@/components/LoadMoreButton";
 import Navbar from "@/components/Navbar";
+import ShareModal from "@/components/share-modal";
 import Footer from "@/containers/Footer/Footer";
 import { NewsPageLoader } from "@/containers/News/components/full-page-loader";
 import { LatestScores } from "@/containers/News/components/latest-scores";
@@ -13,10 +16,22 @@ import useFetchNews from "@/queries/news/useFetchNews";
 
 export default function NewsPage() {
   const { news, isPending, isError, error } = useFetchNews();
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const articles = news || [];
   const featuredArticle = articles[0];
   const gridArticles = articles.slice(1, 10);
+
+  const featuredUrl =
+    typeof window !== "undefined" && featuredArticle
+      ? `${window.location.origin}/news/${featuredArticle.slug || ""}`
+      : "";
+
+  const handleShareClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsShareModalOpen(true);
+  };
 
   if (isPending) {
     return <NewsPageLoader />;
@@ -58,7 +73,7 @@ export default function NewsPage() {
                       alt={featuredArticle.title || "Featured Image"}
                       fill
                       priority
-                      className="object-coer w-full h-full object-center"
+                      className="object-cover w-full h-full object-center"
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-sm text-gray-400">
@@ -90,12 +105,23 @@ export default function NewsPage() {
                       {format(new Date(featuredArticle.publishedAt), "MMMM dd, yyyy")}
                     </p>
 
-                    <Link
-                      href={`/news/${featuredArticle.slug}`}
-                      className="inline-flex items-center justify-center bg-[#52BD94] hover:bg-[#43a27e] text-white text-[13px] font-bold px-5 py-2.5 rounded-md transition-colors"
-                    >
-                      Read Article
-                    </Link>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/news/${featuredArticle.slug}`}
+                        className="inline-flex items-center justify-center bg-[#52BD94] hover:bg-[#43a27e] text-white text-[13px] font-bold px-5 py-2.5 rounded-md transition-colors"
+                      >
+                        Read Article
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={handleShareClick}
+                        aria-label="Share top story"
+                        className="inline-flex items-center justify-center p-2.5 bg-gray-100 hover:bg-gray-200 text-[#002060] rounded-md transition-colors cursor-pointer"
+                      >
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -135,7 +161,7 @@ export default function NewsPage() {
                 />
                 <button
                   type="button"
-                  className="w-full bg-[#52BD94] hover:bg-[#43a27e] text-white text-[12px] font-bold py-2 rounded-md transition-colors"
+                  className="w-full bg-[#52BD94] hover:bg-[#43a27e] text-white text-[12px] font-bold py-2 rounded-md transition-colors cursor-pointer"
                 >
                   Subscribe
                 </button>
@@ -144,6 +170,15 @@ export default function NewsPage() {
           </div>
         </div>
       </main>
+
+      {featuredArticle && (
+        <ShareModal
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          url={featuredUrl}
+          title={featuredArticle.title || "CFFL Top Story"}
+        />
+      )}
 
       <Footer />
     </div>

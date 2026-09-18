@@ -6,6 +6,7 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import type { RELATED_QUERYResult } from "sanity.types";
 import Navbar from "@/components/Navbar";
+import ShareBar from "@/components/share-bar";
 import Footer from "@/containers/Footer/Footer";
 import { LatestScores } from "@/containers/News/components/latest-scores";
 import { client } from "@/sanity/lib/client";
@@ -180,6 +181,7 @@ export default async function NewsDetailPage({ params }: Props) {
             <article className="prose max-w-none">
               <PortableText value={article.content} components={portableTextComponents} />
             </article>
+            <ShareBar title={article.title} />
           </div>
 
           <aside className="lg:col-span-4 flex flex-col gap-8">
