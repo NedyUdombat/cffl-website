@@ -40,7 +40,7 @@ export default function ShareModal({
       name: "WhatsApp",
       icon: FaWhatsapp,
       color: "bg-green-500 hover:bg-green-600",
-      shareUrl: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title}${shareUrl}`)}`,
+      shareUrl: `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title} ${shareUrl}`)}`,
     },
     {
       name: "X / Twitter",
