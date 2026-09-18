@@ -13,6 +13,44 @@
  */
 
 // Source: schema.json
+export type Media = {
+  _id: string;
+  _type: "media";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  categories?: Array<string>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type PlayerMatchStats = {
   _id: string;
   _type: "playerMatchStats";
@@ -90,22 +128,6 @@ export type Staff = {
     tiktok?: string;
     twitter?: string;
   };
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type RosterEntry = {
@@ -420,6 +442,7 @@ export type News = {
     _type: "image";
   };
   publishedAt?: string;
+  excerpt?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -661,10 +684,11 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | PlayerMatchStats
-  | Staff
+  | Media
   | SanityImageCrop
   | SanityImageHotspot
+  | PlayerMatchStats
+  | Staff
   | RosterEntry
   | Player
   | Match
@@ -839,9 +863,20 @@ export type MATCH_QUERYResult = {
   } | null;
 } | null;
 
+// Source: ./src/queries/media/useFetchFansMedia.ts
+// Variable: MEDIA_QUERY
+// Query: *[_type == "media"] | order(_id desc) {  "_id": _id,  "id": _id,  "src": image.asset->url,  "categories": categories,  "title": title}
+export type MEDIA_QUERYResult = Array<{
+  _id: string;
+  id: string;
+  src: string | null;
+  categories: Array<string> | null;
+  title: string | null;
+}>;
+
 // Source: ./src/queries/news/useFetchNews.ts
 // Variable: ALL_NEWS_QUERY
-// Query: *[_type == "news"] | order(publishedAt desc) {    _id,    title,    "slug": slug.current,    publishedAt,    content,    "mainImage" : mainImage.asset->url  }
+// Query: *[_type == "news"] | order(publishedAt desc) {    _id,    title,    "slug": slug.current,    publishedAt,    content,    excerpt,    "mainImage" : mainImage.asset->url  }
 export type ALL_NEWS_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -865,10 +900,11 @@ export type ALL_NEWS_QUERYResult = Array<{
     _type: "block";
     _key: string;
   }> | null;
+  excerpt: string | null;
   mainImage: string | null;
 }>;
 // Variable: LIMITED_NEWS_QUERY
-// Query: *[_type == "news"] | order(publishedAt desc)[0...$limit] {    _id,    title,    "slug": slug.current,    publishedAt,    content,    "mainImage" : mainImage.asset->url  }
+// Query: *[_type == "news"] | order(publishedAt desc)[0...$limit] {    _id,    title,    "slug": slug.current,    publishedAt,    content,    excerpt,    "mainImage" : mainImage.asset->url  }
 export type LIMITED_NEWS_QUERYResult = Array<{
   _id: string;
   title: string | null;
@@ -892,6 +928,7 @@ export type LIMITED_NEWS_QUERYResult = Array<{
     _type: "block";
     _key: string;
   }> | null;
+  excerpt: string | null;
   mainImage: string | null;
 }>;
 
@@ -1024,8 +1061,9 @@ declare module "@sanity/client" {
     '*[_type == "match"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n  && ($hasUrl == null || ($hasUrl == true && defined(url) && url != ""))\n] | order(date asc) [$offset...$limit] {\n  _id,\n  matchDay,\n  matchNumber,\n  date,\n  time,\n  location,\n  homeScore,\n  awayScore,\n  status,\n  url,\n  "homeTeam": homeTeam-> {\n    _id,\n    name,\n    abbreviation,\n    primaryColor,\n    secondaryColor,\n    "logo": logo.asset->url,\n    "slug": slug.current,\n  },\n  "awayTeam": awayTeam-> {\n    _id,\n    name,\n    abbreviation,\n    primaryColor,\n    secondaryColor,\n    "logo": logo.asset->url,\n    "slug": slug.current,\n  },\n  competition,\n}': MATCHES_QUERYResult;
     'count(*[_type == "match"\n  && ($status == null || status == $status)\n  && ($competitionId == null || competition._ref == $competitionId)\n  && ($competitionSlug == null || competition->slug.current == $competitionSlug)\n  && ($team == null || homeTeam._ref == $team || awayTeam._ref == $team)\n  && ($teamSlug == null || homeTeam->slug.current == $teamSlug || awayTeam->slug.current == $teamSlug)\n  && ($homeTeam == null || homeTeam._ref == $homeTeam)\n  && ($homeTeamSlug == null || homeTeam->slug.current == $homeTeamSlug)\n  && ($awayTeam == null || awayTeam._ref == $awayTeam)\n  && ($awayTeamSlug == null || awayTeam->slug.current == $awayTeamSlug)\n  && ($date == null || date == $date)\n  && ($matchDay == null || matchDay == $matchDay)\n  && ($hasUrl == null || ($hasUrl == true && defined(url) && url != ""))\n])': MATCHES_COUNT_QUERYResult;
     '*[_type == "match" && _id == $id][0] {\n  _id,\n  matchDay,\n  matchNumber,\n  date,\n  time,\n  location,\n  homeScore,\n  awayScore,\n  status,\n  "homeTeam": homeTeam-> {\n    _id,\n    name,\n    abbreviation,\n    "logo": logo.asset->url,\n  },\n  "awayTeam": awayTeam-> {\n    _id,\n    name,\n    abbreviation,\n    "logo": logo.asset->url,\n  },\n  "competition": competition-> {\n    _id,\n    name,\n    "logo": logo.asset->url,\n  },\n}': MATCH_QUERYResult;
-    '\n  *[_type == "news"] | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    content,\n    "mainImage" : mainImage.asset->url\n  }\n': ALL_NEWS_QUERYResult;
-    '\n  *[_type == "news"] | order(publishedAt desc)[0...$limit] {\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    content,\n    "mainImage" : mainImage.asset->url\n  }\n': LIMITED_NEWS_QUERYResult;
+    '*[_type == "media"] | order(_id desc) {\n  "_id": _id,\n  "id": _id,\n  "src": image.asset->url,\n  "categories": categories,\n  "title": title\n}': MEDIA_QUERYResult;
+    '\n  *[_type == "news"] | order(publishedAt desc) {\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    content,\n    excerpt,\n    "mainImage" : mainImage.asset->url\n  }\n': ALL_NEWS_QUERYResult;
+    '\n  *[_type == "news"] | order(publishedAt desc)[0...$limit] {\n    _id,\n    title,\n    "slug": slug.current,\n    publishedAt,\n    content,\n    excerpt,\n    "mainImage" : mainImage.asset->url\n  }\n': LIMITED_NEWS_QUERYResult;
     '*[_type == "player" && _id == $id][0] {\n  _id,\n  firstName,\n  lastName,\n  email,\n  jerseyName,\n  jerseyNumber,\n  gender,\n  "photo": photo.asset->url,\n  positions,\n  socialLinks,\n}': PLAYER_QUERYResult;
     '*[_type == "rosterEntry"\n  && team._ref == $team\n  && ($competition == null || competition._ref == $competition)\n] | order(jerseyNumber asc) {\n  _id,\n  isCaptain,\n  jerseyName,\n  jerseyNumber,\n  positions,\n  "player": player-> {\n    _id,\n    firstName,\n    lastName,\n    gender,\n    email,\n    "photo": photo.asset->url,\n  }\n}': ROSTER_ENTRIES_QUERYResult;
     '*[_type == "staff"\n  && team._ref == $team\n] | order(firstName asc) {\n  _id,\n  firstName,\n  lastName,\n  email,\n  role,\n  gender,\n  "photo": photo.asset->url,\n  socialLinks,\n  "team": team-> {\n    _id,\n    name,\n    slug,\n    abbreviation,\n    "logo": logo.asset->url,\n  }\n}': STAFFS_QUERYResult;

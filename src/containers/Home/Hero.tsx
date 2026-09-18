@@ -2,152 +2,136 @@
 
 import Image from "next/image";
 
+export interface NewsItemType {
+  id: string | number;
+  title: string;
+  slug: string;
+  publishedAt: string;
+  content: string;
+  excerpt: string;
+  mainImage: string;
+}
+
 export default function HomePage() {
   return (
     <main className="flex flex-col items-center justify-start w-full overflow-hidden text-white relative">
-      {/* ================= HERO SECTION ================= */}
       <section
-        className="relative w-full min-h-[680px] lg:h-[1002px] overflow-hidden bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url("/hero-bg.png")' }}
+        className="relative w-full min-h-150 sm:min-h-180 lg:h-250.5 overflow-hidden bg-cover bg-center bg-no-repeat flex flex-col justify-between"
+        style={{ backgroundImage: 'url("/hero-bg.jpg")' }}
       >
-        {/* Overlay Gradient */}
         <div
-          className="absolute inset-0 w-full h-full mix-blend-multiply"
+          className="absolute inset-0 w-full h-full mix-blend-multiply z-0"
           style={{
-            background: "linear-gradient(180deg, #1F54A9 -2.56%, #000000 115.31%)",
+            background: "linear-gradient(180deg, rgba(113, 63, 18, 0.45) -2.56%, #18181B 115.31%)",
           }}
         />
 
-        {/* CFFL Image */}
-        <div className="block sm:hidden h-[185px]" />
         <div
           className="
-            top-20 lg:top-[156px] 
-            left-1/2 -translate-x-1/2 
-            w-11/12 max-w-4xl lg:max-w-[1126px] 
-            h-auto aspect-[1126/756] lg:h-[756px] 
-            rounded-2xl overflow-hidden flex justify-center items-center relative"
+            absolute bottom-12 sm:bottom-16 lg:bottom-0
+            left-1/2 -translate-x-1/2 z-0
+            w-10/12 sm:w-8/12 max-w-lg lg:max-w-200
+            h-auto aspect-1126/756
+            pointer-events-none flex justify-center items-center"
         >
           <Image
-            src="CFFL.png"
+            src="/CFFL.png"
             alt="CFFL Hero"
             width={1126}
             height={756}
-            className="absolute inset-0 w-full h-full object-contain"
+            priority
+            className="w-full h-full object-contain opacity-90"
           />
         </div>
 
-        {/* Text Section */}
-        <div
-          className="absolute 
-            top-24 lg:top-[224.5px] 
-            left-1/2 -translate-x-1/2 
-            w-full px-4 sm:px-8 
-            flex flex-col gap-1 sm:gap-6 
-            items-center text-center"
-        >
-          {/* SPORT • COMMUNITY • IMPACT */}
-          <div className="flex flex-row flex-wrap items-center justify-center gap-2 sm:gap-5 mt-7 sm:mt-2">
+        <div className="relative z-10 w-full pt-20 sm:pt-28 lg:pt-37.5 px-4 sm:px-8 flex flex-col items-center text-center">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 lg:gap-5 mt-20">
             {["SPORT", "COMMUNITY", "IMPACT"].map((word, i) => (
-              <div key={word} className="flex items-center gap-5">
+              <div key={word} className="flex items-center gap-2 sm:gap-4 lg:gap-5">
                 <span
                   className="text-white uppercase 
-                    text-2xl sm:text-5xl md:text-7xl lg:text-[96px] 
-                    font-bold leading-none"
+                    text-3xl sm:text-6xl md:text-7xl lg:text-[96px] 
+                    font-bold leading-none tracking-tight"
                   style={{
                     fontFamily: "ITC Machine Std, sans-serif",
                   }}
                 >
                   {word}
                 </span>
-                {i < 2 && <div className="w-2 h-2 bg-white hidden sm:block" />}
+                {i < 2 && (
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full hidden sm:block" />
+                )}
               </div>
             ))}
           </div>
 
-          {/* Subtitle */}
-          <span
-            className="text-white 
-              text-base sm:text-2xl md:text-3xl lg:text-[40px] 
-              leading-[120%] mt-9 sm:mt-4"
-            style={{
-              fontFamily: "DM Sans, sans-serif",
-            }}
-          >
-            Building Africa's Flag Football Future
-          </span>
+          <div className="flex flex-col items-center gap-2 max-w-3xl mt-4 sm:mt-6">
+            <h1
+              className="text-white 
+              text-lg sm:text-2xl md:text-3xl lg:text-[40px] font-bold
+              leading-[120%]"
+              style={{
+                fontFamily: "DM Sans, sans-serif",
+              }}
+            >
+              Building Africa's Flag Football Future
+            </h1>
+            <p
+              className="text-white/80
+              text-sm sm:text-base 
+              leading-[140%] px-2 sm:px-0"
+              style={{
+                fontFamily: "DM Sans, sans-serif",
+              }}
+            >
+              Nigeria’s home of competitive flag football, bringing athletes, fans and communities
+              together through the game we love.
+            </p>
+          </div>
 
-          {/* Player Image */}
-          <div className="block sm:hidden h-[80px]" />
-          <div
-            className="-mt-49 max-w-4xl lg:max-w-[1023px]
-            w-full h-auto aspect-[1023/944] relative min-h-[680px]"
-          >
+          <div className="w-full max-w-3xl lg:max-w-255.75 relative aspect-1023/944 mt-6 sm:-mt-12 lg:-mt-20">
             <Image
-              src="players.png"
+              src="/players.png"
               alt="Players"
               width={1023}
               height={944}
-              className="absolute inset-0 w-full h-full object-contain"
+              priority
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
 
-        {/* Fade effect into next section */}
-        {/* Seamless Fog Fade into White Section */}
         <div
           className="
-    absolute bottom-0 w-full 
-    h-[280px] sm:h-[100px] 
-    bg-gradient-to-t from-white via-white/90 to-transparent 
-    pointer-events-none
-  "
-          style={{
-            paddingBottom: "200px",
-            transform: "translateY(0)",
-            zIndex: "1",
-          }}
+            absolute bottom-0 w-full 
+            h-32 sm:h-48 lg:h-70
+            bg-linear-to-t from-white via-white/80 to-transparent 
+            pointer-events-none z-10
+          "
         />
       </section>
 
-      {/* ================= OVERLAPPING MIDDLE IMAGE ================= */}
-      {/* ================= OVERLAPPING MIDDLE IMAGE ================= */}
       <div
-        className="relative w-full flex justify-center"
+        className="relative w-full flex justify-center bg-white z-20"
         style={{
           height: "99px",
-          backgroundColor: "#fff",
-          zIndex: "3",
         }}
       >
         <Image
-          src="football.png"
+          src="/football.png"
           alt="Mid Overlap Image"
-          width={316.4822129201497}
-          height={186.00000274354937}
-          className="absolute z-20 -translate-y-1/2 object-contain"
-          style={{
-            width: "316.48px",
-            height: "186px",
-          }}
+          width={316}
+          height={186}
+          className="absolute z-20 -translate-y-1/2 object-contain w-55 sm:w-70 lg:w-[316.48px] h-auto"
         />
         <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-full bg-gray-500/30 blur-[2px]"
           style={{
-            backgroundColor: "grey",
-            opacity: "0.3",
-            marginTop: "70px",
-            width: "220px",
-            height: "28px",
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            color: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: "50%",
+            marginTop: "60px",
+            width: "180px",
+            height: "22px",
           }}
-        ></div>
+        />
       </div>
     </main>
   );

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "CFFL - Building Africa's Flag Football Future",
   description: "Sport • Community • Impact - Africa’s Flag Football League",
   icons: {
-    icon: "/logo1.png", // ✅ favicon path (inside /public)
+    icon: "/logo1.png",
   },
 };
 

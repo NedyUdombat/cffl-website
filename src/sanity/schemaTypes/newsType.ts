@@ -29,6 +29,13 @@ export default {
       type: "datetime",
     },
     {
+      name: "excerpt",
+      title: "Excerpt",
+      type: "text",
+      rows: 3,
+      validation: (Rule) => Rule.max(200).warning("Shorter excerpts look better in preview cards."),
+    },
+    {
       name: "content",
       title: "Content",
       type: "array",
